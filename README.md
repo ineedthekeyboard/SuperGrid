@@ -1,3 +1,4 @@
-# supergrid
+# SuperGrid
 A super simple jQuery plugin to render a grid out of an array of data.
-## More Documentation to Come.
+***************
+#This is not working software yet.
