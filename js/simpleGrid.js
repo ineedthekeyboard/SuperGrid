@@ -4,9 +4,18 @@ define([
 ], function ($) {
 
 	'use strict';
+	/**
+	 * @namespace SuperGrid
+	 * @description A simple jquery plugin to render data into a table.
+	 * @global
+	 */
 
 	return $.widget('eti.simpleGrid', {
-
+		/**
+		 * @memberOf SuperGrid
+		 * @description constructor, only called once. starts the life cycle of the gadget
+		 * @private
+		 */
 		_create: function () {
 			// default column width
 			$.each(this.options.columns, function (index, column) {
@@ -17,6 +26,7 @@ define([
 			this._renderGrid();
 			this._bindListeners();
 		},
+
 
 		_bindListeners: function () {
 			var context = this;
@@ -84,6 +94,11 @@ define([
 			});
 		},
 
+		/**
+		 * @memberOf SuperGrid
+		 * @description Render data and columns
+		 * @private
+		 */
 		_renderGrid: function () {
 			this._sortData();
 			this.element.html(this._buildGrid());
@@ -147,7 +162,7 @@ define([
 		_buildGrid: function () {
 			var headerHtml = this._buildHeader(),
 				bodyHtml = this._buildBody(),
-				html = '<table class="simpleTable" style="width:100%;">';
+				html = '<table class="simpleTable" style="width:100%;table-layout: fixed;">';
 			html += headerHtml;
 			html += '<tbody>';
 			html += bodyHtml;
@@ -167,12 +182,12 @@ define([
 					sort = col.sort || '',
 					sortable = col.sortable || '';
 
-				headerHtml += '<td scope="col" class="' + cellClass + '" data-id="' + id + '" tabIndex="0"';
+				headerHtml += '<td style="width:' + col.width + 'px;" scope="col" class="' + cellClass + '" data-id="' + id + '" tabIndex="0"';
 				if (sort) {
 					headerHtml += 'data-sort="' + sort + '" ';
 				}
 				headerHtml += 'data-sortable="' + sortable + '">';
-				headerHtml += '<div style="width:' + col.width + 'px;">';
+				headerHtml += '<div>';
 				headerHtml += name;
 				if (sort) {
 					headerHtml += '<div class="sort-icon"></div>';
@@ -240,6 +255,19 @@ define([
 			} else {
 				return data[column.id];
 			}
+		},
+
+		/**
+		 * @memberOf SuperGrid
+		 * @description Updates the table with new data and optionally new column configs.
+		 * @param data(required)
+		 * @param columns
+		 */
+		updateGrid: function(data, columns) {
+			data && (this.options.data = $.extend([],data));
+			columns && (this.options.columns = $.extend([],columns));
+			this.element.empty();
+			this._renderGrid();
 		}
 	});
 });
