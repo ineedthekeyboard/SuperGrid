@@ -1,16 +1,4 @@
-define([
-	'jquery.plugins',
-	'css!widgets/simpleGrid/simpleGrid'
-], function ($) {
-
-	'use strict';
-	/**
-	 * @namespace SuperGrid
-	 * @description A simple jquery plugin to render data into a table.
-	 * @global
-	 */
-
-	return $.widget('eti.simpleGrid', {
+$.widget('custom.SuperGrid', {
 		/**
 		 * @memberOf SuperGrid
 		 * @description constructor, only called once. starts the life cycle of the gadget
@@ -31,15 +19,15 @@ define([
 		_bindListeners: function () {
 			var context = this;
 
-			this.element.off('click', '.simpleTable_header td[data-sortable="true"]');
-			this.element.on('click', '.simpleTable_header td[data-sortable="true"]', function (e) {
+			this.element.off('click', '.supergrid_header td[data-sortable="true"]');
+			this.element.on('click', '.supergrid_header td[data-sortable="true"]', function (e) {
 				var $elem = $(this),
 					currSort = $elem.attr('data-sort'),
 					id = $elem.attr('data-id'),
 					columns = context.options.columns,
 					newSort;
 
-				context.element.find('.simpleTable_header td').removeAttr('data-sort');
+				context.element.find('.supergrid_header td').removeAttr('data-sort');
 
 				switch (currSort) {
 					case 'asc':
@@ -62,36 +50,6 @@ define([
 				context._renderGrid();
 			});
 
-			this.element.off('click', '.checkbox');
-			this.element.on('click', '.checkbox', function () {
-				var $elem = $(this),
-					$row = $elem.closest('tr'),
-					prop = $elem.prop('checked'),
-					numOfRows = context.element.find('.row.checkbox').length,
-					numOfCheckedRows = context.element.find('.row.checkbox:checked').length;
-
-				if ($elem.hasClass('header')) {
-					//context.element.find('.row.checkbox').prop('checked', prop);
-					if (prop) {
-						context.element.find('tbody tr').addClass('selected').attr('draggable', true);
-					} else {
-						context.element.find('tbody tr').removeClass('selected').removeAttr('draggable');
-					}
-					return true;
-				}
-
-				if (numOfCheckedRows === numOfRows) {
-					context.element.find('.header.checkbox').prop('checked', true);
-				} else {
-					context.element.find('.header.checkbox').prop('checked', false);
-				}
-
-				if (prop) {
-					$row.removeClass('selected').addClass('selected').attr('draggable', true);
-				} else {
-					$row.removeClass('selected').removeAttr('draggable');
-				}
-			});
 		},
 
 		/**
@@ -162,7 +120,7 @@ define([
 		_buildGrid: function () {
 			var headerHtml = this._buildHeader(),
 				bodyHtml = this._buildBody(),
-				html = '<table class="simpleTable" style="width:100%;table-layout: fixed;">';
+				html = '<table class="supergrid" style="width:100%;table-layout: fixed;">';
 			html += headerHtml;
 			html += '<tbody>';
 			html += bodyHtml;
@@ -172,7 +130,7 @@ define([
 		},
 
 		_buildHeader: function () {
-			var headerHtml = '<thead class="simpleTable_header">';
+			var headerHtml = '<thead class="supergrid_header">';
 			headerHtml += '<tr>';
 			$.each(this.options.columns, function (i, col) {
 				var cellClass = col.cellClass || '',
@@ -205,7 +163,6 @@ define([
 				columns = this.options.columns,
 				context = this,
 				bodyHtml = '';
-
 			$.each(data, function (i, dataSet) {
 				var id = dataSet.id || '';
 
@@ -269,5 +226,4 @@ define([
 			this.element.empty();
 			this._renderGrid();
 		}
-	});
 });

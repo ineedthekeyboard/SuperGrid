@@ -1,10 +1,10 @@
-.simpleTable {
+.supergrid {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #DDDDDD;
 }
 
-.simpleTable td {
+.supergrid td {
     padding: 5px;
     border-width: 1px 1px 1px 1px;
     border-style: solid;
@@ -13,20 +13,20 @@
     white-space: normal;
 }
 
-.simpleTable td.center {
+.supergrid td.center {
     text-align: center;
 }
 
-.simpleTable .simpleTable_header td {
+.supergrid .supergrid_header td {
     white-space: nowrap;
     position: relative;
 }
 
-.simpleTable .simpleTable_header td[data-sort] {
+.supergrid .supergrid_header td[data-sort] {
     background-color: white;
 }
 
-.simpleTable .simpleTable_header td[data-sortable="true"][data-sort] .sort-icon {
+/*.supergrid .supergrid_header td[data-sortable="true"][data-sort] .sort-icon {
     display: inline-block;
     background-image: url(../../images/main-sprite.png);
     background-size: 400px 440px;
@@ -36,33 +36,32 @@
     position: absolute;
     right: 5px;
     top: 7px;
-}
+}*/
 
-.simpleTable .simpleTable_header td[data-sortable="true"][data-sort="asc"] .sort-icon {
+.supergrid .supergrid_header td[data-sortable="true"][data-sort="asc"] .sort-icon {
     background-position: 100px 320px;
 }
 
-.simpleTable .simpleTable_header td[data-sortable="true"][data-sort="desc"] .sort-icon {
+.supergrid .supergrid_header td[data-sortable="true"][data-sort="desc"] .sort-icon {
     background-position: 180px 320px;
 }
 
-.simpleTable thead tr > td {
+.supergrid thead tr > td {
     background: #ececec;
 }
 
-.simpleTable tbody tr:nth-child(even) {
+.supergrid tbody tr:nth-child(even) {
     background-color: rgba(87, 126, 193, .1);
 }
 
-.simpleTable tbody tr:nth-child(odd) {
+.supergrid tbody tr:nth-child(odd) {
     background-color: white;
 }
 
-.simpleTable tbody tr.hidden {
+.supergrid tbody tr.hidden {
     display: none;
 }
 
-.simpleTable tbody tr.selected td {
-    background-color: lightblue;
+.supergrid tbody .section td {
+  overflow:hidden;
 }
-
