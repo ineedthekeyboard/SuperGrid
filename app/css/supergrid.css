@@ -1,0 +1,53 @@
+.supergrid {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #DDDDDD;
+}
+.supergrid td {
+    padding: 5px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: #DDDDDD;
+    vertical-align: top;
+    white-space: normal;
+}
+.supergrid td.center {
+    text-align: center;
+}
+.supergrid .supergrid_header td {
+    white-space: nowrap;
+    position: relative;
+}
+.supergrid .supergrid_header td[data-sort] {
+    background-color: white;
+}
+.supergrid .supergrid_header td[data-sortable="true"][data-sort] .sort-icon {
+    display: inline-block;
+    background-image: url(../img/hicons.png);
+    background-position: 359px -2px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+}
+.supergrid .supergrid_header td[data-sortable="true"][data-sort="asc"] .sort-icon {
+    transform: rotate(90deg);
+}
+.supergrid .supergrid_header td[data-sortable="true"][data-sort="desc"] .sort-icon {
+    transform: rotate(-90deg);
+}
+.supergrid thead tr> td {
+    background: #ececec;
+}
+.supergrid tbody tr:nth-child(even) {
+    background-color: rgba(87, 126, 193, .1);
+}
+.supergrid tbody tr:nth-child(odd) {
+    background-color: white;
+}
+.supergrid tbody tr.hidden {
+    display: none;
+}
+.supergrid tbody .section td {
+    overflow: hidden;
+}
