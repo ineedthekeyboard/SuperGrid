@@ -1,0 +1,15 @@
+{
+  "name": "supergrid-gulp",
+  "version": "1.0.0alpha",
+  "description": "jQuery Grid Plugin",
+  "author": "Tiger Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ineedthekeyboard/supergrid"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-webserver": "^0.9.1"
+  }
+}
