@@ -1,15 +1,32 @@
 {
-  "name": "supergrid-gulp",
-  "version": "1.0.0alpha",
+  "name": "supergrid",
+  "version": "1.0.0",
+  "main": "main.js",
+  "directories": {
+    "app": "app"
+  },
   "description": "jQuery Grid Plugin",
   "author": "Tiger Team",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ineedthekeyboard/supergrid"
-  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-webserver": "^0.9.1"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ineedthekeyboard/supergrid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ineedthekeyboard/supergrid/issues"
+  },
+  "keywords": [
+    "grid",
+    "lightweight",
+    "jQuery",
+    "Plugin"
+  ],
+  "homepage": "https://github.com/ineedthekeyboard/supergrid#readme"
 }
