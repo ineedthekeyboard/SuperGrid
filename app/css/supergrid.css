@@ -1,8 +1,19 @@
+body {
+    overflow: hidden;
+    margin-left: 0px;
+}
+
+.grid {
+    height: 100vh;
+    overflow: auto;
+}
+
 .supergrid {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #DDDDDD;
 }
+
 .supergrid td {
     padding: 5px;
     border-width: 1px 1px 1px 1px;
@@ -11,16 +22,20 @@
     vertical-align: top;
     white-space: normal;
 }
+
 .supergrid td.center {
     text-align: center;
 }
+
 .supergrid .supergrid_header td {
     white-space: nowrap;
     position: relative;
 }
+
 .supergrid .supergrid_header td[data-sort] {
     background-color: white;
 }
+
 .supergrid .supergrid_header td[data-sortable="true"][data-sort] .sort-icon {
     display: inline-block;
     background-image: url(../img/hicons.png);
@@ -30,24 +45,91 @@
     position: absolute;
     right: 5px;
 }
+
 .supergrid .supergrid_header td[data-sortable="true"][data-sort="asc"] .sort-icon {
     transform: rotate(90deg);
 }
+
 .supergrid .supergrid_header td[data-sortable="true"][data-sort="desc"] .sort-icon {
     transform: rotate(-90deg);
 }
-.supergrid thead tr> td {
+
+.supergrid thead tr > td {
     background: #ececec;
 }
+
 .supergrid tbody tr:nth-child(even) {
     background-color: rgba(87, 126, 193, .1);
 }
+
 .supergrid tbody tr:nth-child(odd) {
     background-color: white;
 }
+
 .supergrid tbody tr.hidden {
     display: none;
 }
+
 .supergrid tbody .section td {
     overflow: hidden;
+}
+
+.supergrid.supergrid-fheader {
+    width: calc(100% - 10px); /* 10px width of scrollbar*/
+    table-layout: fixed;
+}
+
+.supergrid-body {
+    height: calc(100vh - 35px);
+    overflow: auto;
+}
+
+/* Custom Scrollbar */
+.grid::-webkit-scrollbar,
+.supergrid-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.grid::-webkit-scrollbar-track,
+.supergrid-body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(87, 126, 193, 0.3);
+    border-radius: 0;
+}
+
+.grid::-webkit-scrollbar-thumb,
+.supergrid-body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Menu */
+.application .menu {
+    display: inline-block;
+    float: right;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.application .menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+}
+
+.application .menu a.item {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.application .menu a.item:hover {
+    background: #ececec;
+}
+
+.application .menu a.item.active {
+    background-color: rgba(87, 126, 193, 1);
+    color: white;
 }

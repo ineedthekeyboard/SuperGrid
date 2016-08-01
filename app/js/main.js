@@ -48,6 +48,35 @@ function renderGrid(config, data) {
         columns: config[0] || [],
         data: data[0] || []
     });
+
+    window.config = config;
+    window.data = data;
+
+    bindListeners()
+}
+
+function bindListeners() {
+    var $menu = $('.menu'),
+        $application = $('.application'),
+        option;
+
+    $menu.off('click', '.item');
+    $menu.on('click', '.item', function () {
+        $menu.find('.item').removeClass('active');
+        $(this).addClass('active');
+        option = $(this).attr('data-id');
+
+        $('.grid').remove();
+
+        $application.append('<div class="grid"></div>');
+
+        $('.grid').SuperGrid({
+            columns: window.config[0] || [],
+            data: window.data[0] || [],
+            fixedHeader: (option === 'fixedHeader'),
+            paginate: (option === 'paginate')
+        });
+    });
 }
 
 //todo remove this function and standardize the output to a json
