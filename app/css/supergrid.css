@@ -14,6 +14,24 @@ body {
     border-bottom-color: #DDDDDD;
 }
 
+.supergrid .supergrid_header.supergrid_row {
+  background-color: lightgrey;
+}
+.supergrid .supergrid_row {
+  border-top-color: grey;
+  border-bottom-color: grey;
+  border: 1px grey solid;
+}
+
+.supergrid .supergrid_cell {
+  display:inline-block;
+  border-right: 1px solid grey;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 1px 2px 2px 1px;
+}
+
+/* Old CSS */
 .supergrid td {
     padding: 5px;
     border-width: 1px 1px 1px 1px;

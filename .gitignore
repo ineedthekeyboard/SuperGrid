@@ -4,13 +4,12 @@ node_modules/
 bower_components/
 .codekit-cache/
 config.codekit
-
+.idea/
 *.log
 build/
 dist/
 logs
 npm-debug.log*
-
 .grunt
 # Optional npm cache directory
 .npm
