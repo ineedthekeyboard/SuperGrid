@@ -146,6 +146,7 @@ $.widget('custom.SuperGrid', {
     },
 
     _buildGrid: function() {
+        this.options._grid = [];
         this.options._grid.push('<div class="supergrid">');
         this._buildHeader();
         this._buildBody();
@@ -153,10 +154,12 @@ $.widget('custom.SuperGrid', {
     },
 
     _buildHeader: function() {
-        if (this.options.fixedHeader)
-            this.options._grid.push('<div class="supergrid-fheader">');
-
-        this.options._grid.push(' <div class="supergrid_row supergrid_header">');
+        if (this.options.fixedHeader) {
+            this.options._grid.push('<div class="supergrid supergrid_header fixed">');
+        } else {
+          this.options._grid.push('<div class="supergrid supergrid_body">');
+          this.options._grid.push(' <div class="supergrid_header">');
+        }
 
         $.each(this.options.columns, function(i, col) {
             var cellClass = col.cellClass || '',
@@ -179,11 +182,14 @@ $.widget('custom.SuperGrid', {
             this.options._grid.push(cellStr);
         }.bind(this));
 
-        this.options._grid.push(' </div>');
+        this.options._grid.push('</div>');
 
-        if (this.options.fixedHeader)
-            this.options._grid.push('</div>');
-
+        // if (this.options.fixedHeader) {
+        //   this.options._grid.push('</div>');
+        // } else {
+        //   this.options._grid.push(' </div>');
+        //   this.options._grid.push(' </div>');
+        // }
     },
 
     _buildBody: function() {
@@ -196,8 +202,7 @@ $.widget('custom.SuperGrid', {
 
         $.each(data, buildRow);
 
-        if (this.options.fixedHeader)
-            this.options._grid.push('</div>');
+        this.options._grid.push('</div>');
 
         function buildRow(i, dataSet){
             var id = dataSet.id || '',
