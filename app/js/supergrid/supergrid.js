@@ -26,8 +26,8 @@ $.widget('custom.SuperGrid', {
      * @function
      * @constructor
      * @description constructor, only called once. starts the life cycle of the gadget
-     * @fires custom.SuperGrid#_renderGrid
-     * @fires custom.SuperGrid#_bindListeners
+     * @fires SuperGrid#_renderGrid
+     * @fires SuperGrid#_bindListeners
      * @private
      */
     _create: function() {
@@ -82,11 +82,16 @@ $.widget('custom.SuperGrid', {
      * @description Render data and columns
      * @private
      * @function
+     * @fires SuperGrid#_sortData
+     * @fires SuperGrid#_buildGrid
+     * @fires SuperGrid#_addMetaData
+     * @fires SuperGrid#-rendered
      */
     _renderGrid: function() {
         this._sortData();
         this._buildGrid();
         this.element.html(this.options._grid.join(''));
+        this.options._grid = [];
         this._addMetaData();
         this._trigger('-rendered');
     },
@@ -145,14 +150,27 @@ $.widget('custom.SuperGrid', {
         return sortObj;
     },
 
+    /**
+     * @private
+     * @function
+     * @name custom.SuperGrid#_buildGrid
+     * @description Build grid markup on to stateful array and push it into the DOM
+     * @fires SuperGrid#_buildHeader
+     * @fires SuperGrid@_buildBody
+     */
     _buildGrid: function() {
-        this.options._grid = [];
         this.options._grid.push('<div class="supergrid">');
         this._buildHeader();
         this._buildBody();
         this.options._grid.push('</div>');
     },
 
+    /**
+     * @private
+     * @function
+     * @name custom.SuperGrid#_buildHeader
+     * @description Build grid markup for header based on fixed option
+     */
     _buildHeader: function() {
         if (this.options.fixedHeader) {
             this.options._grid.push('<div class="supergrid supergrid_header fixed">');
@@ -183,15 +201,13 @@ $.widget('custom.SuperGrid', {
         }.bind(this));
 
         this.options._grid.push('</div>');
-
-        // if (this.options.fixedHeader) {
-        //   this.options._grid.push('</div>');
-        // } else {
-        //   this.options._grid.push(' </div>');
-        //   this.options._grid.push(' </div>');
-        // }
     },
-
+    /**
+     * @private
+     * @function
+     * @name custom.SuperGrid#_buildBody
+     * @description Build grid markup for body
+     */
     _buildBody: function() {
         var data = this.options.data,
             columns = this.options.columns,
