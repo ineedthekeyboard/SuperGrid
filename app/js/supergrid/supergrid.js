@@ -6,6 +6,12 @@
  */
 $.widget('custom.SuperGrid', {
     /**
+     * @name custom.SuperGrid#fixedHeader
+     * @description Defines if the header should scroll or be fixed.
+     * @type {boolean}
+     * @defaultvalue false
+     */
+    /**
      * @name custom.SuperGrid#paginate
      * @description Defines if pagination should be enabled.
      * @type {boolean}
@@ -189,7 +195,7 @@ $.widget('custom.SuperGrid', {
             var tmp,
                 pivotidx = (left + right) / 2;
             var pivot = arr[pivotidx.toFixed()][field];
-            /* partition */
+            /*Partition*/
             while (i <= j) {
                 if (blnAsc) {
                     while (arr[i][field] < pivot)
