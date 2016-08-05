@@ -19,7 +19,8 @@ $.widget('custom.SuperGrid', {
      */
     options: {
         fixedHeader: false,
-        paginate: false
+        paginate: false,
+        pageSize: 27
     },
     /**
      * @name custom.SuperGrid#create
@@ -37,7 +38,16 @@ $.widget('custom.SuperGrid', {
                 column.width = 25;
             }
         });
+
+        //Private options defaults
         this.options._grid = [];
+        this.options.pagination = {
+          currentPage: 1,
+          numberOfPages: 1,
+          pageSize: this.options.pageSize
+        };
+
+        //Bootstrap the UI
         this._renderGrid();
         this._bindListeners();
     },
@@ -88,10 +98,16 @@ $.widget('custom.SuperGrid', {
      * @fires SuperGrid#-rendered
      */
     _renderGrid: function() {
+        //Pre-sort & Pre-page
         this._sortData();
+        this._pagination();
+
+        //Build the grid
         this._buildGrid();
         this.element.html(this.options._grid.join(''));
         this.options._grid = [];
+
+        //Finally Render Met and tell the world we rendered the grid:
         this._addMetaData();
         this._trigger('-rendered');
     },
@@ -127,7 +143,7 @@ $.widget('custom.SuperGrid', {
             });
             return;
         }
-        this.options.data = simpleSort(this.options.data, 0, this.options.data.length, field, blnAsc);
+        this.options.data = simpleSort(this.options.data, 0, this.options.data.length - 1, field, blnAsc);
 
         function simpleSort(arr, left, right, field, blnAsc) {
             var i = left;
@@ -243,7 +259,7 @@ $.widget('custom.SuperGrid', {
         if (this.options.fixedHeader)
             this.options._grid.push('<div class="supergrid supergrid_body">');
 
-        $.each(data, buildRow);
+        $.each(data.slice(this.options.pagination.startIndex, this.options.pagination.endIndex), buildRow);
 
         this.options._grid.push('</div>');
 
@@ -298,7 +314,32 @@ $.widget('custom.SuperGrid', {
             }
         }
     },
-
+    /**
+     * @private
+     * @function
+     * @name custom.SuperGrid#_pagination
+     * @description Determine what the paging settings are
+     *
+     */
+    _pagination: function(){
+      var page = this.options.pagination;
+      if (!this.options.paginate) {
+        page.pageSize = (this.options.data.length > 0) ? this.options.data.length : 0;
+        page.currentPage = 1;
+        page.numberOfPages = 1;
+        page.startIndex = 0;
+        page.endIndex = page.pageSize;
+        console.log(page);
+        return;
+      }
+      page.startIndex = (page.currentPage - 1) * page.pageSize;
+      if (page.startIndex > (this.options.data.length - 1)) {
+        page.startIndex = this.options.data.length - 1;
+      }
+      page.endIndex = page.startIndex + page.pageSize;
+      page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
+      console.log(page);
+    },
     /**
      * @name custom.SuperGrid#updateGrid
      * @description Updates the table with new data and optionally new column configs.
