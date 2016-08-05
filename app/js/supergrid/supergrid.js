@@ -31,9 +31,9 @@ $.widget('custom.SuperGrid', {
      * @fires SuperGrid#_bindListeners
      * @private
      */
-    _create: function() {
+    _create: function () {
         // default column width
-        $.each(this.options.columns, function(index, column) {
+        $.each(this.options.columns, function (index, column) {
             if (!column.width) {
                 column.width = 25;
             }
@@ -42,9 +42,9 @@ $.widget('custom.SuperGrid', {
         //Private options defaults
         this.options._grid = [];
         this.options.pagination = {
-          currentPage: 1,
-          numberOfPages: 1,
-          pageSize: this.options.pageSize
+            currentPage: 1,
+            numberOfPages: 1,
+            pageSize: this.options.pageSize
         };
 
         //Bootstrap the UI
@@ -52,10 +52,10 @@ $.widget('custom.SuperGrid', {
         this._bindListeners();
     },
 
-    _bindListeners: function() {
+    _bindListeners: function () {
         var context = this;
         this.element.off('click', '.supergrid_header .supergrid_cell[data-sortable="true"]');
-        this.element.on('click', '.supergrid_header .supergrid_cell[data-sortable="true"]', function(e) {
+        this.element.on('click', '.supergrid_header .supergrid_cell[data-sortable="true"]', function (e) {
             var $elem = $(this),
                 currSort = $elem.attr('data-sort'),
                 id = $elem.attr('data-id'),
@@ -72,7 +72,7 @@ $.widget('custom.SuperGrid', {
                 default:
                     newSort = 'asc';
             }
-            $.each(columns, function(i, col) {
+            $.each(columns, function (i, col) {
                 if (col.id === id) {
                     col.sort = newSort;
                     return true;
@@ -97,7 +97,7 @@ $.widget('custom.SuperGrid', {
      * @fires SuperGrid#_addMetaData
      * @fires SuperGrid#-rendered
      */
-    _renderGrid: function() {
+    _renderGrid: function () {
         //Pre-sort & Pre-page
         this._sortData();
         this._pagination();
@@ -112,14 +112,14 @@ $.widget('custom.SuperGrid', {
         this._trigger('-rendered');
     },
 
-    _addMetaData: function() {
+    _addMetaData: function () {
         var context = this;
-        $.each(this.options.data, function(i, row) {
+        $.each(this.options.data, function (i, row) {
             context.element.find('supergrid_row[data-id="' + row.id + '"]').data(row);
         });
     },
 
-    _sortData: function() {
+    _sortData: function () {
         var sortObj = this._getSorting(),
             blnAsc,
             getSortValue,
@@ -130,7 +130,7 @@ $.widget('custom.SuperGrid', {
         }
         blnAsc = sortObj.sort === 'asc';
         field = sortObj.field;
-        $.each(this.options.columns, function(i, col) {
+        $.each(this.options.columns, function (i, col) {
             if (col.id === field) {
                 getSortValue = col.getSortValue;
                 customSort = col.sortFunc;
@@ -138,7 +138,7 @@ $.widget('custom.SuperGrid', {
             }
         });
         if (customSort) {
-            this.options.data.sort(function(a, b) {
+            this.options.data.sort(function (a, b) {
                 return customSort(a, b, blnAsc);
             });
             return;
@@ -151,7 +151,7 @@ $.widget('custom.SuperGrid', {
             var tmp,
                 pivotidx = (left + right) / 2;
             var pivot = arr[pivotidx.toFixed()][field];
-            /!* partition *!/
+            /*Partition*/
             while (i <= j) {
                 if (blnAsc) {
                     while (arr[i][field] < pivot)
@@ -172,7 +172,7 @@ $.widget('custom.SuperGrid', {
                     j--;
                 }
             }
-            /!* recursion *!/
+            /*Recursion*/
             if (left < j)
                 simpleSort(arr, left, j, field, blnAsc);
             if (i < right)
@@ -181,9 +181,9 @@ $.widget('custom.SuperGrid', {
         }
     },
 
-    _getSorting: function() {
+    _getSorting: function () {
         var sortObj = {};
-        $.each(this.options.columns, function(i, col) {
+        $.each(this.options.columns, function (i, col) {
             if (col.sort) {
                 sortObj.field = col.id;
                 sortObj.sort = col.sort;
@@ -201,7 +201,7 @@ $.widget('custom.SuperGrid', {
      * @fires SuperGrid#_buildHeader
      * @fires SuperGrid@_buildBody
      */
-    _buildGrid: function() {
+    _buildGrid: function () {
         this.options._grid.push('<div class="supergrid">');
         this._buildHeader();
         this._buildBody();
@@ -214,7 +214,7 @@ $.widget('custom.SuperGrid', {
      * @name custom.SuperGrid#_buildHeader
      * @description Build grid markup for header based on fixed option
      */
-    _buildHeader: function() {
+    _buildHeader: function () {
         if (this.options.fixedHeader) {
             this.options._grid.push('<div class="supergrid supergrid_header fixed">');
         } else {
@@ -222,7 +222,7 @@ $.widget('custom.SuperGrid', {
             this.options._grid.push(' <div class="supergrid_header">');
         }
 
-        $.each(this.options.columns, function(i, col) {
+        $.each(this.options.columns, function (i, col) {
             var cellClass = col.cellClass || '',
                 width = col.width || '',
                 id = col.id || '',
@@ -251,7 +251,7 @@ $.widget('custom.SuperGrid', {
      * @name custom.SuperGrid#_buildBody
      * @description Build grid markup for body
      */
-    _buildBody: function() {
+    _buildBody: function () {
         var data = this.options.data,
             columns = this.options.columns,
             context = this,
@@ -267,7 +267,7 @@ $.widget('custom.SuperGrid', {
             var id = dataSet.id || '',
                 row = '';
             row += '<div class="supergrid_row section" data-id="' + id + '">';
-            $.each(columns, function(i, col) {
+            $.each(columns, function (i, col) {
                 var cellClass = col.cellClass || '';
                 row += '<div style="width:' + col.width + 'px;" class="supergrid_cell ' + cellClass + '" tabIndex="0">';
                 row += '<div>';
@@ -304,7 +304,7 @@ $.widget('custom.SuperGrid', {
                     formatterHelper = formatterHelper.replace(matchedAttr[0], '');
                     matchedAttr = regex.exec(formatterHelper);
                 }
-                $.each(attrs, function(index, attr) {
+                $.each(attrs, function (index, attr) {
                     var value = attr.replace(/#|_/g, '');
                     formatter = formatter.replace(attr, data[value]);
                 });
@@ -321,24 +321,24 @@ $.widget('custom.SuperGrid', {
      * @description Determine what the paging settings are
      *
      */
-    _pagination: function(){
-      var page = this.options.pagination;
-      if (!this.options.paginate) {
-        page.pageSize = (this.options.data.length > 0) ? this.options.data.length : 0;
-        page.currentPage = 1;
-        page.numberOfPages = 1;
-        page.startIndex = 0;
-        page.endIndex = page.pageSize;
+    _pagination: function () {
+        var page = this.options.pagination;
+        if (!this.options.paginate) {
+            page.pageSize = (this.options.data.length > 0) ? this.options.data.length : 0;
+            page.currentPage = 1;
+            page.numberOfPages = 1;
+            page.startIndex = 0;
+            page.endIndex = page.pageSize;
+            console.log(page);
+            return;
+        }
+        page.startIndex = (page.currentPage - 1) * page.pageSize;
+        if (page.startIndex > (this.options.data.length - 1)) {
+            page.startIndex = this.options.data.length - 1;
+        }
+        page.endIndex = page.startIndex + page.pageSize;
+        page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
         console.log(page);
-        return;
-      }
-      page.startIndex = (page.currentPage - 1) * page.pageSize;
-      if (page.startIndex > (this.options.data.length - 1)) {
-        page.startIndex = this.options.data.length - 1;
-      }
-      page.endIndex = page.startIndex + page.pageSize;
-      page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
-      console.log(page);
     },
     /**
      * @name custom.SuperGrid#updateGrid
@@ -348,7 +348,7 @@ $.widget('custom.SuperGrid', {
      * @param {Array} columns (optional)
      * @fires SuperGrid#_renderGrid
      */
-    updateGrid: function(data, columns) {
+    updateGrid: function (data, columns) {
         data && (this.options.data = $.extend([], data));
         columns && (this.options.columns = $.extend([], columns));
         this.element.empty();
