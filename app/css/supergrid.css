@@ -33,16 +33,16 @@
 .supergrid .supergrid_header .resize-handle {
     display: inline-block;
     height: 44px;
-    width: 3px;
+    width: 4px;
     padding: 0;
     position: absolute;
     z-index: 99;
 }
 
-
+.supergrid .supergrid_header.resizing .resize-handle,
 .supergrid .supergrid_header:hover .resize-handle {
     background: rgba(0, 0, 0, 0.33);
-    cursor: ew-resize;
+    cursor: col-resize;
 }
 
 .supergrid .supergrid_header .supergrid_cell {

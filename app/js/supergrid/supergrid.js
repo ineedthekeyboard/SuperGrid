@@ -14,6 +14,7 @@ $.widget('custom.SuperGrid', {
     options: {
         paginate: false,
         _grid: [],
+        _header: [],
         pageSize: 20
     },
     /**
@@ -36,9 +37,9 @@ $.widget('custom.SuperGrid', {
         //Private options defaults
         this.options._grid = [];
         this.options.pagination = {
-          currentPage: 1,
-          numberOfPages: 1,
-          pageSize: this.options.pageSize
+            currentPage: 1,
+            numberOfPages: 1,
+            pageSize: this.options.pageSize
         };
 
         //Bootstrap the UI
@@ -92,26 +93,37 @@ $.widget('custom.SuperGrid', {
             resizing = true;
 
             context.element.find('.supergrid_header .supergrid_cell').css('transition', 'linear');
+            context.element.find('.supergrid_header').addClass('resizing');
 
-            $(document).mousemove(function(e){
+            $(document).mousemove(function (e) {
                 $(resizer).css("left", e.pageX + 2);
-                context.element.find('.supergrid_header .supergrid_cell[data-id="' + $(resizer).data('id')  + '"]')
+                context.element.find('.supergrid_header .supergrid_cell[data-id="' + $(resizer).data('id') + '"]')
                     .css("width", e.pageX - $(resizer).data('diff'));
             });
 
         });
 
-        $(document).mouseup(function(e){
-            if (resizing) {
-                $(document).unbind('mousemove');
-                context.element.find('.supergrid_body .supergrid_cell[data-id="' + $(resizer).data('id') + '"]')
-                    .css("width", e.pageX - $(resizer).data('diff'));
-                context.element.find('.supergrid_header .supergrid_cell').css('transition', '.2s ease-in');
-                $(resizer).nextAll('.resize-handle:first').attr('data-diff', e.pageX);
-                $(resizer).css('left', 'auto');
-                resizing = false;
+        $(document).mouseup(function (e) {
+                if (resizing) {
+                    $(document).unbind('mousemove');
+                    var colWidth = e.pageX - $(resizer).data('diff'),
+                        colId = $(resizer).data('id');
+                    context.element.find('.supergrid_body .supergrid_cell[data-id="' + colId + '"]')
+                        .css("width", colWidth);
+                    context.element.find('.supergrid_header .supergrid_cell').css('transition', '.2s ease-in');
+
+                    /*$(resizer).nextAll('.resize-handle').each(function (index, handle) {
+                     $(handle).attr('data-diff', e.pageX);
+                     });*/
+
+                    context._updateHeader(colId, colWidth);
+                    context.element.find('.supergrid_header').removeClass('resizing');
+
+                    $(resizer).css('left', 'auto');
+                    resizing = false;
+                }
             }
-        });
+        );
     },
     /**
      * @name custom.SuperGrid#_renderGrid
@@ -123,7 +135,7 @@ $.widget('custom.SuperGrid', {
      * @fires SuperGrid#_addMetaData
      * @fires SuperGrid#-rendered
      */
-    _renderGrid: function() {
+    _renderGrid: function () {
         //Pre-sort & Pre-page
         this._sortData();
         this._pagination();
@@ -156,7 +168,7 @@ $.widget('custom.SuperGrid', {
         }
         blnAsc = sortObj.sort === 'asc';
         field = sortObj.field;
-        $.each(this.options.columns, function(i, col) {
+        $.each(this.options.columns, function (i, col) {
             if (col.id === field) {
                 getSortValue = col.getSortValue;
                 customSort = col.sortFunc;
@@ -164,7 +176,7 @@ $.widget('custom.SuperGrid', {
             }
         });
         if (customSort) {
-            this.options.data.sort(function(a, b) {
+            this.options.data.sort(function (a, b) {
                 return customSort(a, b, blnAsc);
             });
             return;
@@ -207,9 +219,9 @@ $.widget('custom.SuperGrid', {
         }
     },
 
-    _getSorting: function() {
+    _getSorting: function () {
         var sortObj = {};
-        $.each(this.options.columns, function(i, col) {
+        $.each(this.options.columns, function (i, col) {
             if (col.sort) {
                 sortObj.field = col.id;
                 sortObj.sort = col.sort;
@@ -270,6 +282,42 @@ $.widget('custom.SuperGrid', {
 
         this.options._grid.push('</div>');
     },
+
+    /**
+     * @description needs refactoring (duplicate code)
+     */
+    _updateHeader: function (colId, colWidth) {
+        var context = this;
+        var widthTotal = 0;
+
+        $.each(this.options.columns, function (i, col) {
+            var cellClass = col.cellClass || '',
+                width = (colId === col.id) ? col.width = colWidth : col.width || '',
+                id = col.id || '',
+                name = col.name || '',
+                sort = col.sort || '',
+                sortable = col.sortable || '',
+                cellStr = '';
+
+            cellStr += '<div style="width:' + col.width + 'px;" scope="col" class="supergrid_cell ' + cellClass + '" data-id="' + id + '" tabIndex="0" ';
+            if (sort)
+                cellStr += 'data-sort="' + sort + '" ';
+            cellStr += 'data-sortable="' + sortable + '">';
+            cellStr += '<div>';
+            cellStr += name;
+            if (sort)
+                cellStr += '<div class="sort-icon"></div>';
+            cellStr += '</div>';
+            cellStr += '</div>';
+            cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+            widthTotal += width;
+            context.options._header.push(cellStr);
+        });
+
+        context.element.find('.supergrid_header').html(this.options._header.join(''));
+        context.options._header = [];
+    },
+
     /**
      * @private
      * @function
@@ -294,7 +342,7 @@ $.widget('custom.SuperGrid', {
             $.each(columns, function (i, col) {
                 var cellClass = col.cellClass || '';
                 row += '<div style="width:' + col.width + 'px;" class="supergrid_cell ' + cellClass + '" tabIndex="0"' +
-                    'data-id="'+ col.id + '">';
+                    'data-id="' + col.id + '">';
                 row += '<div>';
                 row += buildCell(dataSet, col);
                 row += '</div>';
@@ -303,6 +351,7 @@ $.widget('custom.SuperGrid', {
             row += '</div>';
             context.options._grid.push(row);
         }
+
         function buildCell(data, column) {
             var attrs = [],
                 regex = /\#(.*?)\#/,
@@ -328,7 +377,7 @@ $.widget('custom.SuperGrid', {
                     formatterHelper = formatterHelper.replace(matchedAttr[0], '');
                     matchedAttr = regex.exec(formatterHelper);
                 }
-                $.each(attrs, function(index, attr) {
+                $.each(attrs, function (index, attr) {
                     var value = attr.replace(/#|_/g, '');
                     formatter = formatter.replace(attr, data[value]);
                 });
@@ -345,24 +394,24 @@ $.widget('custom.SuperGrid', {
      * @description Determine what the paging settings are
      *
      */
-    _pagination: function(){
-      var page = this.options.pagination;
-      if (!this.options.paginate) {
-        page.pageSize = (this.options.data.length > 0) ? this.options.data.length : 0;
-        page.currentPage = 1;
-        page.numberOfPages = 1;
-        page.startIndex = 0;
-        page.endIndex = page.pageSize;
+    _pagination: function () {
+        var page = this.options.pagination;
+        if (!this.options.paginate) {
+            page.pageSize = (this.options.data.length > 0) ? this.options.data.length : 0;
+            page.currentPage = 1;
+            page.numberOfPages = 1;
+            page.startIndex = 0;
+            page.endIndex = page.pageSize;
+            console.log(page);
+            return;
+        }
+        page.startIndex = (page.currentPage - 1) * page.pageSize;
+        if (page.startIndex > (this.options.data.length - 1)) {
+            page.startIndex = this.options.data.length - 1;
+        }
+        page.endIndex = page.startIndex + page.pageSize;
+        page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
         console.log(page);
-        return;
-      }
-      page.startIndex = (page.currentPage - 1) * page.pageSize;
-      if (page.startIndex > (this.options.data.length - 1)) {
-        page.startIndex = this.options.data.length - 1;
-      }
-      page.endIndex = page.startIndex + page.pageSize;
-      page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
-      console.log(page);
     },
     /**
      * @name custom.SuperGrid#updateGrid
