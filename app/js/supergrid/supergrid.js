@@ -108,6 +108,7 @@ $.widget('custom.SuperGrid', {
         this.options._grid = [];
 
         //Finally Render Met and tell the world we rendered the grid:
+        this.updatePages(this.options.pagination.currentPage);
         this._addMetaData();
         this._trigger('-rendered');
     },
@@ -205,6 +206,7 @@ $.widget('custom.SuperGrid', {
         this.options._grid.push('<div class="supergrid">');
         this._buildHeader();
         this._buildBody();
+        this._buildFooter();
         this.options._grid.push('</div>');
     },
 
@@ -317,6 +319,20 @@ $.widget('custom.SuperGrid', {
     /**
      * @private
      * @function
+     * @name custom.SuperGrid#_buildFooter
+     * @description Build grid markup for paging footer
+     */
+    _buildFooter: function() {
+      var grid = this.options._grid;
+      grid.push('<div class="supergrid_footer">');
+      grid.push(' <button class="paginate left"><i></i><i></i></button>');
+      grid.push(' <div class="counter"></div>');
+      grid.push(' <button class="paginate right"><i></i><i></i></button>');
+      grid.push('</div>');
+    },
+    /**
+     * @private
+     * @function
      * @name custom.SuperGrid#_pagination
      * @description Determine what the paging settings are
      *
@@ -339,6 +355,18 @@ $.widget('custom.SuperGrid', {
         page.endIndex = page.startIndex + page.pageSize;
         page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
         console.log(page);
+
+    },
+
+    updatePages: function(currentPage){
+      var $counter = this.element.find('.counter'),
+          $leftArrow = this.element.find('.paginate.left'),
+          $rightArrow = this.element.find('.paginate.right');
+      debugger;
+      if (currentPage <= 1) {
+      $leftArrow.attr('data-state', 'disabled');
+      }
+      $counter.html(currentPage + '/' + this.options.pagination.numberOfPages);
     },
     /**
      * @name custom.SuperGrid#updateGrid
