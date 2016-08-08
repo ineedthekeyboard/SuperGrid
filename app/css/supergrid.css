@@ -45,6 +45,10 @@
     cursor: col-resize;
 }
 
+.supergrid .supergrid_header.resizing {
+    width: auto !important;
+}
+
 .supergrid .supergrid_header .supergrid_cell {
     white-space: nowrap;
     position: relative;
@@ -82,6 +86,12 @@
 .supergrid_body {
     height: calc(100vh - 50px);
     overflow: auto;
+    position: relative;
+}
+
+.supergrid .supergrid_body .supergrid_row {
+    position: absolute;
+    width: inherit;
 }
 
 .supergrid .supergrid_body .supergrid_row:nth-child(odd) {
