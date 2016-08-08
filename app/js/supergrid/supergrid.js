@@ -1,16 +1,23 @@
 /**
  *@SuperGrid
  * @version 0.1
- * @namespace custom.SuperGrid
+ * @namespace SuperGrid
  * @description A feature rich, developer friendly grid for client side javascript.
  */
 $.widget('custom.SuperGrid', {
     /**
-     * @name custom.SuperGrid#paginate
+     * @name SuperGrid#paginate
      * @description Defines if pagination should be enabled.
      * @type {boolean}
      * @defaultvalue false
      */
+     /**
+      * @name SuperGrid#pageSize
+      * @description Defines how many rows should be on a page. Must be at least 1 page,
+      * if the page size is larger than the number of rows of data then only 1 page will be shown.
+      * @type {integer}
+      * @defaultvalue 20
+      */
     options: {
         paginate: false,
         _grid: [],
@@ -18,7 +25,7 @@ $.widget('custom.SuperGrid', {
         pageSize: 20
     },
     /**
-     * @name custom.SuperGrid#create
+     * @name SuperGrid#create
      * @function
      * @constructor
      * @description constructor, only called once. starts the life cycle of the gadget
@@ -39,7 +46,7 @@ $.widget('custom.SuperGrid', {
         this.options.pagination = {
             currentPage: 1,
             numberOfPages: 1,
-            pageSize: this.options.pageSize
+            pageSize: (this.options.pageSize > 0) ? this.options.pageSize : 1
         };
 
         //Bootstrap the UI
@@ -126,7 +133,7 @@ $.widget('custom.SuperGrid', {
         );
     },
     /**
-     * @name custom.SuperGrid#_renderGrid
+     * @name SuperGrid#_renderGrid
      * @description Render data and columns
      * @private
      * @function
@@ -235,7 +242,7 @@ $.widget('custom.SuperGrid', {
     /**
      * @private
      * @function
-     * @name custom.SuperGrid#_buildGrid
+     * @name SuperGrid#_buildGrid
      * @description Build grid markup on to stateful array and push it into the DOM
      * @fires SuperGrid#_buildHeader
      * @fires SuperGrid@_buildBody
@@ -251,7 +258,7 @@ $.widget('custom.SuperGrid', {
     /**
      * @private
      * @function
-     * @name custom.SuperGrid#_buildHeader
+     * @name SuperGrid#_buildHeader
      * @description Build grid markup for header based on fixed option
      */
     _buildHeader: function () {
@@ -286,7 +293,12 @@ $.widget('custom.SuperGrid', {
     },
 
     /**
-     * @description needs refactoring (duplicate code)
+     * @name SuperGrid#_updateHeader
+     * @description Needs refactoring.
+     * @private
+     * @function
+     * @param {integer} colId
+     * @param {integer} colWidth
      */
     _updateHeader: function (colId, colWidth) {
         var context = this;
@@ -323,7 +335,7 @@ $.widget('custom.SuperGrid', {
     /**
      * @private
      * @function
-     * @name custom.SuperGrid#_buildBody
+     * @name SuperGrid#_buildBody
      * @description Build grid markup for body
      */
     _buildBody: function () {
@@ -392,7 +404,7 @@ $.widget('custom.SuperGrid', {
     /**
      * @private
      * @function
-     * @name custom.SuperGrid#_buildFooter
+     * @name SuperGrid#_buildFooter
      * @description Build grid markup for paging footer
      */
     _buildFooter: function() {
@@ -406,7 +418,7 @@ $.widget('custom.SuperGrid', {
     /**
      * @private
      * @function
-     * @name custom.SuperGrid#_pagination
+     * @name SuperGrid#_pagination
      * @description Determine what the paging settings are
      *
      */
@@ -430,18 +442,24 @@ $.widget('custom.SuperGrid', {
         console.log(page);
     },
 
-    updatePages: function(currentPage){
+    /**
+     * @name SuperGrid#_updatePages
+     * @description Updates the pagination display with the latest current page and number of pages
+     * @private
+     * @function
+     * @param {integer} currentPage Current page being rendered.
+     */
+    _updatePages: function(currentPage){
       var $counter = this.element.find('.counter'),
           $leftArrow = this.element.find('.paginate.left'),
           $rightArrow = this.element.find('.paginate.right');
-      debugger;
       if (currentPage <= 1) {
       $leftArrow.attr('data-state', 'disabled');
       }
       $counter.html(currentPage + '/' + this.options.pagination.numberOfPages);
     },
     /**
-     * @name custom.SuperGrid#updateGrid
+     * @name SuperGrid#updateGrid
      * @description Updates the table with new data and optionally new column configs.
      * @function
      * @param {Array} data New Data to push to the grid.
