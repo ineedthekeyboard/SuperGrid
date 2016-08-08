@@ -1,4 +1,4 @@
-$.widget('custom.SuperGrid-table', 'custom.SuperGrid' {
+$.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
 
     _bindListeners: function() {
         var context = this;
