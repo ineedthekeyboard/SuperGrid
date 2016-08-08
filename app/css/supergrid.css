@@ -4,34 +4,64 @@
     border-bottom-style: solid;
     border-bottom-color: #DDDDDD;
 }
+
 .supergrid .supergrid_row {
-  border-top-color: grey;
-  border-bottom-color: grey;
-  border: 1px grey solid;
+    border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
+    transition: .2s ease-in;
 }
+
 .supergrid .supergrid_cell {
-  display:inline-block;
-  border-right: 1px solid grey;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 1px 2px 2px 1px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    white-space: nowrap;
+    padding: 10px;
+    transition: .2s ease-in;
 }
 
 /*****- SuperGrid Header CSS -*****/
 .supergrid .supergrid_header {
-  background-color: lightgrey;
+    /*background: rgba(87, 126, 193, 1);*/
+    background: rgba(126, 126, 193, .8);
+    /*color: #f6f3f7;*/
+    color: #ffffff;
+    font-size: 13pt;
+    border: 0px solid;
+    position:relative;
 }
-.supergrid .supergrid_header.fixed {
-    width: calc(100% - 10px); /* 10px width of scrollbar*/
-    table-layout: fixed;
+
+.supergrid .supergrid_header .resize-handle {
+    display: inline-block;
+    height: 44px;
+    width: 4px;
+    padding: 0;
+    position: absolute;
+    z-index: 99;
 }
+
+.supergrid .supergrid_header.resizing .resize-handle,
+.supergrid .supergrid_header:hover .resize-handle {
+    background: rgba(0, 0, 0, 0.33);
+    cursor: col-resize;
+}
+
 .supergrid .supergrid_header .supergrid_cell {
     white-space: nowrap;
     position: relative;
 }
-.supergrid .supergrid_header .supergrid_cell[data-sort] {
-    background-color: white;
+
+.supergrid .supergrid_header .supergrid_cell:hover {
+    background: rgba(126, 126, 193, 1);
+    cursor: pointer;
+    color: white;
 }
+
+
+.supergrid .supergrid_header .supergrid_cell[data-sort] {
+    color: #f6f3f7;
+    background: rgba(126, 126, 193, 0.9);
+}
+
 .supergrid .supergrid_header .supergrid_cell[data-sortable="true"][data-sort] .sort-icon {
     display: inline-block;
     background-image: url(../img/hicons.png);
@@ -41,6 +71,7 @@
     position: absolute;
     right: 5px;
     transform: rotate(90deg);
+    -webkit-filter: invert(100%);
 }
 
 .supergrid .supergrid_header .supergrid_cell[data-sortable="true"][data-sort="desc"] .sort-icon {
@@ -49,34 +80,42 @@
 
 /*****- SuperGrid Body CSS -*****/
 .supergrid_body {
+<<<<<<< HEAD
     height: calc(100vh - 128px);
+=======
+    height: calc(100vh - 50px);
+>>>>>>> e2ec52a650c4d56b5a281e6b804223d908e22c81
     overflow: auto;
 }
 
 .supergrid .supergrid_body .supergrid_row:nth-child(odd) {
     background-color: white;
 }
+
 .supergrid .supergrid_body .supergrid_row:nth-child(even) {
     background-color: rgba(126, 126, 193, .2);
 }
 
 .supergrid .supergrid_footer {
   height: 75px;
-
+}
+.supergrid .supergrid_body .supergrid_row:nth-child(odd):hover,
+.supergrid .supergrid_body .supergrid_row:nth-child(even):hover {
+    background: rgba(126, 126, 193, .5);
 }
 /* Custom Scrollbar */
-.grid::-webkit-scrollbar,
+.supergrid_body::-webkit-scrollbar,
 .supergrid-body::-webkit-scrollbar {
     width: 10px;
 }
 
-.grid::-webkit-scrollbar-track,
+.supergrid_body::-webkit-scrollbar-track,
 .supergrid-body::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(87, 126, 193, 0.3);
     border-radius: 0;
 }
 
-.grid::-webkit-scrollbar-thumb,
+.supergrid_body::-webkit-scrollbar-thumb,
 .supergrid-body::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);

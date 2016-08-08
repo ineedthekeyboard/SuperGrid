@@ -6,21 +6,16 @@
  */
 $.widget('custom.SuperGrid', {
     /**
-     * @name custom.SuperGrid#fixedHeader
-     * @description Defines if the header should scroll or be fixed.
-     * @type {boolean}
-     * @defaultvalue false
-     */
-    /**
      * @name custom.SuperGrid#paginate
      * @description Defines if pagination should be enabled.
      * @type {boolean}
      * @defaultvalue false
      */
     options: {
-        fixedHeader: false,
         paginate: false,
-        pageSize: 27
+        _grid: [],
+        _header: [],
+        pageSize: 20
     },
     /**
      * @name custom.SuperGrid#create
@@ -53,7 +48,10 @@ $.widget('custom.SuperGrid', {
     },
 
     _bindListeners: function () {
-        var context = this;
+        var context = this,
+            resizing = false,
+            resizer;
+
         this.element.off('click', '.supergrid_header .supergrid_cell[data-sortable="true"]');
         this.element.on('click', '.supergrid_header .supergrid_cell[data-sortable="true"]', function (e) {
             var $elem = $(this),
@@ -86,6 +84,46 @@ $.widget('custom.SuperGrid', {
             });
             context._renderGrid();
         });
+
+        this.element.off('mousedown', '.supergrid_header .resize-handle');
+        this.element.on('mousedown', '.supergrid_header .resize-handle', function (e) {
+            e.preventDefault();
+
+            resizer = this;
+            resizing = true;
+
+            context.element.find('.supergrid_header .supergrid_cell').css('transition', 'linear');
+            context.element.find('.supergrid_header').addClass('resizing');
+
+            $(document).mousemove(function (e) {
+                $(resizer).css("left", e.pageX + 2);
+                context.element.find('.supergrid_header .supergrid_cell[data-id="' + $(resizer).data('id') + '"]')
+                    .css("width", e.pageX - $(resizer).data('diff'));
+            });
+
+        });
+
+        $(document).mouseup(function (e) {
+                if (resizing) {
+                    $(document).unbind('mousemove');
+                    var colWidth = e.pageX - $(resizer).data('diff'),
+                        colId = $(resizer).data('id');
+                    context.element.find('.supergrid_body .supergrid_cell[data-id="' + colId + '"]')
+                        .css("width", colWidth);
+                    context.element.find('.supergrid_header .supergrid_cell').css('transition', '.2s ease-in');
+
+                    /*$(resizer).nextAll('.resize-handle').each(function (index, handle) {
+                     $(handle).attr('data-diff', e.pageX);
+                     });*/
+
+                    context._updateHeader(colId, colWidth);
+                    context.element.find('.supergrid_header').removeClass('resizing');
+
+                    $(resizer).css('left', 'auto');
+                    resizing = false;
+                }
+            }
+        );
     },
     /**
      * @name custom.SuperGrid#_renderGrid
@@ -144,7 +182,7 @@ $.widget('custom.SuperGrid', {
             });
             return;
         }
-        this.options.data = simpleSort(this.options.data, 0, this.options.data.length - 1, field, blnAsc);
+        $.extend(this.options.data, simpleSort(this.options.data, 0, this.options.data.length - 1, field, blnAsc));
 
         function simpleSort(arr, left, right, field, blnAsc) {
             var i = left;
@@ -217,12 +255,8 @@ $.widget('custom.SuperGrid', {
      * @description Build grid markup for header based on fixed option
      */
     _buildHeader: function () {
-        if (this.options.fixedHeader) {
-            this.options._grid.push('<div class="supergrid supergrid_header fixed">');
-        } else {
-            this.options._grid.push('<div class="supergrid supergrid_body">');
-            this.options._grid.push(' <div class="supergrid_header">');
-        }
+        var widthTotal = 0;
+        this.options._grid.push(' <div class="supergrid_header">');
 
         $.each(this.options.columns, function (i, col) {
             var cellClass = col.cellClass || '',
@@ -232,6 +266,7 @@ $.widget('custom.SuperGrid', {
                 sort = col.sort || '',
                 sortable = col.sortable || '',
                 cellStr = '';
+
             cellStr += '<div style="width:' + col.width + 'px;" scope="col" class="supergrid_cell ' + cellClass + '" data-id="' + id + '" tabIndex="0" ';
             if (sort)
                 cellStr += 'data-sort="' + sort + '" ';
@@ -242,11 +277,49 @@ $.widget('custom.SuperGrid', {
                 cellStr += '<div class="sort-icon"></div>';
             cellStr += '</div>';
             cellStr += '</div>';
+            cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+            widthTotal += width;
             this.options._grid.push(cellStr);
         }.bind(this));
 
         this.options._grid.push('</div>');
     },
+
+    /**
+     * @description needs refactoring (duplicate code)
+     */
+    _updateHeader: function (colId, colWidth) {
+        var context = this;
+        var widthTotal = 0;
+
+        $.each(this.options.columns, function (i, col) {
+            var cellClass = col.cellClass || '',
+                width = (colId === col.id) ? col.width = colWidth : col.width || '',
+                id = col.id || '',
+                name = col.name || '',
+                sort = col.sort || '',
+                sortable = col.sortable || '',
+                cellStr = '';
+
+            cellStr += '<div style="width:' + col.width + 'px;" scope="col" class="supergrid_cell ' + cellClass + '" data-id="' + id + '" tabIndex="0" ';
+            if (sort)
+                cellStr += 'data-sort="' + sort + '" ';
+            cellStr += 'data-sortable="' + sortable + '">';
+            cellStr += '<div>';
+            cellStr += name;
+            if (sort)
+                cellStr += '<div class="sort-icon"></div>';
+            cellStr += '</div>';
+            cellStr += '</div>';
+            cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+            widthTotal += width;
+            context.options._header.push(cellStr);
+        });
+
+        context.element.find('.supergrid_header').html(this.options._header.join(''));
+        context.options._header = [];
+    },
+
     /**
      * @private
      * @function
@@ -258,8 +331,7 @@ $.widget('custom.SuperGrid', {
             columns = this.options.columns,
             context = this,
             bodyHtml = '';
-        if (this.options.fixedHeader)
-            this.options._grid.push('<div class="supergrid supergrid_body">');
+        this.options._grid.push('<div class="supergrid_body">');
 
         $.each(data.slice(this.options.pagination.startIndex, this.options.pagination.endIndex), buildRow);
 
@@ -271,7 +343,8 @@ $.widget('custom.SuperGrid', {
             row += '<div class="supergrid_row section" data-id="' + id + '">';
             $.each(columns, function (i, col) {
                 var cellClass = col.cellClass || '';
-                row += '<div style="width:' + col.width + 'px;" class="supergrid_cell ' + cellClass + '" tabIndex="0">';
+                row += '<div style="width:' + col.width + 'px;" class="supergrid_cell ' + cellClass + '" tabIndex="0"' +
+                    'data-id="' + col.id + '">';
                 row += '<div>';
                 row += buildCell(dataSet, col);
                 row += '</div>';
@@ -355,7 +428,6 @@ $.widget('custom.SuperGrid', {
         page.endIndex = page.startIndex + page.pageSize;
         page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
         console.log(page);
-
     },
 
     updatePages: function(currentPage){

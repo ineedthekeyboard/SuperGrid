@@ -1,10 +1,12 @@
 /*! HTML5 Boilerplate v5.3.0 | MIT License | https://html5boilerplate.com/ */
 
+
 /*
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
  * Kroc Camen, and the H5BP dev community and team.
  */
+
 
 /* ==========================================================================
    Base styles: opinionated defaults
@@ -28,7 +30,6 @@ html {
     background: #b3d4fc;
     text-shadow: none;
 }
-
 ::selection {
     background: #b3d4fc;
     text-shadow: none;
@@ -53,12 +54,7 @@ hr {
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
 
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
+audio, canvas, iframe, img, svg, video {
     vertical-align: middle;
 }
 
@@ -94,6 +90,7 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+<<<<<<< Updated upstream:app/css/main.css
 
    body {
        overflow: hidden;
@@ -138,10 +135,47 @@ textarea {
     }
 
 
+=======
+.application .title {
+  text-align: center;
+}
+.application .card-container {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+}
+.application .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+.application .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.application .container {
+    padding: 2px 16px;
+}
+.application .grid {
+    width: 500px;
+    height: 500px;
+    overflow: auto;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+@media screen and (min-width: 620px) {
+  aside {
+    margin-left:520px;
+    min-width: 100px;
+  }
+  section {
+    float:left;
+  }
+}
+>>>>>>> Stashed changes:css/main.css
 
 /* ==========================================================================
    Helper classes
    ========================================================================== */
+
 
 /*
  * Hide visually and from screen readers
