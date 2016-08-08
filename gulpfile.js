@@ -30,6 +30,6 @@ var files = [
 gulp.task('build', function() {
   return gulp.src(files)
     .pipe(uglify())
-    .pipe(concat('script.min.js'))
+    .pipe(concat('supergrid.min.js'))
     .pipe(gulp.dest('dist'));
 });

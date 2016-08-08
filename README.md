@@ -13,3 +13,12 @@ A super simple jQuery plugin to render a grid out of an array of data.
 
 - The Demo application is available at: http://localhost:8080/index.html
 - The Documentation for the grid available at http://localhost:8081/index.html
+
+### Production & Distribution
+***************
+In the dist folder you will find the latest build for inclusion in your own website and projects.
+If you find that you need to build your own file for distribution run the following command after cloning the projects
+> gulp build
+
+This will update the distribution files in the dist folder. Generally, you will need to include jquery, and jquery UI into on the
+pages where you intend to use SuperGrid (one day this will not be the case...but for now it is)
