@@ -8,30 +8,36 @@
     "name": "Login",
     "id": "login",
     "sortable": true,
-    "width": 80
+    "width": 80,
+    "cellClass": "stretch"
 }, {
     "name": "Time Of Retrieval",
     "id": "timeStamp",
     "sortable": true,
-    "width": 150
+    "width": 150,
+    "cellClass": "stretch"
 }, {
     "name": "Unit",
     "id": "aarpNumber",
     "sortable": true,
-    "width": 150
+    "width": 150,
+    "cellClass": "stretch"
 }, {
-    "name": "code",
+    "name": "Code",
     "id": "docCode",
     "sortable": true,
-    "width": 100
+    "width": 100,
+    "cellClass": "stretch"
 }, {
     "name": "Serial",
     "id": "codedSerial",
     "sortable": true,
-    "width": 150
+    "width": 150,
+    "cellClass": "stretch"
 }, {
     "name": "Type",
     "id": "title",
     "sortable": true,
-    "width": 150
+    "width": 150,
+    "cellClass": "stretch"
 }]
