@@ -80,11 +80,7 @@
 
 /*****- SuperGrid Body CSS -*****/
 .supergrid_body {
-<<<<<<< HEAD
     height: calc(100vh - 128px);
-=======
-    height: calc(100vh - 50px);
->>>>>>> e2ec52a650c4d56b5a281e6b804223d908e22c81
     overflow: auto;
 }
 
