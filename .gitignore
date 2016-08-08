@@ -7,7 +7,7 @@ config.codekit
 .idea/
 *.log
 build/
-dist/
+
 logs
 npm-debug.log*
 .grunt

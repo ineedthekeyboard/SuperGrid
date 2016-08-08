@@ -10,7 +10,9 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
     "gulp-jsdoc3": "^0.3.0",
+    "gulp-uglify": "^2.0.0",
     "gulp-webserver": "^0.9.1"
   },
   "scripts": {
