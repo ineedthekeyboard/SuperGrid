@@ -110,6 +110,25 @@ $.widget('custom.SuperGrid', {
 
         });
 
+        this.element.on('click', '.supergrid_footer button.left', function(e){
+          var button = $(this);
+          if (button.attr('data-state') === 'disabled') {
+            return;
+          }
+          //Dec currentPage
+          context.options.pagination.currentPage -= 1;
+          context._renderGrid();
+
+        });
+        this.element.on('click', '.supergrid_footer button.right', function(e){
+          var button = $(this);
+          if (button.attr('data-state') === 'disabled') {
+            return;
+          }
+          //Inc currentPage
+          context.options.pagination.currentPage += 1;
+          context._renderGrid();
+        });
         $(document).mouseup(function (e) {
                 if (resizing) {
                     $(document).unbind('mousemove');
@@ -153,7 +172,7 @@ $.widget('custom.SuperGrid', {
         this.options._grid = [];
 
         //Finally Render Met and tell the world we rendered the grid:
-        this.updatePages(this.options.pagination.currentPage);
+        this._updatePages(this.options.pagination.currentPage);
         this._addMetaData();
         this._trigger('-rendered');
     },
@@ -251,7 +270,9 @@ $.widget('custom.SuperGrid', {
         this.options._grid.push('<div class="supergrid">');
         this._buildHeader();
         this._buildBody();
-        this._buildFooter();
+        if (this.options.paginate) {
+          this._buildFooter();  
+        }
         this.options._grid.push('</div>');
     },
 
@@ -433,6 +454,13 @@ $.widget('custom.SuperGrid', {
             console.log(page);
             return;
         }
+        page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
+        if (page.currentPage < 1) {
+          page.currentPage = 1;
+        }
+        if (page.currentPage > page.numberOfPages){
+          page.currentPage = page.numberOfPages;
+        }
         page.startIndex = (page.currentPage - 1) * page.pageSize;
         if (page.startIndex > (this.options.data.length - 1)) {
             page.startIndex = this.options.data.length - 1;
@@ -454,7 +482,10 @@ $.widget('custom.SuperGrid', {
           $leftArrow = this.element.find('.paginate.left'),
           $rightArrow = this.element.find('.paginate.right');
       if (currentPage <= 1) {
-      $leftArrow.attr('data-state', 'disabled');
+        $leftArrow.attr('data-state', 'disabled');
+      }
+      if (currentPage === this.options.pagination.numberOfPages) {
+        $rightArrow.attr('data-state', 'disabled');
       }
       $counter.html(currentPage + '/' + this.options.pagination.numberOfPages);
     },
