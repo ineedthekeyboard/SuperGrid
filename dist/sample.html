@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Supergrid</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="supergrid.min.css">
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="application">
+        <div class="grid"></div>
+    </div>
+
+    <!-- jQuery CDN Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+
+    <!-- Grid Plugin -->
+    <script src="supergrid.min.js"></script>
+
+    <!-- Plugin Usage -->
+    <script>
+        var config = [{
+            "name": "ID",
+            "id": "id",
+            "width": 200,
+            "sortable": true,
+            "cellClass": "stretch"
+        }, {
+            "name": "Login",
+            "id": "login",
+            "sortable": true,
+            "width": 80,
+            "cellClass": "stretch"
+        }, {
+            "name": "Time Of Retrieval",
+            "id": "timeStamp",
+            "sortable": true,
+            "width": 150,
+            "cellClass": "stretch"
+        }, {
+            "name": "Unit",
+            "id": "aarpNumber",
+            "sortable": true,
+            "width": 150,
+            "cellClass": "stretch"
+        }, {
+            "name": "Code",
+            "id": "docCode",
+            "sortable": true,
+            "width": 100,
+            "cellClass": "stretch"
+        }, {
+            "name": "Serial",
+            "id": "codedSerial",
+            "sortable": true,
+            "width": 150,
+            "cellClass": "stretch"
+        }, {
+            "name": "Type",
+            "id": "title",
+            "sortable": true,
+            "width": 150,
+            "cellClass": "stretch"
+        }];
+        var data = [{
+            "id": "824156",
+            "login": "aaaa",
+            "timeStamp": 1460722981315,
+            "aarpNumber": 1596,
+            "docCode": "aqel",
+            "codedSerial": 4228,
+            "title": "Holy Cow Distribution"
+        }, {
+            "id": "746119",
+            "login": "aaaa",
+            "timeStamp": 1414749382432,
+            "aarpNumber": 1410,
+            "docCode": "n5rj",
+            "codedSerial": 2003,
+            "title": "Caffinated Dogs"
+        }, {
+            "id": "824748",
+            "login": "aaaa",
+            "timeStamp": 1364136101901,
+            "aarpNumber": 1871,
+            "docCode": "rkz8",
+            "codedSerial": 7610,
+            "title": "Glitchy Gas"
+        }, {
+            "id": "150482",
+            "login": "aaaa",
+            "timeStamp": 1417639861339,
+            "aarpNumber": 1176,
+            "docCode": "rp0u",
+            "codedSerial": 2460,
+            "title": "Razor Accelerated Death"
+        }];
+        // Actual Grid Usage with data and config above
+        $('.grid').SuperGrid({
+            columns: config,
+            data: data
+        });
+    </script>
+
+</body>
+
+</html>
