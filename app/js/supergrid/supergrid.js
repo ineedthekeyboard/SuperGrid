@@ -192,6 +192,18 @@ $.widget('custom.SuperGrid', {
         //Finally Render Met and tell the world we rendered the grid:
         this._updatePages(this.options.pagination.currentPage);
         this._addMetaData();
+        this.element.find('.supergrid_header').sortable({
+            start: function(event, ui) {
+                ui.item.startPos = ui.item.index();
+            },
+            stop: function(event, ui) {
+              var startPosition = ui.item.startPos;
+              var currentPosition = ui.item.index();
+            }
+        });
+        this.element.find('.supergrid_header').on('sortstop', function(event, ui) {
+            debugger;
+        }.bind(this));
         this._trigger('supergrid-rendered');
     },
 
