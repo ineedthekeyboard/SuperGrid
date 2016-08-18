@@ -91,7 +91,7 @@
 }
 
 .supergrid .supergrid_footer {
-  height: 75px;
+  height: 36px;
 }
 .supergrid .supergrid_body .supergrid_row:nth-child(odd):hover,
 .supergrid .supergrid_body .supergrid_row:nth-child(even):hover {
@@ -134,6 +134,7 @@
   margin: 0 auto;
   text-align: center;
   display: block;
+  padding-top:5px;
 }
 .supergrid .paginate {
   position: relative;

@@ -34,7 +34,7 @@ $.widget('custom.SuperGrid', {
      * @defaultvalue 25
      */
     options: {
-        paginate: false,
+        paginate: true,
         pageSize: 25,
         _grid: [],
         _header: []
@@ -199,11 +199,10 @@ $.widget('custom.SuperGrid', {
             stop: function(event, ui) {
               var startPosition = ui.item.startPos;
               var currentPosition = ui.item.index();
+              //todo update the config and re-render
+              debugger;
             }
         });
-        this.element.find('.supergrid_header').on('sortstop', function(event, ui) {
-            debugger;
-        }.bind(this));
         this._trigger('supergrid-rendered');
     },
 
