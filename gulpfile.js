@@ -4,8 +4,17 @@ var jsdoc = require('gulp-jsdoc3');
 var concat = require('gulp-concat');
 var  uglify = require('gulp-uglify');
 var cssmin = require('gulp-cssmin');
+//************************
+// gulp serve - build docs then serve
+// gulp build - build all files for distribution
+// gulp docs - build all doc and demo files
+// gulp commit - refreshes all docs and build files for commit - Alias for build
+//************************
 
+//Commit Task
+gulp.task('commit',['build']);
 
+//Serve Tasks
 gulp.task('serve', ['docs'], function() {
     gulp.src('app')
         .pipe(webserver({
@@ -19,22 +28,27 @@ gulp.task('serve', ['docs'], function() {
         }));
 });
 
-gulp.task('docs', function(cb) {
+//************************
+//Docs Task
+//1) build js docs
+//2) build demo
+gulp.task('buildDocs', function(cb) {
     let config = require('./jsdoc.json');
     gulp.src(['README.md', 'app/js/supergrid/**/*.js'], {
             read: false
         })
         .pipe(jsdoc(config, cb));
 });
-
-//Build Simple JS File for external use:
-
+gulp.task('buildDemo', function(){
+    return gulp.src('app/demo/**/*',{ base: './' })
+        .pipe(gulp.dest('docs/demo'));
+});
+gulp.task('docs',['buildDocs','buildDemo']);
+//************************
+//Build Distribution Tasks
 var fullDistCSS = [
   'app/css/normalize.css',
   'app/css/supergrid.css'
-];
-var files = [
-    'app/js/supergrid/**/*.js'
 ];
 var fullDist = [
   'app/js/vendor/jquery-3.1.0.js',
@@ -63,14 +77,16 @@ gulp.task('buildCSS', function(){
     .pipe(concat('supergrid.min.css'))
     .pipe(gulp.dest('dist'));
 });
+
 gulp.task('buildSample', function(){
-  return gulp.src('app/sample.html')
+  return gulp.src('app/demo/sample.html')
     .pipe(gulp.dest('dist'));
 });
-gulp.task('build', ['buildCSS', 'buildSample'], function() {
+
+gulp.task('buildstd', ['buildCSS', 'buildSample'], function() {
   return gulp.src(['app/js/supergrid/supergrid.js'])
     .pipe(uglify())
     .pipe(concat('supergrid.min.js'))
     .pipe(gulp.dest('dist'));
 });
-gulp.task('buildall',['build', 'buildFullDist', 'docs']);
+gulp.task('build',['buildstd', 'buildFullDist', 'docs']);
