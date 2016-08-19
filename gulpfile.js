@@ -5,28 +5,36 @@ var concat = require('gulp-concat');
 var  uglify = require('gulp-uglify');
 var cssmin = require('gulp-cssmin');
 
-gulp.task('serve', ['docs'], function () {
+
+gulp.task('serve', ['docs'], function() {
     gulp.src('app')
         .pipe(webserver({
             fallback: 'index.html',
             port: 8080
         }));
-    gulp.src('docs/gen')
-      .pipe(webserver({
-          fallback: 'index.html',
-          port: 8081
-      }));
+    gulp.src('docs')
+        .pipe(webserver({
+            fallback: 'index.html',
+            port: 8081
+        }));
 });
 
-gulp.task('docs', function (cb) {
-    gulp.src(['README.md', 'app/js/supergrid/**/*.js'], {read: false})
-        .pipe(jsdoc(cb));
+gulp.task('docs', function(cb) {
+    let config = require('./jsdoc.json');
+    gulp.src(['README.md', 'app/js/supergrid/**/*.js'], {
+            read: false
+        })
+        .pipe(jsdoc(config, cb));
 });
 
 //Build Simple JS File for external use:
+
 var fullDistCSS = [
   'app/css/normalize.css',
   'app/css/supergrid.css'
+];
+var files = [
+    'app/js/supergrid/**/*.js'
 ];
 var fullDist = [
   'app/js/vendor/jquery-3.1.0.js',

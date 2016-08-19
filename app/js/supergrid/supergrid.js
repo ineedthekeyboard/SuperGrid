@@ -3,40 +3,42 @@
  * @version 0.1
  * @namespace SuperGrid
  * @description A feature rich, developer friendly grid for client side javascript.
+ * @param {Boolean} paginate Turn paging on
  */
 "use strict";
 $.widget('custom.SuperGrid', {
-    /**
-     * @name SuperGrid#paginate
-     * @description Defines if pagination should be enabled.
-     * @type {boolean}
-     * @defaultvalue false
-     */
-    /**
-     * @name SuperGrid#pageSize
-     * @description Defines how many rows should be on a page. Must be at least 1 page,
-     * if the page size is larger than the number of rows of data then only 1 page will be shown.
-     * @type {integer}
-     * @defaultvalue 20
-     */
-    /**
-     * @name SuperGrid#_grid
-     * @description Array that is used internally to build the grid.
-     * @type {Array}
-     * @private
-     * @defaultvalue 25
-     */
-    /**
-     * @name SuperGrid#_header
-     * @description Arary that is used to build the header internally.
-     * @type {Array}
-     * @private
-     * @defaultvalue 25
-     */
+
     options: {
-        paginate: false,
+      /**
+       * @name SuperGrid#paginate
+       * @description Defines if pagination should be enabled.
+       * @type {boolean}
+       * @defaultvalue false
+       */
+        paginate: true,
+        /**
+         * @name SuperGrid#pageSize
+         * @description Defines how many rows should be on a page. Must be at least 1 page,
+         * if the page size is larger than the number of rows of data then only 1 page will be shown.
+         * @type {integer}
+         * @defaultvalue 20
+         */
         pageSize: 25,
+        /**
+         * @name SuperGrid#_grid
+         * @description Array that is used internally to build the grid.
+         * @type {Array}
+         * @private
+         * @defaultvalue 25
+         */
         _grid: [],
+        /**
+         * @name SuperGrid#_header
+         * @description Arary that is used to build the header internally.
+         * @type {Array}
+         * @private
+         * @defaultvalue 25
+         */
         _header: []
     },
 
@@ -197,18 +199,20 @@ $.widget('custom.SuperGrid', {
                 ui.item.startPos = ui.item.index();
             },
             stop: function(event, ui) {
-              var startPosition = ui.item.startPos;
-              var currentPosition = ui.item.index();
-              
-            }
+              // var startPosition = ui.item.startPos;
+              // var currentPosition = ui.item.index();
+              var config = this.options.columns, id =0, newConfig = [], existingConfigObj = {};
+                $.each($('.supergrid_header .supergrid_cell'),function(idx, item){
+                    id = $(item).data('id');
+                    existingConfigObj = config.filter(function(value){ return value.id == id;})[0] || {id:'',width:25};
+                    newConfig.push(existingConfigObj);
+                });
+              //update the config and re-render
+                this.updateGrid(null,newConfig);
+            }.bind(this)
         });
-        this.element.find('.supergrid_header').on('sortstop', function(event, ui) {
-            debugger;
-        }.bind(this));
         this._trigger('supergrid-rendered');
     },
-
-
     /**
      * @name SuperGrid#_sortData
      * @description After sort the data anytime we render the grid(before the render of the grid)
@@ -305,6 +309,7 @@ $.widget('custom.SuperGrid', {
      */
     _pagination: function() {
         var page = this.options.pagination;
+        //If Paging is disabled compute only one page and return
         if (!this.options.paginate) {
             page.pageSize = (this.options.data.length > 0) ? this.options.data.length : 0;
             page.currentPage = 1;
@@ -314,6 +319,8 @@ $.widget('custom.SuperGrid', {
             console.log(page);
             return;
         }
+        //Compute Paging
+
         page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
         if (page.currentPage < 1) {
             page.currentPage = 1;
@@ -327,7 +334,6 @@ $.widget('custom.SuperGrid', {
         }
         page.endIndex = page.startIndex + page.pageSize;
         page.numberOfPages = Math.ceil(this.options.data.length / page.pageSize);
-        console.log(page);
     },
 
     /**

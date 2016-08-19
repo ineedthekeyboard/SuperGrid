@@ -1,7 +1,7 @@
-{
+  {
   "name": "supergrid",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "dist/supergrid.min.js",
   "directories": {
     "app": "app"
   },
