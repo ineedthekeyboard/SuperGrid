@@ -10,7 +10,7 @@ gulp.task('serve', ['docs'], function() {
             fallback: 'index.html',
             port: 8080
         }));
-    gulp.src('docs/gen')
+    gulp.src('docs')
         .pipe(webserver({
             fallback: 'index.html',
             port: 8081
