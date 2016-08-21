@@ -98,23 +98,26 @@ body {
 
 /* Menu */
 .application .menu {
-    display: inline-block;
-    float: right;
     cursor: pointer;
-    margin: 2px;
+    margin: 3px auto;
+    width:462px;
+    padding-left:5px;
 }
 
 .application .menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
+    width: 10rem;
+    display:inline;
 }
-
+.application .menu li {
+    display:inline;
+}
 .application .menu a.item {
-    display: block;
+    display: inline-block;
     color: #000;
+    font-size:1.1rem;
     padding: 10px;
     text-decoration: none;
 }
@@ -149,11 +152,6 @@ body {
 
 .application .container {
     padding: 2px 16px;
-}
-
-.application .grid {
-    overflow: auto;
-    margin: 0 auto;
 }
 
 @media screen and (min-width: 620px) {

@@ -78,7 +78,7 @@
 
 /*****- SuperGrid Body CSS -*****/
 .supergrid_body {
-    height: calc(100vh - 165px);
+    height: calc(100vh - 131px);
     overflow: auto;
 }
 
@@ -130,11 +130,10 @@
   display: inline-block;
 }*/
 .supergrid_footer .pager {
-  padding: 1px;
   margin: 0 auto;
+  padding: 2px 0;
   text-align: center;
   display: block;
-  padding-top:5px;
 }
 .supergrid .paginate {
   position: relative;

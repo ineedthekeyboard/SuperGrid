@@ -73,7 +73,9 @@ function bindListeners() {
         $('.grid').SuperGrid({
             columns: window.config[0] || [],
             data: window.data[0] || [],
-            paginate: !(option === 'paginate')
+            paginate: !(option === 'paginate'),
+            colReorder: (option === 'reorder'),
+            autoHeight: (option === 'autoHeight')
         });
     });
 }
