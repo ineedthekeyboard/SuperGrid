@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Namespace: SuperGrid_Options</title>
+	<title>Documentation Global</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,6 +37,13 @@
 				</ul>
 			</li>
 			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
 		</ul>
 		<div class="col-sm-3 col-md-3">
             <form class="navbar-form" role="search">
@@ -63,13 +70,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Namespace: SuperGrid_Options</h1>
+	<h1 class="page-title">Global</h1>
 <section>
 
 <header>
     
         <h2>
-        SuperGrid_Options
+        
         </h2>
         
     
@@ -79,8 +86,6 @@
 <article>
     <div class="container-overview">
     
-        
-            <div class="description">Options for the SuperGrid widget</div>
         
 
         
@@ -138,22 +143,25 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
 
         <dl>
-            
+                
 <hr>
 <dt class="name" id="autoHeight">
-    <h4><span class="type-signature"></span>autoHeight<span class="type-signature"> :Object</span></h4>
+    <h4>autoHeight</h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Allows SuperGrid to compute it's own height based on the parent container's height.
-The parent container must have a height or weird things will happen. Optionally you can provide an arbitary amount of height
-to remove from the calculation. This can be useful at allowing you to scale the grid to changes in the screen size.
+        Defines if column reordering should be enabled.
+If enabled this will allow the user to reorder columns by dragging the columns header to a new place.
     </div>
     
 
@@ -200,13 +208,13 @@ to remove from the calculation. This can be useful at allowing you to scale the 
 
         <tr>
             
-                <td class="name"><code>autoHeight</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
 
@@ -217,80 +225,7 @@ to remove from the calculation. This can be useful at allowing you to scale the 
 
             
 
-            <td class="description last">The default values for parties.
-                <h6>Properties</h6>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enabled</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The default number of players.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>removeHeight</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The default level for the party.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last">how the person is called</td>
         </tr>
 
     
@@ -346,248 +281,7 @@ to remove from the calculation. This can be useful at allowing you to scale the 
     
 </dd>
 
-        
-            
-<hr>
-<dt class="name" id="colReorder">
-    <h4><span class="type-signature"></span>colReorder<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Defines if column reordering should be enabled.
-If enabled this will allow the user to reorder columns by dragging the columns header to a new place.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>False</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id="pageSize">
-    <h4><span class="type-signature"></span>pageSize<span class="type-signature"> :integer</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Defines how many rows should be on a page. Must be at least 1 page,
-if the page size is larger than the number of rows of data then only 1 page will be shown.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">integer</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>25</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id="paginate">
-    <h4><span class="type-signature"></span>paginate<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Defines if pagination should be enabled. If enabled this will proved a basic footer
-TODO: Allow the user to pass custom dom to the pager.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>True</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-
+            </dl>
     
 
     
@@ -633,7 +327,7 @@ TODO: Allow the user to pass custom dom to the pager.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-08-21T17:30:34-04:00
+		on 2016-08-21T17:19:10-04:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -14,6 +14,21 @@ $.widget('custom.SuperGrid', {
      */
     options: {
         /**
+         * @name SuperGrid_Options#autoHeight
+         * @description Allows SuperGrid to compute it's own height based on the parent container's height.
+         * The parent container must have a height or weird things will happen. Optionally you can provide an arbitary amount of height
+         * to remove from the calculation. This can be useful at allowing you to scale the grid to changes in the screen size.
+         * @type {Object}
+         * @property {object}  autoHeight               - The default values for parties.
+         * @property {boolean}  autoHeight.enabled       - The default number of players.
+         * @property {number}  autoHeight.removeHeight         - The default level for the party.
+         * @defaultvalue False
+         */
+         autoHeight: {
+             enabled: false,
+             removeHeight: 0
+         },
+        /**
          * @name SuperGrid_Options#colReorder
          * @description Defines if column reordering should be enabled.
          * If enabled this will allow the user to reorder columns by dragging the columns header to a new place.
