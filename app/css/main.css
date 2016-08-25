@@ -153,7 +153,11 @@ body {
 .application .container {
     padding: 2px 16px;
 }
-
+.application .grid.fixedSize {
+    margin: 0 auto;
+    width:760px;
+    height:500px;
+}
 @media screen and (min-width: 620px) {
     aside {
         margin-left: 520px;

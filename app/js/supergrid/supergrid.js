@@ -164,7 +164,9 @@ $.widget('custom.SuperGrid', {
             }
             //Dec currentPage
             context.options.pagination.currentPage -= 1;
+            //render the grid
             context._renderGrid();
+
 
         });
         this.element.off('click', '.supergrid_footer button.right');
@@ -251,7 +253,20 @@ $.widget('custom.SuperGrid', {
             });
 
         }
+        //run height calcs
+        if (this.options.autoHeight.enabled)
+            this._renderAutoHeight();
         this._trigger('supergrid-rendered');
+    },
+    _renderAutoHeight: function() {
+        var selfHeight = this.element.height(),
+            headerHeight = this.element.find('.supergrid_header').height(),
+            footerHeight = this.element.find('.supergrid_footer').height();
+        (!this.options.removeHeight) ? this.options.removeHeight = 0 : null;
+        this.element.find('.supergrid_body').height(selfHeight - ((headerHeight + footerHeight) - this.options.autoHeight.removeHeight));
+    },
+    _renderAutoSize: function() {
+        //todo handle width overflow here if this option is enabled.
     },
     /**
      * @name SuperGrid#_sortData
