@@ -16,12 +16,14 @@ $.widget('custom.SuperGrid', {
         /**
          * @name SuperGrid_Options#autoHeight
          * @description Allows SuperGrid to compute it's own height based on the parent container's height.
-         * The parent container must have a height or weird things will happen. Optionally you can provide an arbitary amount of height
-         * to remove from the calculation. This can be useful at allowing you to scale the grid to changes in the screen size.
+         * The parent container must have a height or weird things will happen. The body's height will be calculated by
+         * taking the container height and subtracting the (relatively fixed) height of the header and footer.
+         * Optionally you can provide an arbitary amount of height to remove from grid body in addition to the standard math.
+         * This can be useful to allow you to scale the grid to changes in the screen size.
          * @type {Object}
-         * @property {object}  autoHeight               - The default values for parties.
-         * @property {boolean}  autoHeight.enabled       - The default number of players.
-         * @property {number}  autoHeight.removeHeight         - The default level for the party.
+         * @property {object}  autoHeight               - The autoHeight option object.
+         * @property {boolean}  autoHeight.enabled       - Turns on/off auto height calculation.
+         * @property {number}  autoHeight.removeHeight         - A number in pixels to remove from the body in addition to the header and footer height.
          * @defaultvalue False
          */
          autoHeight: {
