@@ -40,14 +40,16 @@ gulp.task('buildDocs', function(cb) {
         .pipe(jsdoc(config, cb));
 });
 gulp.task('buildDemo', function(){
-    gulp.src(['dist/supergrid.min.css','dist/supergrid.min.js'],{base:'./dist'})
+    gulp.src(['dist/supergrid.min.css','dist/supergrid.min.js'],{ base: './dist'})
         .pipe(gulp.dest('docs/demo'));
+    gulp.src('app/img/hicons.png',{ base: './app/img'})
+        .pipe(gulp.dest('docs/img'));
     return gulp.src('app/demo/**/*',{ base: './app' })
         .pipe(gulp.dest('docs'));
 });
 gulp.task('docs',['buildDocs','buildDemo']);
 //************************
-//Build Distribution Tasks
+//Build Distribution Task
 var fullDistCSS = [
   'app/css/normalize.css',
   'app/css/supergrid.css'
