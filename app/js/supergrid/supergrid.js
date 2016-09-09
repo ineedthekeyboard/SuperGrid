@@ -260,6 +260,14 @@ $.widget('custom.SuperGrid', {
             this._renderAutoHeight();
         this._trigger('supergrid-rendered');
     },
+    /**
+     * @name SuperGrid#_renderAutoHeight
+     * @description If enabled the container which holds the supergrid must have a height set on it. Based on this
+     * explicit height supergrid will calculate the height of the body based on
+     * the containers size minus the height of the footer and the header.
+     * @private
+     * @function
+     */
     _renderAutoHeight: function() {
         var selfHeight = this.element.height(),
             headerHeight = this.element.find('.supergrid_header').height(),
