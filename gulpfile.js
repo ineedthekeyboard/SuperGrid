@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var webserver = require('gulp-webserver');
 var jsdoc = require('gulp-jsdoc3');
 var concat = require('gulp-concat');
-var  uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify');
 var cssmin = require('gulp-cssmin');
 //************************
 // gulp serve - build docs then serve

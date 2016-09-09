@@ -155,7 +155,7 @@ body {
 }
 .application .grid.fixedSize {
     margin: 0 auto;
-    width:760px;
+    width: 500px;
     height:500px;
 }
 @media screen and (min-width: 620px) {
