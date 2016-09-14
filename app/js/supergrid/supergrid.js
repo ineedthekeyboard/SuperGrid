@@ -237,7 +237,7 @@ $.widget('custom.SuperGrid', {
                 start: function (event, ui) {
                     ui.item.startPos = ui.item.index();
 
-                    setTimeout(()=>{debugger;},1000)
+                    //setTimeout(()=>{debugger;},1000)
                 },
                 stop: function () {
                     // var startPosition = ui.item.startPos;
