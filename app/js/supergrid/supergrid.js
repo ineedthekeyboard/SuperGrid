@@ -231,8 +231,13 @@ $.widget('custom.SuperGrid', {
         if (this.options.colReorder) {
 
             this.element.find('.supergrid_header').sortable({
+                axis: 'x',
+                containment:'parent',
+                tolerance:'pointer',
                 start: function (event, ui) {
                     ui.item.startPos = ui.item.index();
+
+                    //setTimeout(()=>{debugger;},1000)
                 },
                 stop: function () {
                     // var startPosition = ui.item.startPos;
@@ -244,7 +249,7 @@ $.widget('custom.SuperGrid', {
                     $.each($('.supergrid_header .supergrid_cell'), function (idx, item) {
                         id = $(item).data('id');
                         existingConfigObj = config.filter(function (value) {
-                                return parseInt(value.id) === parseInt(id);
+                                return value.id.toString() === id.toString();
                             })[0] || {
                                 id: '',
                                 width: 25
@@ -254,7 +259,7 @@ $.widget('custom.SuperGrid', {
                     //update the config and re-render
                     this.updateGrid(null, newConfig);
                 }.bind(this)
-            });
+            }).disableSelection();
 
         }
         //run height calcs
@@ -429,7 +434,7 @@ $.widget('custom.SuperGrid', {
      */
     _buildHeader: function () {
         var widthTotal = 0;
-        this.options._grid.push('<div class="supergrid_header"><div>');
+        this.options._grid.push('<div class="supergrid_header">');
 
         $.each(this.options.columns, function (i, col) {
             var cellClass = col.cellClass || '',
@@ -457,7 +462,7 @@ $.widget('custom.SuperGrid', {
             this.options._grid.push(cellStr);
         }.bind(this));
 
-        this.options._grid.push('</div></div>');
+        this.options._grid.push('</div>');
     },
 
     /**
@@ -513,11 +518,11 @@ $.widget('custom.SuperGrid', {
             columns = this.options.columns,
             context = this,
             bodyHtml = '';
-        this.options._grid.push('<div class="supergrid_body"><div>');
+        this.options._grid.push('<div class="supergrid_body">');
 
         $.each(data.slice(this.options.pagination.startIndex, this.options.pagination.endIndex), buildRow);
 
-        this.options._grid.push('</div></div>');
+        this.options._grid.push('</div>');
 
         function buildRow(i, dataSet) {
             var id = dataSet.id || '',
