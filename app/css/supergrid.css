@@ -48,6 +48,7 @@
 .supergrid .supergrid_header .supergrid_cell {
     white-space: nowrap;
     position: relative;
+    vertical-align: -webkit-baseline-middle;
 }
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle > div {
     line-height: 35px;
