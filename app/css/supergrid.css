@@ -13,7 +13,7 @@
     text-overflow: ellipsis;
     box-sizing: border-box;
     white-space: nowrap;
-    padding: 10px;
+    padding: 5px;
     transition: .2s ease-in;
 }
 
@@ -47,7 +47,15 @@
     white-space: nowrap;
     position: relative;
 }
-
+.supergrid .supergrid_header .supergrid_cell.ui-sortable-handle {
+    height:44px;
+}
+.supergrid .supergrid_header .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
+    transition: 0s ease-in;
+    background: rgba(126, 126, 193, 1);
+    cursor: pointer;
+    color: white;
+}
 .supergrid .supergrid_header .supergrid_cell:hover {
     background: rgba(126, 126, 193, 1);
     cursor: pointer;
