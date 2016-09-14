@@ -2,34 +2,95 @@ var gulp = require('gulp');
 var webserver = require('gulp-webserver');
 var jsdoc = require('gulp-jsdoc3');
 var concat = require('gulp-concat');
-var  uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify');
+var cssmin = require('gulp-cssmin');
+//************************
+// gulp serve - build docs then serve
+// gulp build - build all files for distribution
+// gulp docs - build all doc and demo files
+// gulp commit - refreshes all docs and build files for commit - Alias for build
+//************************
 
-gulp.task('serve',['docs'], function () {
+//Commit Task
+gulp.task('commit',['build']);
+
+//Serve Tasks
+gulp.task('serve', ['docs'], function() {
     gulp.src('app')
         .pipe(webserver({
             fallback: 'index.html',
             port: 8080
         }));
-    gulp.src('docs/gen')
-      .pipe(webserver({
-          fallback: 'index.html',
-          port: 8081
-      }));
+    gulp.src('docs')
+        .pipe(webserver({
+            fallback: 'index.html',
+            port: 8081
+        }));
 });
 
-gulp.task('docs', function (cb) {
-    gulp.src(['README.md', 'app/js/supergrid/**/*.js'], {read: false})
-        .pipe(jsdoc(cb));
+//************************
+//Docs Task
+//1) build js docs
+//2) build demo
+gulp.task('buildDocs', function(cb) {
+    let config = require('./jsdoc.json');
+    gulp.src(['README.md', 'app/js/supergrid/**/*.js'], {
+            read: false
+        })
+        .pipe(jsdoc(config, cb));
 });
-
-//Build Simple JS File for external use:
-var files = [
-  'app/js/supergrid/**/*.js'
+gulp.task('buildDemo', function(){
+    gulp.src(['dist/supergrid.min.css','dist/supergrid.min.js'],{ base: './dist'})
+        .pipe(gulp.dest('docs/demo'));
+    gulp.src('app/img/hicons.png',{ base: './app/img'})
+        .pipe(gulp.dest('docs/img'));
+    return gulp.src('app/demo/**/*',{ base: './app' })
+        .pipe(gulp.dest('docs'));
+});
+gulp.task('docs',['buildDocs','buildDemo']);
+//************************
+//Build Distribution Task
+var fullDistCSS = [
+  'app/css/normalize.css',
+  'app/css/supergrid.css'
+];
+var fullDist = [
+  'app/js/vendor/jquery-3.1.0.js',
+  'app/js/vendor/jquery-ui-1.12.0-core.js',
+  'app/js/supergrid/supergrid.js'
 ];
 
-gulp.task('build', function() {
-  return gulp.src(files)
+//Build a dist with libraries included
+gulp.task('buildCSSFullDist', function(){
+  return gulp.src(fullDistCSS)
+    .pipe(cssmin())
+    .pipe(concat('supergrid.min.css'))
+    .pipe(gulp.dest('dist/full'));
+});
+gulp.task('buildFullDist', ['buildCSSFullDist'], function(){
+  return gulp.src(fullDist)
+    .pipe(uglify())
+    .pipe(concat('supergrid.min.js'))
+    .pipe(gulp.dest('dist/full'));
+});
+
+//Standard Supergrid Only Build
+gulp.task('buildCSS', function(){
+  return gulp.src('app/css/supergrid.css')
+    .pipe(cssmin())
+    .pipe(concat('supergrid.min.css'))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('buildSample', function(){
+  return gulp.src('app/demo/sample.html')
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('buildstd', ['buildCSS', 'buildSample'], function() {
+  return gulp.src(['app/js/supergrid/supergrid.js'])
     .pipe(uglify())
     .pipe(concat('supergrid.min.js'))
     .pipe(gulp.dest('dist'));
 });
+gulp.task('build',['buildstd', 'buildFullDist', 'docs']);

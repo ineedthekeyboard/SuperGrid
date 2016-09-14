@@ -1,7 +1,8 @@
 # SuperGrid
 A super simple jQuery plugin to render a grid out of an array of data.
 ***************
-### Demo and docs
+
+### Compile Development Site and Docs
 1) Clone the Git Repository
 > git clone https://github.com/ineedthekeyboard/supergrid.git
 
@@ -13,6 +14,11 @@ A super simple jQuery plugin to render a grid out of an array of data.
 
 - The Demo application is available at: http://localhost:8080/index.html
 - The Documentation for the grid available at http://localhost:8081/index.html
+
+### Online Documentation For Code:
+***************
+See the code documentation here: https://ineedthekeyboard.github.io/supergrid/
+
 
 ### Production & Distribution
 ***************

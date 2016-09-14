@@ -1,7 +1,7 @@
 [{
     "name": "ID",
     "id": "id",
-    "width": 200,
+    "width": 65,
     "sortable": true,
     "cellClass": "stretch"
 }, {
@@ -20,7 +20,7 @@
     "name": "Unit",
     "id": "aarpNumber",
     "sortable": true,
-    "width": 150,
+    "width": 80,
     "cellClass": "stretch"
 }, {
     "name": "Code",
@@ -32,7 +32,7 @@
     "name": "Serial",
     "id": "codedSerial",
     "sortable": true,
-    "width": 150,
+    "width": 84,
     "cellClass": "stretch"
 }, {
     "name": "Type",

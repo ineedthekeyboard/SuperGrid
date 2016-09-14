@@ -4,9 +4,8 @@
 }
 
 .supergrid .supergrid_row {
-  border: 1px grey solid;
-    /*border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
-    transition: .2s ease-in;*/
+    border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
+    transition: .2s ease-in;
 }
 
 .supergrid .supergrid_cell {
@@ -44,10 +43,6 @@
     cursor: col-resize;
 }
 
-.supergrid .supergrid_header.resizing {
-    width: auto !important;
-}
-
 .supergrid .supergrid_header .supergrid_cell {
     white-space: nowrap;
     position: relative;
@@ -83,31 +78,24 @@
 
 /*****- SuperGrid Body CSS -*****/
 .supergrid_body {
-    height: calc(100vh - 50px);
-    height: calc(100vh - 128px);
+    height: calc(100vh - 131px);
     overflow: auto;
-    position: relative;
-}
-
-.supergrid .supergrid_body .supergrid_row {
-    position: absolute;
-    width: inherit;
 }
 
 .supergrid .supergrid_body .supergrid_row:nth-child(odd) {
     background-color: white;
 }
+
 .supergrid .supergrid_body .supergrid_row:nth-child(even) {
     background-color: rgba(126, 126, 193, .2);
 }
 
+.supergrid .supergrid_footer {
+  height: 36px;
+}
 .supergrid .supergrid_body .supergrid_row:nth-child(odd):hover,
 .supergrid .supergrid_body .supergrid_row:nth-child(even):hover {
     background: rgba(126, 126, 193, .5);
-}
-
-.supergrid .supergrid_footer {
-  height: 75px;
 }
 /* Custom Scrollbar */
 .supergrid_body::-webkit-scrollbar,
@@ -142,8 +130,8 @@
   display: inline-block;
 }*/
 .supergrid_footer .pager {
-  padding: 1px;
   margin: 0 auto;
+  padding: 2px 0;
   text-align: center;
   display: block;
 }

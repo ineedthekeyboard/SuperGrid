@@ -70,10 +70,16 @@ function bindListeners() {
 
         $application.append('<div class="grid"></div>');
 
+        //auto height enabled make parent have a fixed height and width to calc by:
+        if (option ==='autoHeight'){
+            $('.grid').addClass('fixedSize');
+        }
         $('.grid').SuperGrid({
             columns: window.config[0] || [],
             data: window.data[0] || [],
-            paginate: (option === 'paginate')
+            paginate: !(option === 'paginate'),
+            colReorder: (option === 'reorder'),
+            autoHeight: {enabled:(option === 'autoHeight')}
         });
     });
 }
