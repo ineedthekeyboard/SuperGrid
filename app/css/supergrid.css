@@ -26,6 +26,8 @@
     font-size: 13pt;
     border: 0px solid;
     position:relative;
+    max-height: 45px;
+    height: 45px;
 }
 
 .supergrid .supergrid_header .resize-handle {
@@ -47,9 +49,11 @@
     white-space: nowrap;
     position: relative;
 }
-.supergrid .supergrid_header .supergrid_cell.ui-sortable-handle {
-    height:44px;
+.supergrid .supergrid_header .supergrid_cell.ui-sortable-handle > div {
+    line-height: 35px;
+    /*background: red;*/
 }
+
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
     transition: 0s ease-in;
     background: rgba(126, 126, 193, 1);
