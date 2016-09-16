@@ -1,10 +1,10 @@
 $.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
 
-    _bindListeners: function() {
+    _bindListeners: function () {
         var context = this;
 
         this.element.off('click', '.supergrid_header td[data-sortable="true"]');
-        this.element.on('click', '.supergrid_header td[data-sortable="true"]', function(e) {
+        this.element.on('click', '.supergrid_header td[data-sortable="true"]', function (e) {
             var $elem = $(this),
                 currSort = $elem.attr('data-sort'),
                 id = $elem.attr('data-id'),
@@ -21,7 +21,7 @@ $.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
                 default:
                     newSort = 'asc';
             }
-            $.each(columns, function(i, col) {
+            $.each(columns, function (i, col) {
                 if (col.id === id) {
                     col.sort = newSort;
                     return true;
@@ -43,11 +43,11 @@ $.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
      * @description Render data and columns
      * @private
      */
-    _renderGrid: function() {
+    _renderGrid: function () {
         this.element.html(this._buildGrid());
     },
 
-    _buildGrid: function() {
+    _buildGrid: function () {
         var headerHtml = this._buildHeader(),
             bodyHtml = this._buildBody(),
             html = '<table class="supergrid" style="width:100%;table-layout: fixed;">';
@@ -67,10 +67,10 @@ $.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
         return html;
     },
 
-    _buildHeader: function() {
+    _buildHeader: function () {
         var headerHtml = '<thead class="supergrid_header">';
         headerHtml += '<tr>';
-        $.each(this.options.columns, function(i, col) {
+        $.each(this.options.columns, function (i, col) {
             var cellClass = col.cellClass || '',
                 width = col.width || '',
                 id = col.id || '',
@@ -96,16 +96,16 @@ $.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
         return headerHtml;
     },
 
-    _buildBody: function() {
+    _buildBody: function () {
         var data = this.options.data,
             columns = this.options.columns,
             context = this,
             bodyHtml = '';
-        $.each(data, function(i, dataSet) {
+        $.each(data, function (i, dataSet) {
             var id = dataSet.id || '';
 
             bodyHtml += '<tr class="section" data-id="' + id + '">';
-            $.each(columns, function(i, col) {
+            $.each(columns, function (i, col) {
                 var cellClass = col.cellClass || '';
                 bodyHtml += '<td style="width:' + col.width + 'px; class="' + cellClass + '" tabIndex="0">';
                 bodyHtml += '<div>';
@@ -118,7 +118,7 @@ $.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
         return bodyHtml;
     },
 
-    _buildCell: function(data, column) {
+    _buildCell: function (data, column) {
         var attrs = [],
             regex = /\#(.*?)\#/,
             formatter = column.formatter,
@@ -142,7 +142,7 @@ $.widget('custom.SuperGrid-table', 'custom.SuperGrid', {
                 formatterHelper = formatterHelper.replace(matchedAttr[0], '');
                 matchedAttr = regex.exec(formatterHelper);
             }
-            $.each(attrs, function(index, attr) {
+            $.each(attrs, function (index, attr) {
                 var value = attr.replace(/#|_/g, '');
                 formatter = formatter.replace(attr, data[value]);
             });

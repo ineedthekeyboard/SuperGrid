@@ -12,10 +12,10 @@ var cssmin = require('gulp-cssmin');
 //************************
 
 //Commit Task
-gulp.task('commit',['build']);
+gulp.task('commit', ['build']);
 
 //Serve Tasks
-gulp.task('serve', ['docs'], function() {
+gulp.task('serve', ['docs'], function () {
     gulp.src('app')
         .pipe(webserver({
             fallback: 'index.html',
@@ -32,65 +32,65 @@ gulp.task('serve', ['docs'], function() {
 //Docs Task
 //1) build js docs
 //2) build demo
-gulp.task('buildDocs', function(cb) {
-    let config = require('./jsdoc.json');
+gulp.task('buildDocs', function (cb) {
+    var config = require('./jsdoc.json');
     gulp.src(['README.md', 'app/js/supergrid/**/*.js'], {
-            read: false
-        })
+        read: false
+    })
         .pipe(jsdoc(config, cb));
 });
-gulp.task('buildDemo', function(){
-    gulp.src(['dist/supergrid.min.css','dist/supergrid.min.js'],{ base: './dist'})
+gulp.task('buildDemo', function () {
+    gulp.src(['dist/supergrid.min.css', 'dist/supergrid.min.js'], {base: './dist'})
         .pipe(gulp.dest('docs/demo'));
-    gulp.src('app/img/hicons.png',{ base: './app/img'})
+    gulp.src('app/img/hicons.png', {base: './app/img'})
         .pipe(gulp.dest('docs/img'));
-    return gulp.src('app/demo/**/*',{ base: './app' })
-        .pipe(gulp.dest('docs'));
+    return gulp.src('app/demo/**/*', {base: './app'})
+               .pipe(gulp.dest('docs'));
 });
-gulp.task('docs',['buildDocs','buildDemo']);
+gulp.task('docs', ['buildDocs', 'buildDemo']);
 //************************
 //Build Distribution Task
 var fullDistCSS = [
-  'app/css/normalize.css',
-  'app/css/supergrid.css'
+    'app/css/normalize.css',
+    'app/css/supergrid.css'
 ];
 var fullDist = [
-  'app/js/vendor/jquery-3.1.0.js',
-  'app/js/vendor/jquery-ui-1.12.0-core.js',
-  'app/js/supergrid/supergrid.js'
+    'app/js/vendor/jquery-3.1.0.js',
+    'app/js/vendor/jquery-ui-1.12.0-core.js',
+    'app/js/supergrid/supergrid.js'
 ];
 
 //Build a dist with libraries included
-gulp.task('buildCSSFullDist', function(){
-  return gulp.src(fullDistCSS)
-    .pipe(cssmin())
-    .pipe(concat('supergrid.min.css'))
-    .pipe(gulp.dest('dist/full'));
+gulp.task('buildCSSFullDist', function () {
+    return gulp.src(fullDistCSS)
+               .pipe(cssmin())
+               .pipe(concat('supergrid.min.css'))
+               .pipe(gulp.dest('dist/full'));
 });
-gulp.task('buildFullDist', ['buildCSSFullDist'], function(){
-  return gulp.src(fullDist)
-    .pipe(uglify())
-    .pipe(concat('supergrid.min.js'))
-    .pipe(gulp.dest('dist/full'));
+gulp.task('buildFullDist', ['buildCSSFullDist'], function () {
+    return gulp.src(fullDist)
+               .pipe(uglify())
+               .pipe(concat('supergrid.min.js'))
+               .pipe(gulp.dest('dist/full'));
 });
 
 //Standard Supergrid Only Build
-gulp.task('buildCSS', function(){
-  return gulp.src('app/css/supergrid.css')
-    .pipe(cssmin())
-    .pipe(concat('supergrid.min.css'))
-    .pipe(gulp.dest('dist'));
+gulp.task('buildCSS', function () {
+    return gulp.src('app/css/supergrid.css')
+               .pipe(cssmin())
+               .pipe(concat('supergrid.min.css'))
+               .pipe(gulp.dest('dist'));
 });
 
-gulp.task('buildSample', function(){
-  return gulp.src('app/demo/sample.html')
-    .pipe(gulp.dest('dist'));
+gulp.task('buildSample', function () {
+    return gulp.src('app/demo/sample.html')
+               .pipe(gulp.dest('dist'));
 });
 
-gulp.task('buildstd', ['buildCSS', 'buildSample'], function() {
-  return gulp.src(['app/js/supergrid/supergrid.js'])
-    .pipe(uglify())
-    .pipe(concat('supergrid.min.js'))
-    .pipe(gulp.dest('dist'));
+gulp.task('buildstd', ['buildCSS', 'buildSample'], function () {
+    return gulp.src(['app/js/supergrid/supergrid.js'])
+               .pipe(uglify())
+               .pipe(concat('supergrid.min.js'))
+               .pipe(gulp.dest('dist'));
 });
-gulp.task('build',['buildstd', 'buildFullDist', 'docs']);
+gulp.task('build', ['buildstd', 'buildFullDist', 'docs']);

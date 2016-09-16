@@ -95,13 +95,12 @@ body {
     margin-left: 0;
 }
 
-
 /* Menu */
 .application .menu {
     cursor: pointer;
     margin: 3px auto;
-    width:462px;
-    padding-left:5px;
+    width: 462px;
+    padding-left: 5px;
 }
 
 .application .menu ul {
@@ -109,15 +108,17 @@ body {
     margin: 0;
     padding: 0;
     width: 10rem;
-    display:inline;
+    display: inline;
 }
+
 .application .menu li {
-    display:inline;
+    display: inline;
 }
+
 .application .menu a.item {
     display: inline-block;
     color: #000;
-    font-size:1.1rem;
+    font-size: 1.1rem;
     padding: 10px;
     text-decoration: none;
 }
@@ -153,11 +154,13 @@ body {
 .application .container {
     padding: 2px 16px;
 }
+
 .application .grid.fixedSize {
     margin: 0 auto;
     width: 500px;
-    height:500px;
+    height: 500px;
 }
+
 @media screen and (min-width: 620px) {
     aside {
         margin-left: 520px;

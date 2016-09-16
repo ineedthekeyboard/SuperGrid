@@ -1,7 +1,8 @@
 // Avoid `console` errors in browsers that lack a console.
-(function() {
+(function () {
     var method;
-    var noop = function () {};
+    var noop = function () {
+    };
     var methods = [
         'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
         'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
@@ -71,7 +72,7 @@ function bindListeners() {
         $application.append('<div class="grid"></div>');
 
         //auto height enabled make parent have a fixed height and width to calc by:
-        if (option ==='autoHeight'){
+        if (option === 'autoHeight') {
             $('.grid').addClass('fixedSize');
         }
         $('.grid').SuperGrid({
@@ -79,7 +80,7 @@ function bindListeners() {
             data: window.data[0] || [],
             paginate: !(option === 'paginate'),
             colReorder: (option === 'reorder'),
-            autoHeight: {enabled:(option === 'autoHeight')}
+            autoHeight: {enabled: (option === 'autoHeight')}
         });
     });
 }
@@ -91,22 +92,23 @@ function generateData() {
         newObj;
 
     function randomTitle() {
-      var rndNumber = randomIntFromInterval(0,10);
-      var titles = [
-        'Advisory',
-        'Simple Application',
-        'Mono-Chromo Plastic',
-        'Warning Return',
-        'Basic Return',
-        'Razor Accelerated Death',
-        'Caffinated Dogs',
-        'Glitchy Gas',
-        'Holy Cow Collection',
-        'Holy Cow Distribution',
-        'Pea Pod'
-      ];
-      return titles[rndNumber];
+        var rndNumber = randomIntFromInterval(0, 10);
+        var titles = [
+            'Advisory',
+            'Simple Application',
+            'Mono-Chromo Plastic',
+            'Warning Return',
+            'Basic Return',
+            'Razor Accelerated Death',
+            'Caffinated Dogs',
+            'Glitchy Gas',
+            'Holy Cow Collection',
+            'Holy Cow Distribution',
+            'Pea Pod'
+        ];
+        return titles[rndNumber];
     }
+
     function randomDate(start, end) {
         return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
@@ -126,6 +128,7 @@ function generateData() {
         newObj.title = randomTitle();
         return newObj;
     }
+
     while (i < 1000) {
         arr.push(randomData());
         i++;
@@ -134,4 +137,5 @@ function generateData() {
 }
 
 //When all JSON files have been loaded render the grid plugin
-$.when(getSampleData('/js/sampleData/config.json'), getSampleData('/js/sampleData/data.json')).then(renderGrid, errorHandle);
+$.when(getSampleData('/js/sampleData/config.json'), getSampleData('/js/sampleData/data.json'))
+ .then(renderGrid, errorHandle);

@@ -25,7 +25,7 @@
     color: #ffffff;
     font-size: 13pt;
     border: 0px solid;
-    position:relative;
+    position: relative;
     max-height: 45px;
     height: 45px;
 }
@@ -49,10 +49,14 @@
     white-space: nowrap;
     position: relative;
     vertical-align: -webkit-baseline-middle;
+    line-height: 35px;
+    height: 100%;
+
 }
+
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle > div {
     line-height: 35px;
-    /*background: red;*/
+    background: red;
 }
 
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
@@ -61,12 +65,12 @@
     cursor: pointer;
     color: white;
 }
+
 .supergrid .supergrid_header .supergrid_cell:hover {
     background: rgba(126, 126, 193, 1);
     cursor: pointer;
     color: white;
 }
-
 
 .supergrid .supergrid_header .supergrid_cell[data-sort] {
     color: #f6f3f7;
@@ -104,12 +108,14 @@
 }
 
 .supergrid .supergrid_footer {
-  height: 36px;
+    height: 36px;
 }
+
 .supergrid .supergrid_body .supergrid_row:nth-child(odd):hover,
 .supergrid .supergrid_body .supergrid_row:nth-child(even):hover {
     background: rgba(126, 126, 193, .5);
 }
+
 /* Custom Scrollbar */
 .supergrid_body::-webkit-scrollbar,
 .supergrid-body::-webkit-scrollbar {
@@ -127,129 +133,158 @@
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
+
 /*Paging CSS*/
 
 .supergrid .supergrid_footer .pager > * {
-  display: inline-block;
+    display: inline-block;
 }
 
 .supergrid .supergrid_footer button {
-  -webkit-appearance: none;
-  background: transparent;
-  border: 0;
-  outline: 0;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 0;
+    outline: 0;
 }
+
 /*.supergrid .paginate * {
   display: inline-block;
 }*/
 .supergrid_footer .pager {
-  margin: 0 auto;
-  padding: 2px 0;
-  text-align: center;
-  display: block;
+    margin: 0 auto;
+    padding: 2px 0;
+    text-align: center;
+    display: block;
 }
+
 .supergrid .paginate {
-  position: relative;
-  margin: 0px;
-  height: 30px;
-  cursor: pointer;
-  transform: translate3d(0, 0, 0);
-  -webkit-filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.2));
+    position: relative;
+    margin: 0px;
+    height: 30px;
+    cursor: pointer;
+    transform: translate3d(0, 0, 0);
+    -webkit-filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.2));
 }
+
 .supergrid .paginate i {
-  position: absolute;
-  left: 0;
-  width: 15px;
-  height: 5px;
-  border-radius: 2.5px;
-  background: black;
-  transition: all 0.15s ease;
+    position: absolute;
+    left: 0;
+    width: 15px;
+    height: 5px;
+    border-radius: 2.5px;
+    background: black;
+    transition: all 0.15s ease;
 }
+
 .supergrid .paginate.left {
-  /*right: 58;
-  float: left;*/
+    /*right: 58;
+    float: left;*/
 }
+
 .supergrid .paginate.left i {
-  transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
 }
+
 .supergrid .paginate.left i:first-child {
-  transform: translate(0, -1px) rotate(40deg);
+    transform: translate(0, -1px) rotate(40deg);
 }
+
 .supergrid .paginate.left i:last-child {
-  transform: translate(0, 1px) rotate(-40deg);
+    transform: translate(0, 1px) rotate(-40deg);
 }
+
 .supergrid .paginate.left:hover i:first-child {
-  transform: translate(0, -1px) rotate(30deg);
+    transform: translate(0, -1px) rotate(30deg);
 }
+
 .supergrid .paginate.left:hover i:last-child {
-  transform: translate(0, 1px) rotate(-30deg);
+    transform: translate(0, 1px) rotate(-30deg);
 }
+
 .supergrid .paginate.left:active i:first-child {
-  transform: translate(1px, -1px) rotate(25deg);
+    transform: translate(1px, -1px) rotate(25deg);
 }
+
 .supergrid .paginate.left:active i:last-child {
-  transform: translate(1px, 1px) rotate(-25deg);
+    transform: translate(1px, 1px) rotate(-25deg);
 }
+
 .supergrid .paginate.left[data-state=disabled] i:first-child {
-  transform: translate(-5px, 0) rotate(0deg);
+    transform: translate(-5px, 0) rotate(0deg);
 }
+
 .supergrid .paginate.left[data-state=disabled] i:last-child {
-  transform: translate(-5px, 0) rotate(0deg);
+    transform: translate(-5px, 0) rotate(0deg);
 }
+
 .supergrid .paginate.left[data-state=disabled]:hover i:first-child {
-  transform: translate(-5px, 0) rotate(0deg);
+    transform: translate(-5px, 0) rotate(0deg);
 }
+
 .supergrid .paginate.left[data-state=disabled]:hover i:last-child {
-  transform: translate(-5px, 0) rotate(0deg);
+    transform: translate(-5px, 0) rotate(0deg);
 }
+
 .supergrid .paginate.right {
-  /*left: 58%;*/
+    /*left: 58%;*/
 }
+
 .supergrid .paginate.right i {
-  transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
 }
+
 .supergrid .paginate.right i:first-child {
-  transform: translate(0, 1px) rotate(40deg);
+    transform: translate(0, 1px) rotate(40deg);
 }
+
 .supergrid .paginate.right i:last-child {
-  transform: translate(0, -1px) rotate(-40deg);
+    transform: translate(0, -1px) rotate(-40deg);
 }
+
 .supergrid .paginate.right:hover i:first-child {
-  transform: translate(0, 1px) rotate(30deg);
+    transform: translate(0, 1px) rotate(30deg);
 }
+
 .supergrid .paginate.right:hover i:last-child {
-  transform: translate(0, -1px) rotate(-30deg);
+    transform: translate(0, -1px) rotate(-30deg);
 }
+
 .supergrid .paginate.right:active i:first-child {
-  transform: translate(1px, 1px) rotate(25deg);
+    transform: translate(1px, 1px) rotate(25deg);
 }
+
 .supergrid .paginate.right:active i:last-child {
-  transform: translate(1px, -1px) rotate(-25deg);
+    transform: translate(1px, -1px) rotate(-25deg);
 }
+
 .supergrid .paginate.right[data-state=disabled] i:first-child {
-  transform: translate(5px, 0) rotate(0deg);
+    transform: translate(5px, 0) rotate(0deg);
 }
+
 .supergrid .paginate.right[data-state=disabled] i:last-child {
-  transform: translate(5px, 0) rotate(0deg);
+    transform: translate(5px, 0) rotate(0deg);
 }
+
 .supergrid .paginate.right[data-state=disabled]:hover i:first-child {
-  transform: translate(5px, 0) rotate(0deg);
+    transform: translate(5px, 0) rotate(0deg);
 
 }
+
 .supergrid .paginate.right[data-state=disabled]:hover i:last-child {
-  transform: translate(5px, 0) rotate(0deg);
+    transform: translate(5px, 0) rotate(0deg);
 }
+
 .supergrid .paginate[data-state=disabled] {
-  opacity: 0.3;
-  cursor: default;
+    opacity: 0.3;
+    cursor: default;
 }
 
 .supergrid .supergrid_footer .counter {
-  vertical-align: text-bottom;
-  line-height: 30px;
-  font-size: 15px;
-  margin: 0 5px;
-  font-family: Helvetica, sans-serif;
-  text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
-  color: black;
+    vertical-align: text-bottom;
+    line-height: 30px;
+    font-size: 15px;
+    margin: 0 5px;
+    font-family: Helvetica, sans-serif;
+    text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
+    color: black;
 }
