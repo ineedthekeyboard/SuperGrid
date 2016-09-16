@@ -4,6 +4,7 @@
 }
 
 .supergrid .supergrid_row {
+    white-space: nowrap;
     border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
     transition: .2s ease-in;
 }
@@ -26,8 +27,15 @@
     font-size: 13pt;
     border: 0px solid;
     position: relative;
-    max-height: 45px;
     height: 45px;
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.supergrid .supergrid_header::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    height: 0px;
+    background: transparent; /* optional: just make scrollbar invisible */
 }
 
 .supergrid .supergrid_header .resize-handle {
@@ -56,7 +64,7 @@
 
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle > div {
     line-height: 35px;
-    background: red;
+    /*background: red;*/
 }
 
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle.ui-sortable-helper {

@@ -112,6 +112,10 @@ $.widget('custom.SuperGrid', {
             resizing = false,
             resizer;
 
+        this.element.find('.supergrid_body').off('scroll');
+        this.element.find('.supergrid_body').on('scroll', function (event) {
+            context.element.find('.supergrid_header').scrollLeft($(event.currentTarget).scrollLeft());
+        });
         this.element.off('click', '.supergrid_header .supergrid_cell[data-sortable="true"]');
         this.element.on('click', '.supergrid_header .supergrid_cell[data-sortable="true"]', function (e) {
             var $elem = $(this),
@@ -147,7 +151,7 @@ $.widget('custom.SuperGrid', {
             context._renderGrid();
         });
 
-        this.element.off('mousedown', '.supergrid_header .resize-handle');
+        this.element.off('mousedown', '.supergrids_header .resize-handle');
         this.element.on('mousedown', '.supergrid_header .resize-handle', function (e) {
             e.preventDefault();
 
