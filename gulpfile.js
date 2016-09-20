@@ -50,9 +50,9 @@ gulp.task('buildDemo', function () {
 gulp.task('docs', ['buildDocs', 'buildDemo']);
 //************************
 //Build Distribution Task
-var fullDistCSS = [
-    'app/css/normalize.css',
-    'app/css/supergrid.css'
+var rawCss = [
+    'app/css/supergrid.css',
+    'app/css/supergrid-plain.css'
 ];
 var fullDist = [
     'app/js/vendor/jquery-3.1.0.js',
@@ -62,7 +62,19 @@ var fullDist = [
 
 //Build a dist with libraries included
 gulp.task('buildCSSFullDist', function () {
-    return gulp.src(fullDistCSS)
+    //plain css
+    gulp.src([
+        'app/css/normalize.css',
+        'app/css/supergrid-plain.css'
+    ])
+        .pipe(cssmin())
+        .pipe(concat('supergrid-plain.min.css'))
+        .pipe(gulp.dest('dist/full'));
+    //full css
+    return gulp.src([
+        'app/css/normalize.css',
+        'app/css/supergrid.css'
+    ])
                .pipe(cssmin())
                .pipe(concat('supergrid.min.css'))
                .pipe(gulp.dest('dist/full'));
@@ -76,6 +88,12 @@ gulp.task('buildFullDist', ['buildCSSFullDist'], function () {
 
 //Standard Supergrid Only Build
 gulp.task('buildCSS', function () {
+    gulp.src(rawCss)
+        .pipe(gulp.dest('dist'));
+    gulp.src('app/css/supergrid-plain.css')
+        .pipe(cssmin())
+        .pipe(concat('supergrid-plain.min.css'))
+        .pipe(gulp.dest('dist'));
     return gulp.src('app/css/supergrid.css')
                .pipe(cssmin())
                .pipe(concat('supergrid.min.css'))
@@ -88,6 +106,9 @@ gulp.task('buildSample', function () {
 });
 
 gulp.task('buildstd', ['buildCSS', 'buildSample'], function () {
+    return gulp.src(['app/js/supergrid/supergrid.js'])
+        .pipe(concat('supergrid.js'))
+        .pipe(gulp.dest('dist'));
     return gulp.src(['app/js/supergrid/supergrid.js'])
                .pipe(uglify())
                .pipe(concat('supergrid.min.js'))

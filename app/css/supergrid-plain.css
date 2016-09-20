@@ -1,7 +1,6 @@
 /*****- SuperGrid CSS -*****/
 .supergrid {
-    overflow-y: hidden;
-    overflow-x: auto;
+
 }
 
 .supergrid .supergrid_row {
@@ -21,15 +20,14 @@
 
 /*****- SuperGrid Header CSS -*****/
 .supergrid .supergrid_header {
-    /*background: rgba(87, 126, 193, 1);*/
-    background: rgba(126, 126, 193, .8);
-    /*color: #f6f3f7;*/
+    background: rgba(10, 10, 20, .5);
     color: #ffffff;
     font-size: 13pt;
     border: 0px solid;
     position: relative;
-    /*height: 45px;*/
+    height: 45px;
     white-space: nowrap;
+    overflow: auto;
 }
 
 .supergrid .supergrid_header::-webkit-scrollbar {
@@ -56,19 +54,16 @@
 .supergrid .supergrid_header .supergrid_cell {
     white-space: nowrap;
     position: relative;
-    vertical-align: -webkit-baseline-middle;
-    line-height: 35px;
-    height: 100%;
-}
-
-.supergrid .supergrid_header .supergrid_cell {
-    white-space: nowrap;
-    position: relative;
     vertical-align: middle;
     line-height: 35px;
     height: 100%;
+}
+
+.supergrid .supergrid_table .supergrid_cell {
+    display: table-cell;
 
 }
+
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle > div {
     line-height: 35px;
     /*background: red;*/
@@ -76,20 +71,21 @@
 
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
     transition: 0s ease-in;
-    background: rgba(126, 126, 193, 1);
+    background: rgba(10, 10, 20, .5);
     cursor: pointer;
     color: white;
+    vertical-align: middle;
 }
 
 .supergrid .supergrid_header .supergrid_cell:hover {
-    background: rgba(126, 126, 193, 1);
+    background: rgba(10, 10, 20, .3);
     cursor: pointer;
     color: white;
 }
 
 .supergrid .supergrid_header .supergrid_cell[data-sort] {
     color: #f6f3f7;
-    background: rgba(126, 126, 193, 0.9);
+    background: rgba(10, 10, 20, .5);
 }
 
 .supergrid .supergrid_header .supergrid_cell[data-sortable="true"][data-sort] .sort-icon {
@@ -112,8 +108,7 @@
 /*****- SuperGrid Body CSS -*****/
 .supergrid_body {
     height: calc(100vh - 131px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
 }
 
 .supergrid .supergrid_body .supergrid_row:nth-child(odd) {
@@ -121,7 +116,7 @@
 }
 
 .supergrid .supergrid_body .supergrid_row:nth-child(even) {
-    background-color: rgba(126, 126, 193, .2);
+    background: rgba(50, 50, 50, .2);
 }
 
 .supergrid .supergrid_footer {
@@ -130,7 +125,7 @@
 
 .supergrid .supergrid_body .supergrid_row:nth-child(odd):hover,
 .supergrid .supergrid_body .supergrid_row:nth-child(even):hover {
-    background: rgba(126, 126, 193, .5);
+    background: rgba(10, 10, 20, .1);
 }
 
 /* Custom Scrollbar */

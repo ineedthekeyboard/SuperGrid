@@ -80,7 +80,8 @@ function bindListeners() {
             data: window.data[0] || [],
             paginate: !(option === 'paginate'),
             colReorder: (option === 'reorder'),
-            autoHeight: {enabled: (option === 'autoHeight')}
+            autoHeight: {enabled: (option === 'autoHeight')},
+            accessibility: true
         });
     });
 }

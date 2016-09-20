@@ -41,11 +41,18 @@ $.widget('custom.SuperGrid', {
         /**
          * @name SuperGrid_Options#paginate
          * @description Defines if pagination should be enabled. If enabled this will proved a basic footer
-         * TODO: Allow the user to pass custom dom to the pager.
+         * Note: this options will automatically disabled if accessibility is enabled.
          * @type {boolean}
          * @defaultvalue True
          */
         paginate: true,
+        /**
+         * @name SuperGrid_Options#accessibility
+         * @description Defines if pagination should be enabled. If enabled this will proved a basic footer
+         * @type {boolean}
+         * @defaultvalue True
+         */
+        accessibility: false,
         /**
          * @name SuperGrid_Options#pageSize
          * @description Defines how many rows should be on a page. Must be at least 1 page,
@@ -164,7 +171,7 @@ $.widget('custom.SuperGrid', {
             $(document).mousemove(function (e) {
                 $(resizer).css("left", e.pageX + 2);
                 context.element.find('.supergrid_header .supergrid_cell[data-id="' + $(resizer).data('id') + '"]')
-                       .css("width", e.pageX - $(resizer).data('diff'));
+                    .css("width", e.pageX - $(resizer).data('diff'));
             });
 
         });
@@ -425,10 +432,25 @@ $.widget('custom.SuperGrid', {
      */
     _buildGrid: function () {
         this.options._grid.push('<div class="supergrid">');
-        this._buildHeader();
-        this._buildBody();
-        if (this.options.paginate) {
-            this._buildFooter();
+
+        //determine what kind of grid to build:
+        //Either build one for the blind or a full featured UI one.
+        if (!this.options.accessibility) {
+            this._buildHeader();
+            this._buildBody();
+            if (this.options.paginate) {
+                this._buildFooter();
+            }
+        } else {
+            this.options.paginate = false;
+            this._pagination();
+            this.options._grid.push('<table class="supergrid_table" style="width:100%;table-layout: fixed;">');
+            this._buildAccessibilityHeader();
+            this._buildAccessibilityBody();
+
+            this.options._grid.push('</table>');
+            this.element.css('overflow', 'scroll');
+            this.element.css('height', '500px');
         }
         this.options._grid.push('</div>');
     },
@@ -597,6 +619,112 @@ $.widget('custom.SuperGrid', {
         grid.push(' <button class="paginate right" tabindex="0"><i></i><i></i></button>');
         grid.push('</div>');
         grid.push('</div>');
+    },
+
+    /**
+     * @private
+     * @function
+     * @name SuperGrid#_buildAccessibilityHeader
+     * @description Build grid markup for header based on html5 table for blind and aria users
+     */
+    _buildAccessibilityHeader: function () {
+        var widthTotal = 0;
+        this.options._grid.push('<thead class="supergrid_header"><tr>');
+        $.each(this.options.columns, function (i, col) {
+            var cellClass = col.cellClass || '',
+                width = col.width || '',
+                id = col.id || '',
+                name = col.name || '',
+                sort = col.sort || '',
+                sortable = col.sortable || '',
+                cellStr = '';
+
+            cellStr += '<th style="width:' + col.width + 'px;" scope="col" class="supergrid_cell ' + cellClass + '" data-id="' + id + '" tabIndex="0" ';
+            if (sort) {
+                cellStr += 'data-sort="' + sort + '" ';
+            }
+            cellStr += 'data-sortable="' + sortable + '">';
+            cellStr += '<div>';
+            cellStr += name;
+            if (sort) {
+                cellStr += '<div class="sort-icon"></div>';
+            }
+            cellStr += '</div>';
+            cellStr += '</th>';
+            //cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+            widthTotal += width;
+            this.options._grid.push(cellStr);
+        }.bind(this));
+
+        this.options._grid.push('</tr></thead>');
+    },
+
+    /**
+     * @private
+     * @function
+     * @name SuperGrid#_buildAccessibilityBody
+     * @description Build grid markup for body based on html5 table for blind and aria users
+     */
+    _buildAccessibilityBody: function () {
+        var data = this.options.data,
+            columns = this.options.columns,
+            context = this;
+        this.options._grid.push('<tbody class="supergrid_body">');
+
+        $.each(data.slice(this.options.pagination.startIndex, this.options.pagination.endIndex), buildRow);
+
+        this.options._grid.push('</tbody>');
+
+        //noinspection JSUnusedLocalSymbols
+        function buildRow(i, dataSet) {
+            var id = dataSet.id || '',
+                row = '';
+            row += '<tr class="supergrid_row section" data-id="' + id + '">';
+            $.each(columns, function (i, col) {
+                var cellClass = col.cellClass || '';
+                row += '<td style="width:' + col.width + 'px;" class="supergrid_cell ' + cellClass + '" tabIndex="0"' +
+                    'data-id="' + col.id + '">';
+                row += '<div>';
+                row += buildCell(dataSet, col);
+                row += '</div>';
+                row += '</td>';
+            });
+            row += '</tr>';
+            context.options._grid.push(row);
+        }
+
+        function buildCell(data, column) {
+            var attributes = [],
+                regex = /\#(.*?)\#/,
+                formatter = column.formatter,
+                formatterHelper,
+                matchedAttr;
+            if (!data) {
+                return '';
+            }
+            if (typeof formatter === 'function') {
+                return formatter(data);
+            }
+            if (typeof formatter === 'object') {
+                formatter = column.formatter;
+            }
+
+            formatterHelper = formatter;
+            matchedAttr = regex.exec(formatter);
+            if (formatterHelper) {
+                while (matchedAttr) {
+                    attributes.push(matchedAttr[0]);
+                    formatterHelper = formatterHelper.replace(matchedAttr[0], '');
+                    matchedAttr = regex.exec(formatterHelper);
+                }
+                $.each(attributes, function (index, attr) {
+                    var value = attr.replace(/#|_/g, '');
+                    formatter = formatter.replace(attr, data[value]);
+                });
+                return formatter;
+            }
+            return data[column.id];
+        }
     },
 
     /**
