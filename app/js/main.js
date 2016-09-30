@@ -53,7 +53,7 @@ function renderGrid(config, data) {
     window.config = config;
     window.data = data;
 
-    bindListeners()
+    bindListeners();
 }
 
 function bindListeners() {
@@ -81,7 +81,7 @@ function bindListeners() {
             paginate: !(option === 'paginate'),
             colReorder: (option === 'reorder'),
             autoHeight: {enabled: (option === 'autoHeight')},
-            accessibility: true
+            accessibility: false //if enabled it will disable paging and col resize automatically.
         });
     });
 }

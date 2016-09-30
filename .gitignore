@@ -8,6 +8,8 @@ config.codekit
 *.log
 build/
 
+.vscode/
+
 logs
 npm-debug.log*
 .grunt

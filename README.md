@@ -1,30 +1,31 @@
-# SuperGrid
-A super simple jQuery plugin to render a grid out of an array of data.
-***************
+# **SuperGrid**
+_A super awesome jQuery plugin to render a grid out of an array of data._
 
-### Compile Development Site and Docs
-1) Clone the Git Repository
-> git clone https://github.com/ineedthekeyboard/supergrid.git
+### Introduction
+<p>
+This plugin seeks to provide easy to use functionality for rendering
+tabular data (building a <i>grid</i>) in all manners of web development situations. Primarily this
+project has two goals:
+<br><br>
+1. The leading principle is to maximize ease of use by minimization of the understanding curve.
+Simply speaking, for its complexity it should be easy to modify, customize and learn the source of this plugin.
+Which is not to imply that it is required that you make any attempt to do so, but that you can if so motivated.
+Additionally, many provisions will be made for customizability and flexibility.
+<br><br>
+2. Provide for flexibility out of the box that can accommodate many use cases that may not be in the
+interest of technical progress, but are required nonetheless. This flexibility will manifest itself
+in the form of providing different rendering/build options and features that seek to provide baseline functionality
+and/or starting places for the developer to start with.
+<br><br>
+......... And with out further ado lets jump right in.
+</p>
 
-2) Install Dev Tools (From the root directory of the project. Make sure node is installed):
-> npm install
+#### Getting started with supergrid
+*****
+To get started the files you need to include are in the dist folder of the github repository (https://github.com/ineedthekeyboard/supergrid)
+You can see the latest sample here: https://ineedthekeyboard.github.io/supergrid/demo/sample.html
 
-3) Serve the samples and documentation on localhost (Make sure no other applications are listening on Port 8080 or 8081):
-> gulp serve
+# _more to come_
 
-- The Demo application is available at: http://localhost:8080/index.html
-- The Documentation for the grid available at http://localhost:8081/index.html
-
-### Online Documentation For Code:
-***************
-See the code documentation here: https://ineedthekeyboard.github.io/supergrid/
-
-
-### Production & Distribution
-***************
-In the dist folder you will find the latest build for inclusion in your own website and projects.
-If you find that you need to build your own file for distribution run the following command after cloning the projects
-> gulp build
-
-This will update the distribution files in the dist folder. Generally, you will need to include jquery, and jquery UI into on the
-pages where you intend to use SuperGrid (one day this will not be the case...but for now it is)
+#### Advanced Documentation and API Docs
+##### API documentation: https://ineedthekeyboard.github.io/supergrid/

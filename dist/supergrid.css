@@ -102,7 +102,7 @@
     right: 5px;
     top: 10px;
     transform: rotate(90deg);
-    -webkit-filter: invert(100%);
+    filter: invert(100%);
 }
 
 .supergrid .supergrid_header .supergrid_cell[data-sortable="true"][data-sort="desc"] .sort-icon {
@@ -141,14 +141,14 @@
 
 .supergrid_body::-webkit-scrollbar-track,
 .supergrid-body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(87, 126, 193, 0.3);
+    box-shadow: inset 0 0 6px rgba(87, 126, 193, 0.3);
     border-radius: 0;
 }
 
 .supergrid_body::-webkit-scrollbar-thumb,
 .supergrid-body::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 /*Paging CSS*/
@@ -180,7 +180,7 @@
     height: 30px;
     cursor: pointer;
     transform: translate3d(0, 0, 0);
-    -webkit-filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.2));
 }
 
 .supergrid .paginate i {
@@ -191,11 +191,6 @@
     border-radius: 2.5px;
     background: black;
     transition: all 0.15s ease;
-}
-
-.supergrid .paginate.left {
-    /*right: 58;
-    float: left;*/
 }
 
 .supergrid .paginate.left i {
@@ -240,10 +235,6 @@
 
 .supergrid .paginate.left[data-state=disabled]:hover i:last-child {
     transform: translate(-5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.right {
-    /*left: 58%;*/
 }
 
 .supergrid .paginate.right i {

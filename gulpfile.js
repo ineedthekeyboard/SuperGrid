@@ -106,7 +106,7 @@ gulp.task('buildSample', function () {
 });
 
 gulp.task('buildstd', ['buildCSS', 'buildSample'], function () {
-    return gulp.src(['app/js/supergrid/supergrid.js'])
+    gulp.src(['app/js/supergrid/supergrid.js'])
         .pipe(concat('supergrid.js'))
         .pipe(gulp.dest('dist'));
     return gulp.src(['app/js/supergrid/supergrid.js'])
