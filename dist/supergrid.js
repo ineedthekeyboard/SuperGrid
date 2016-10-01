@@ -113,11 +113,6 @@
                 pageSize: (this.options.pageSize > 0) ? this.options.pageSize : 1
             };
 
-            // this.element.on('supergrid-rendered', function(e) {
-            //     console.log('supergrid rendered');
-            //     debugger;
-            // });
-
             //Bootstrap the UI
             this._renderGrid();
             this._bindListeners();
@@ -300,9 +295,20 @@
             this._trigger('supergrid-rendered');
 
         },
-
-        _resize: function () {
-            this.element.find('.supergrid').width(this.options.widthTotal);
+        /**
+         * @name SuperGrid#_resize
+         * @description This function updates the width of the supergrid's main container
+         * to ensure that it always matches the size of it's children.
+         * @param {Number} overrideTotalWidth Override width to set the container to. Defaults to internally computed width.
+         * @private
+         * @function
+         */
+        _resize: function (overrideTotalWidth) {
+            if (overrideTotalWidth) {
+                this.element.find('.supergrid').width(overrideTotalWidth);
+            } else {
+                this.element.find('.supergrid').width(this.options.widthTotal);
+            }
         },
 
         /**
@@ -688,7 +694,7 @@
             }.bind(this));
 
             this.options._grid.push('</tr></thead>');
-            context.options.widthTotal = widthTotal;
+            this.options.widthTotal = widthTotal;
         },
 
         /**
