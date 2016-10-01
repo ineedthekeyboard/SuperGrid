@@ -1,7 +1,6 @@
 /*****- SuperGrid CSS -*****/
 .supergrid {
-    overflow-y: hidden;
-    overflow-x: auto;
+
 }
 
 .supergrid .supergrid_row {
@@ -27,8 +26,6 @@
     color: #ffffff;
     font-size: 13pt;
     border: 0px solid;
-    position: relative;
-    /*height: 45px;*/
     white-space: nowrap;
 }
 
@@ -111,7 +108,6 @@
 
 /*****- SuperGrid Body CSS -*****/
 .supergrid_body {
-    height: calc(100vh - 131px);
     overflow-y: auto;
     overflow-x: hidden;
 }

@@ -7,13 +7,13 @@
         factory(jQuery);
     }
 }(function ($) {
-        /**
-         *@SuperGrid
-         * @version 0.1
-         * @namespace SuperGrid
-         * @description A feature rich, developer friendly grid for client side javascript.
-         * @param {Boolean} paginate Turn paging on
-         */
+    /**
+     *@SuperGrid
+     * @version 0.1
+     * @namespace SuperGrid
+     * @description A feature rich, developer friendly grid for client side javascript.
+     * @param {Boolean} paginate Turn paging on
+     */
     return $.widget('custom.SuperGrid', {
         /**
          * @namespace SuperGrid_Options
@@ -22,72 +22,72 @@
          */
         options: {
             /**
-             * @name SuperGrid_Options#autoHeight
+             * @name SuperGrid_Options#fixedHeader
              * @description Allows SuperGrid to compute it's own height based on the parent container's height.
              * The parent container must have a height or weird things will happen. The body's height will be calculated by
              * taking the container height and subtracting the (relatively fixed) height of the header and footer.
              * Optionally you can provide an arbitrary amount of height to remove from grid body in addition to the standard math.
              * This can be useful to allow you to scale the grid to changes in the screen size.
              * @type {Object}
-             * @property {object}  autoHeight               - The autoHeight option object.
-             * @property {boolean}  autoHeight.enabled       - Turns on/off auto height calculation.
-             * @property {number}  autoHeight.removeHeight         - A number in pixels to remove from the body in addition to the header and footer height.
+             * @property {object}  fixedHeader               - The fixedHeader option object.
+             * @property {boolean}  fixedHeader.enabled       - Turns on/off auto height calculation.
+             * @property {number}  fixedHeader.removeHeight         - A number in pixels to remove from the body in addition to the header and footer height.
              * @defaultvalue False
              */
-            autoHeight: {
+            fixedHeader: {
                 enabled: false,
                 removeHeight: 0
             },
 
-        /**
-         * @name SuperGrid_Options#colReorder
-         * @description Defines if column reordering should be enabled.
-         * If enabled this will allow the user to reorder columns by dragging the columns header to a new place.
-         * @type {boolean}
-         * @defaultvalue False
-         */
-        colReorder: false,
-        /**
-         * @name SuperGrid_Options#paginate
-         * @description Defines if pagination should be enabled. If enabled this will provide a basic paging footer
-         * Note: This options will be automatically disabled if accessibility is enabled.
-         * @type {boolean}
-         * @defaultvalue True
-         */
-        paginate: true,
-        /**
-         * @name SuperGrid_Options#accessibility
-         * @description Defines if accessibility mode should be enabled.
-         * Note: This options will automatically several options if enabled
-         * @type {boolean}
-         * @defaultvalue True
-         */
-        accessibility: false,
-        /**
-         * @name SuperGrid_Options#pageSize
-         * @description Defines how many rows should be on a page. Must be at least 1 page,
-         * if the page size is larger than the number of rows of data then only 1 page will be shown.
-         * @type {Number}
-         * @defaultvalue 25
-         */
-        pageSize: 25,
-        /**
-         * @name SuperGrid_Options#_grid
-         * @description Array that is used internally to build the grid.
-         * @type {Array}
-         * @private
-         * @defaultvalue empty
-         */
-        _grid: [],
-        /**
-         * @name SuperGrid_Options#_header
-         * @description Array that is used to build the header internally.
-         * @type {Array}
-         * @private
-         * @defaultvalue 25
-         */
-        _header: []
-    },
+            /**
+             * @name SuperGrid_Options#colReorder
+             * @description Defines if column reordering should be enabled.
+             * If enabled this will allow the user to reorder columns by dragging the columns header to a new place.
+             * @type {boolean}
+             * @defaultvalue False
+             */
+            colReorder: false,
+            /**
+             * @name SuperGrid_Options#paginate
+             * @description Defines if pagination should be enabled. If enabled this will provide a basic paging footer
+             * Note: This options will be automatically disabled if accessibility is enabled.
+             * @type {boolean}
+             * @defaultvalue True
+             */
+            paginate: true,
+            /**
+             * @name SuperGrid_Options#accessibility
+             * @description Defines if accessibility mode should be enabled.
+             * Note: This options will automatically several options if enabled
+             * @type {boolean}
+             * @defaultvalue True
+             */
+            accessibility: false,
+            /**
+             * @name SuperGrid_Options#pageSize
+             * @description Defines how many rows should be on a page. Must be at least 1 page,
+             * if the page size is larger than the number of rows of data then only 1 page will be shown.
+             * @type {Number}
+             * @defaultvalue 25
+             */
+            pageSize: 25,
+            /**
+             * @name SuperGrid_Options#_grid
+             * @description Array that is used internally to build the grid.
+             * @type {Array}
+             * @private
+             * @defaultvalue empty
+             */
+            _grid: [],
+            /**
+             * @name SuperGrid_Options#_header
+             * @description Array that is used to build the header internally.
+             * @type {Array}
+             * @private
+             * @defaultvalue 25
+             */
+            _header: []
+        },
 
         /**
          * @name SuperGrid#create
@@ -112,6 +112,11 @@
                 numberOfPages: 1,
                 pageSize: (this.options.pageSize > 0) ? this.options.pageSize : 1
             };
+
+            // this.element.on('supergrid-rendered', function(e) {
+            //     console.log('supergrid rendered');
+            //     debugger;
+            // });
 
             //Bootstrap the UI
             this._renderGrid();
@@ -182,7 +187,7 @@
                     $(resizer).css("left", e.pageX + 2);
                     context.element.find('.supergrid_header .supergrid_cell[data-id="' + $(resizer)
                             .data('id') + '"]')
-                           .css("width", e.pageX - $(resizer).data('diff'));
+                        .css("width", e.pageX - $(resizer).data('diff'));
                 });
 
             });
@@ -215,7 +220,7 @@
                     colWidth = e.pageX - $(resizer).data('diff');
                     colId = $(resizer).data('id');
                     context.element.find('.supergrid_body .supergrid_cell[data-id="' + colId + '"]')
-                           .css("width", colWidth);
+                        .css("width", colWidth);
                     context.element.find('.supergrid_header .supergrid_cell').css('transition', '.2s ease-in');
                     context._updateHeader(colId, colWidth);
                     context.element.find('.supergrid_header').removeClass('resizing');
@@ -237,6 +242,7 @@
          * @fires SuperGrid#supergrid-rendered
          */
         _renderGrid: function () {
+            var gridWidthAfterRender = 0;
             //Pre-sort & Pre-page
             this._sortData();
             this._pagination();
@@ -283,27 +289,38 @@
                 }).disableSelection();
 
             }
-            //run height calc
-            if (this.options.autoHeight.enabled) {
-                this._renderAutoHeight();
+            //run height calc for body if fixedHeader is enabled
+            if (this.options.fixedHeader.enabled) {
+                this._renderfixedHeader();
             }
+
+            //always make sure the container is wide enough to fit all columns and rows
+            this._resize();
+
             this._trigger('supergrid-rendered');
+
         },
+
+        _resize: function () {
+            this.element.find('.supergrid').width(this.options.widthTotal);
+        },
+
         /**
-         * @name SuperGrid#_renderAutoHeight
+         * @name SuperGrid#_renderfixedHeader
          * @description If enabled the container which holds the supergrid must have a height set on it. Based on this
          * explicit height supergrid will calculate the height of the body based on
-         * the containers size minus the height of the footer and the header.
+         * the containers size minus the height of the footer and the header, to keep the footer and header in place and
+         * place the overflow in the body.
          * @private
          * @function
          */
-        _renderAutoHeight: function () {
+        _renderfixedHeader: function () {
             var selfHeight = this.element.height(),
                 headerHeight = this.element.find('.supergrid_header').height(),
                 footerHeight = this.element.find('.supergrid_footer').height();
             this.options.removeHeight = (!this.options.removeHeight) ? 0 : null;
             this.element.find('.supergrid_body')
-                .height(selfHeight - ((headerHeight + footerHeight) - this.options.autoHeight.removeHeight));
+                .height(selfHeight - ((headerHeight + footerHeight) + this.options.fixedHeader.removeHeight));
         },
 
         /**
@@ -328,7 +345,7 @@
                     //getSortValue = col.getSortValue;
                     customSort = col.sortFunc;
                     return false;
-                    }
+                }
             });
             if (customSort) {
                 this.options.data.sort(function (a, b) {
@@ -368,16 +385,16 @@
                         i++;
                         j--;
                     }
-                    }
+                }
                 /*Recursion*/
                 if (left < j) {
                     simpleSort(arr, left, j, field, blnAsc);
-                    }
+                }
                 if (i < right) {
                     simpleSort(arr, i, right, field, blnAsc);
-                    }
-                return arr;
                 }
+                return arr;
+            }
         },
 
         /**
@@ -504,6 +521,7 @@
             }.bind(this));
 
             this.options._grid.push('</div>');
+            this.options.widthTotal = widthTotal;
         },
 
         /**
@@ -543,7 +561,8 @@
                 widthTotal += width;
                 context.options._header.push(cellStr);
             });
-
+            context.options.widthTotal = widthTotal;
+            context._resize();
             context.element.find('.supergrid_header').html(this.options._header.join(''));
             context.options._header = [];
         },
@@ -613,7 +632,7 @@
                     return formatter;
                 }
                 return data[column.id];
-                }
+            }
         },
 
         /**
@@ -669,6 +688,7 @@
             }.bind(this));
 
             this.options._grid.push('</tr></thead>');
+            context.options.widthTotal = widthTotal;
         },
 
         /**
@@ -736,7 +756,7 @@
                     return formatter;
                 }
                 return data[column.id];
-                }
+            }
         },
 
         /**
@@ -790,6 +810,6 @@
             this.element.empty();
             this._renderGrid();
         }
-        });
+    });
 
 }));

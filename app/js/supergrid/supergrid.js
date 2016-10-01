@@ -22,19 +22,19 @@
          */
         options: {
             /**
-             * @name SuperGrid_Options#autoHeight
+             * @name SuperGrid_Options#fixedHeader
              * @description Allows SuperGrid to compute it's own height based on the parent container's height.
              * The parent container must have a height or weird things will happen. The body's height will be calculated by
              * taking the container height and subtracting the (relatively fixed) height of the header and footer.
              * Optionally you can provide an arbitrary amount of height to remove from grid body in addition to the standard math.
              * This can be useful to allow you to scale the grid to changes in the screen size.
              * @type {Object}
-             * @property {object}  autoHeight               - The autoHeight option object.
-             * @property {boolean}  autoHeight.enabled       - Turns on/off auto height calculation.
-             * @property {number}  autoHeight.removeHeight         - A number in pixels to remove from the body in addition to the header and footer height.
+             * @property {object}  fixedHeader               - The fixedHeader option object.
+             * @property {boolean}  fixedHeader.enabled       - Turns on/off auto height calculation.
+             * @property {number}  fixedHeader.removeHeight         - A number in pixels to remove from the body in addition to the header and footer height.
              * @defaultvalue False
              */
-            autoHeight: {
+            fixedHeader: {
                 enabled: false,
                 removeHeight: 0
             },
@@ -112,6 +112,11 @@
                 numberOfPages: 1,
                 pageSize: (this.options.pageSize > 0) ? this.options.pageSize : 1
             };
+
+            // this.element.on('supergrid-rendered', function(e) {
+            //     console.log('supergrid rendered');
+            //     debugger;
+            // });
 
             //Bootstrap the UI
             this._renderGrid();
@@ -237,6 +242,7 @@
          * @fires SuperGrid#supergrid-rendered
          */
         _renderGrid: function () {
+            var gridWidthAfterRender = 0;
             //Pre-sort & Pre-page
             this._sortData();
             this._pagination();
@@ -283,27 +289,38 @@
                 }).disableSelection();
 
             }
-            //run height calc
-            if (this.options.autoHeight.enabled) {
-                this._renderAutoHeight();
+            //run height calc for body if fixedHeader is enabled
+            if (this.options.fixedHeader.enabled) {
+                this._renderfixedHeader();
             }
+
+            //always make sure the container is wide enough to fit all columns and rows
+            this._resize();
+
             this._trigger('supergrid-rendered');
+
         },
+
+        _resize: function () {
+            this.element.find('.supergrid').width(this.options.widthTotal);
+        },
+
         /**
-         * @name SuperGrid#_renderAutoHeight
+         * @name SuperGrid#_renderfixedHeader
          * @description If enabled the container which holds the supergrid must have a height set on it. Based on this
          * explicit height supergrid will calculate the height of the body based on
-         * the containers size minus the height of the footer and the header.
+         * the containers size minus the height of the footer and the header, to keep the footer and header in place and
+         * place the overflow in the body.
          * @private
          * @function
          */
-        _renderAutoHeight: function () {
+        _renderfixedHeader: function () {
             var selfHeight = this.element.height(),
                 headerHeight = this.element.find('.supergrid_header').height(),
                 footerHeight = this.element.find('.supergrid_footer').height();
             this.options.removeHeight = (!this.options.removeHeight) ? 0 : null;
             this.element.find('.supergrid_body')
-                .height(selfHeight - ((headerHeight + footerHeight) - this.options.autoHeight.removeHeight));
+                .height(selfHeight - ((headerHeight + footerHeight) + this.options.fixedHeader.removeHeight));
         },
 
         /**
@@ -504,6 +521,7 @@
             }.bind(this));
 
             this.options._grid.push('</div>');
+            this.options.widthTotal = widthTotal;
         },
 
         /**
@@ -543,7 +561,8 @@
                 widthTotal += width;
                 context.options._header.push(cellStr);
             });
-
+            context.options.widthTotal = widthTotal;
+            context._resize();
             context.element.find('.supergrid_header').html(this.options._header.join(''));
             context.options._header = [];
         },
@@ -669,6 +688,7 @@
             }.bind(this));
 
             this.options._grid.push('</tr></thead>');
+            context.options.widthTotal = widthTotal;
         },
 
         /**
