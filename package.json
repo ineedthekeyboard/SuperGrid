@@ -6,7 +6,7 @@
         "app": "app"
     },
     "description": "jQuery Grid Plugin",
-    "author": "Tiger Team",
+    "author": "Supergrid Team",
     "license": "MIT",
     "devDependencies": {
         "gulp": "^3.9.1",
@@ -29,6 +29,10 @@
     },
     "keywords": [
         "grid",
+        "table",
+        "508",
+        "Aria",
+        "Accessibility",
         "lightweight",
         "jQuery",
         "Plugin"
