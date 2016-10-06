@@ -38,7 +38,13 @@
                 enabled: false,
                 removeHeight: 0
             },
-
+            /**
+             * @name SuperGrid_Options#colResize
+             * @description Enables Columns to be resizable or fixed.
+             * @type {boolean}
+             * @defaultvalue False
+             */
+            colResize: false,
             /**
              * @name SuperGrid_Options#colReorder
              * @description Defines if column reordering should be enabled.
@@ -129,10 +135,7 @@
                 resizing = false,
                 resizer;
 
-            this.element.find('.supergrid_body').off('scroll');
-            this.element.find('.supergrid_body').on('scroll', function (event) {
-                context.element.find('.supergrid_header').scrollLeft($(event.currentTarget).scrollLeft());
-            });
+            //Column Sorting Event
             this.element.off('click', '.supergrid_header .supergrid_cell[data-sortable="true"]');
             this.element.on('click', '.supergrid_header .supergrid_cell[data-sortable="true"]', function (e) {
                 var $elem = $(this),
@@ -167,25 +170,7 @@
                 });
                 context._renderGrid();
             });
-
-            this.element.off('mousedown', '.supergrids_header .resize-handle');
-            this.element.on('mousedown', '.supergrid_header .resize-handle', function (e) {
-                e.preventDefault();
-
-                resizer = this;
-                resizing = true;
-
-                context.element.find('.supergrid_header .supergrid_cell').css('transition', 'linear');
-                context.element.find('.supergrid_header').addClass('resizing');
-
-                $(document).mousemove(function (e) {
-                    $(resizer).css("left", e.pageX + 2);
-                    context.element.find('.supergrid_header .supergrid_cell[data-id="' + $(resizer)
-                            .data('id') + '"]')
-                        .css("width", e.pageX - $(resizer).data('diff'));
-                });
-
-            });
+            //Paging Events
             this.element.off('click', '.supergrid_footer button.left');
             this.element.on('click', '.supergrid_footer button.left', function () {
                 var button = $(this);
@@ -208,22 +193,39 @@
                 context.options.pagination.currentPage += 1;
                 context._renderGrid();
             });
-            $(document).mouseup(function (e) {
-                var colWidth, colId;
-                if (resizing) {
-                    $(document).unbind('mousemove');
-                    colWidth = e.pageX - $(resizer).data('diff');
-                    colId = $(resizer).data('id');
-                    context.element.find('.supergrid_body .supergrid_cell[data-id="' + colId + '"]')
-                        .css("width", colWidth);
-                    context.element.find('.supergrid_header .supergrid_cell').css('transition', '.2s ease-in');
-                    context._updateHeader(colId, colWidth);
-                    context.element.find('.supergrid_header').removeClass('resizing');
+            //Column Resizeable
+            if (this.options.colResize) {
+                this.element.off('mousedown', '.supergrids_header .resize-handle');
+                this.element.on('mousedown', '.supergrid_header .resize-handle', function (e) {
+                    e.preventDefault();
+                    resizer = this;
+                    resizing = true;
+                    context.element.find('.supergrid_header .supergrid_cell').css('transition', 'linear');
+                    context.element.find('.supergrid_header').addClass('resizing');
+                    $(document).mousemove(function (e) {
+                        $(resizer).css("left", e.pageX + 2);
+                        context.element.find('.supergrid_header .supergrid_cell[data-id="' + $(resizer)
+                                .data('id') + '"]')
+                            .css("width", e.pageX - $(resizer).data('diff'));
+                    });
+                });
+                $(document).mouseup(function (e) {
+                    var colWidth, colId;
+                    if (resizing) {
+                        $(document).unbind('mousemove');
+                        colWidth = e.pageX - $(resizer).data('diff');
+                        colId = $(resizer).data('id');
+                        context.element.find('.supergrid_body .supergrid_cell[data-id="' + colId + '"]')
+                            .css("width", colWidth);
+                        context.element.find('.supergrid_header .supergrid_cell').css('transition', '.2s ease-in');
+                        context._updateHeader(colId, colWidth);
+                        context.element.find('.supergrid_header').removeClass('resizing');
+                        $(resizer).css('left', 'auto');
+                        resizing = false;
+                    }
+                });
+            }
 
-                    $(resizer).css('left', 'auto');
-                    resizing = false;
-                }
-            });
         },
 
         /**
@@ -237,7 +239,6 @@
          * @fires SuperGrid#supergrid-rendered
          */
         _renderGrid: function () {
-            var gridWidthAfterRender = 0;
             //Pre-sort & Pre-page
             this._sortData();
             this._pagination();
@@ -251,7 +252,6 @@
             this._updatePages(this.options.pagination.currentPage);
             this._addMetaData();
             if (this.options.colReorder) {
-
                 this.element.find('.supergrid_header').sortable({
                     axis: 'x',
                     containment: 'parent',
@@ -282,9 +282,9 @@
                         this.updateGrid(null, newConfig);
                     }.bind(this)
                 }).disableSelection();
-
             }
             //run height calc for body if fixedHeader is enabled
+            //Note: this needs the parent elem to have a height to work correclty
             if (this.options.fixedHeader.enabled) {
                 this._renderfixedHeader();
             }
@@ -497,7 +497,8 @@
          * @description Build grid markup for header based on fixed option
          */
         _buildHeader: function () {
-            var widthTotal = 0;
+            var widthTotal = 0,
+                context = this;
             this.options._grid.push('<div class="supergrid_header">');
 
             $.each(this.options.columns, function (i, col) {
@@ -521,7 +522,9 @@
                 }
                 cellStr += '</div>';
                 cellStr += '</div>';
-                cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+                if (context.options.colResize) {
+                    cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+                }
                 widthTotal += width;
                 this.options._grid.push(cellStr);
             }.bind(this));
@@ -563,7 +566,9 @@
                 }
                 cellStr += '</div>';
                 cellStr += '</div>';
-                cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+                if (context.options.colResize) {
+                    cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
+                }
                 widthTotal += width;
                 context.options._header.push(cellStr);
             });
@@ -688,7 +693,6 @@
                 }
                 cellStr += '</div>';
                 cellStr += '</th>';
-                //cellStr += '<div class="resize-handle" data-id="' + id + '"data-diff="' + widthTotal + '"></div>';
                 widthTotal += width;
                 this.options._grid.push(cellStr);
             }.bind(this));

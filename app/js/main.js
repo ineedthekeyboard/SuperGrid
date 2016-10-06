@@ -80,6 +80,7 @@ function bindListeners() {
             data: window.data[0] || [],
             paginate: !(option === 'paginate'),
             colReorder: (option === 'reorder'),
+            colResize: false, //setting this to default just so if we want to we can toggle it here
             fixedHeader: {enabled: (option === 'fixedHeader'), removeHeight: 20},//the extra removed is for scroll bar and padding size.
             accessibility: false //if enabled it will disable paging and col resize automatically.
         });
