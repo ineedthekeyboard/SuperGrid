@@ -1,0 +1,87 @@
+$ => $(document).foundation()
+
+var config = [{
+  "name": "ID",
+  "id": "id",
+  "width": 200,
+  "sortable": true,
+  "cellClass": "stretch"
+}, {
+  "name": "Time Of Retrieval",
+  "id": "timeStamp",
+  "sortable": true,
+  "width": 160,
+  "cellClass": "stretch"
+}, {
+  "name": "Unit",
+  "id": "aarpNumber",
+  "sortable": true,
+  "width": 150,
+  "cellClass": "stretch"
+}, {
+  "name": "Code",
+  "id": "docCode",
+  "sortable": true,
+  "width": 100,
+  "cellClass": "stretch"
+}, {
+  "name": "Serial",
+  "id": "codedSerial",
+  "sortable": true,
+  "width": 150,
+  "cellClass": "stretch"
+}, {
+  "name": "Type",
+  "id": "title",
+  "sortable": true,
+  "width": 200,
+  "cellClass": "stretch"
+}];
+var data = [{
+  "id": "824156",
+  "timeStamp": 1460722981315,
+  "aarpNumber": 1596,
+  "docCode": "aqel",
+  "codedSerial": 4228,
+  "title": "Holy Cow Distribution"
+}, {
+  "id": "746119",
+  "timeStamp": 1414749382432,
+  "aarpNumber": 1410,
+  "docCode": "n5rj",
+  "codedSerial": 2003,
+  "title": "Caffinated Dogs"
+}, {
+  "id": "824748",
+  "timeStamp": 1364136101901,
+  "aarpNumber": 1871,
+  "docCode": "rkz8",
+  "codedSerial": 7610,
+  "title": "Glitchy Gas"
+}, {
+  "id": "150482",
+  "timeStamp": 1417639861339,
+  "aarpNumber": 1176,
+  "docCode": "rp0u",
+  "codedSerial": 2460,
+  "title": "Razor Accelerated Death"
+}];
+
+$('.grid-container').SuperGrid({
+  columns: config,
+  data: data
+});
+
+//on resize event check size
+//$(window).resize(() => navCalc());
+function navCalc() {
+  var $mobileBar = $('.mobileBar'),
+    $nonMobileBar = $('.nonMobileBar');
+  if ($(window).width() < 800) {
+    $mobileBar.fadeIn();
+    $nonMobileBar.fadeOut();
+  } else {
+    $mobileBar.fadeOut();
+    $nonMobileBar.fadeIn();
+  }
+}

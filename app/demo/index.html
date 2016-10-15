@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Supertech's SuperGrid</title>
@@ -7,44 +8,86 @@
 
     <link rel="stylesheet" href="css/normalize.css">
 
-    <link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/foundation/6.2.3/foundation.min.css'>
-    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Lato:300,400,700'>
-    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-
+    <link rel='stylesheet prefetch' href='http://cdn.jsdelivr.net/foundation/6.2.3/foundation.min.css'>
+    <link rel='stylesheet prefetch' href='http://www.shadesofdepth.com/js/supergrid/dist/supergrid.css'>
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Lato:300,400,700'>
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/icon?family=Material+Icons'>
     <link rel="stylesheet" href="css/style.css">
-
-
 </head>
 
 <body>
 
-<div class="row">
-    <div class="small-10 small-centered columns text-center">
-        <h1>
-            <i class="material-icons md-48"></i>
-            <span>SuperGrid</span>
-        </h1>
+    <div class="mobileBar open" style="display:none;">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="item">
+            <i class="material-icons">assessment</i>
+            <span>Basic Grid</span>
+        </div>
+        <div class="item">
+            <i class="material-icons">aspect_ratio</i>
+            <span>Auto Sizing</span>
+        </div>
+        <div class="item">
+            <i class="material-icons">code</i>
+            <span>Code</span>
+        </div>
+        <div class="item">
+            <i class="material-icons">copyright</i>
+            <span>About Us</span>
+        </div>
+        <div class="item">
+            <i class="material-icons">credit_card</i>
+            <span>Donate</span>
+        </div>
+        <!--   <i class="material-icons">home</i> Home
+<i class="material-icons">assessment</i> Basic Grid
+<i class="material-icons">aspect_ratio</i> Auto Sizing
+<i class="material-icons">settings</i> Advanced -->
     </div>
-</div>
-<div class="row">
-    <div class="columns small-centered small-10" style="text-align:center;">
-        <button class="button headerBtn">Default Settings</button>
-        <button class="button headerBtn">Virutal Scrolling</button>
-        <button class="button headerBtn">Advanced Settings</button>
+    <div class="row">
+        <div class="small-10 small-centered columns text-center">
+            <h1>
+      <i class="material-icons md-48"></i>
+      <span>SuperGrid</span>
+    </h1>
+        </div>
     </div>
-</div>
-<div class="row expanded">
-    <div class="small-12 columns">
+    <div class="row nonMobileBar">
+        <div class="columns small-centered small-10" style="text-align:center;">
+                <button class="button headerBtn active" buttonType="default">Default</button>
+                <button class="button headerBtn" buttonType="minimal">Minimal</button>
+                <button class="button headerBtn" buttonType="advanced">Advanced</button>
+                <button class="button headerBtn" buttonType="access">Accessibility</button>
+        </div>
     </div>
-</div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdn.jsdelivr.net/foundation/6.2.3/foundation.min.js'></script>
-<script>
-    "use strict";
-    (function ($) {
-        return $(document).foundation();
-    })();
-</script>
+    <div class="row expanded">
+        <div class="small-12 large-6 columns">
+            <div class="grid-container"></div>
+        </div>
+        <div class="small-12 large-6 columns">
+            <div class="card">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
+    <script src='http://www.shadesofdepth.com/js/supergrid/dist/supergrid.js'></script> -->
+
+
+    <script src='bower_components/supergrid/supergrid.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+
+
 </body>
+
 </html>

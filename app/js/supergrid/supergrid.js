@@ -726,7 +726,7 @@
                     var cellClass = col.cellClass || '';
                     row += '<td style="width:' + col.width + 'px;" class="supergrid_cell ' + cellClass + '" tabIndex="0"' +
                         'data-id="' + col.id + '">';
-                    row += '<div>';
+                    row += '<div>';//todo aria label for content
                     row += buildCell(dataSet, col);
                     row += '</div>';
                     row += '</td>';
