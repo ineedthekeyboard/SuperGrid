@@ -1,12 +1,15 @@
 /*! HTML5 Boilerplate v5.3.0 | MIT License | https://html5boilerplate.com/ */
+
 /*
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
  * Kroc Camen, and the H5BP dev community and team.
  */
+
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
+
 html {
     color: #222;
     font-size: 1em;
@@ -20,6 +23,7 @@ html {
  * These selection rule sets have to be separate.
  * Customize the background color to match your design.
  */
+
 ::-moz-selection {
     background: #b3d4fc;
     text-shadow: none;
@@ -33,6 +37,7 @@ html {
 /*
  * A better looking default horizontal rule
  */
+
 hr {
     display: block;
     height: 1px;
@@ -47,6 +52,7 @@ hr {
  * images, videos and the bottom of their containers:
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
+
 audio, canvas, iframe, img, svg, video {
     vertical-align: middle;
 }
@@ -54,6 +60,7 @@ audio, canvas, iframe, img, svg, video {
 /*
  * Remove default fieldset styles.
  */
+
 fieldset {
     border: 0;
     margin: 0;
@@ -63,6 +70,7 @@ fieldset {
 /*
  * Allow only vertical resizing of textareas.
  */
+
 textarea {
     resize: vertical;
 }
@@ -70,6 +78,7 @@ textarea {
 /* ==========================================================================
    Browser Upgrade Prompt
    ========================================================================== */
+
 .browserupgrade {
     margin: 0.2em 0;
     background: #ccc;
@@ -80,6 +89,7 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+
 body {
     overflow: hidden;
     margin-left: 0;
@@ -118,7 +128,7 @@ body {
 }
 
 .application .menu a.item.active {
-    background-color: #7e7ec1;
+    background-color: rgba(126, 126, 193, 1);
     color: white;
 }
 
@@ -148,8 +158,7 @@ body {
 .application .grid {
     border: 2px solid black;
     overflow: auto;
-    height: calc(100vh - 57px);
-    /*This is to remove the tab bar from the height*/
+    height: calc(100vh - 57px); /*This is to remove the tab bar from the height*/
 }
 
 .application .grid.fixedSize {
@@ -172,9 +181,11 @@ body {
 /* ==========================================================================
    Helper classes
    ========================================================================== */
+
 /*
  * Hide visually and from screen readers
  */
+
 .hidden {
     display: none !important;
 }
@@ -183,6 +194,7 @@ body {
  * Hide only visually, but have it available for screen readers:
  * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  */
+
 .visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);
@@ -199,6 +211,7 @@ body {
  * to be focusable when navigated to via the keyboard:
  * https://www.drupal.org/node/897638
  */
+
 .visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
     clip: auto;
     height: auto;
@@ -211,6 +224,7 @@ body {
 /*
  * Hide visually and from screen readers, but maintain layout
  */
+
 .invisible {
     visibility: hidden;
 }
@@ -226,6 +240,7 @@ body {
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
  */
+
 .clearfix:before, .clearfix:after {
     content: " ";
     /* 1 */
@@ -242,6 +257,7 @@ body {
    These examples override the primary ('mobile first') styles.
    Modify as content requires.
    ========================================================================== */
+
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
 }
@@ -255,12 +271,13 @@ body {
    Inlined to avoid the additional HTTP request:
    http://www.phpied.com/delay-loading-your-print-css/
    ========================================================================== */
+
 @media print {
     *, *:before, *:after, *:first-letter, *:first-line {
         background: transparent !important;
         color: #000 !important;
         /* Black prints faster:
-                                       http://www.sanbeiji.com/archives/953 */
+                                   http://www.sanbeiji.com/archives/953 */
         box-shadow: none !important;
         text-shadow: none !important;
     }
@@ -278,9 +295,9 @@ body {
     }
 
     /*
-       * Don't show links that are fragment identifiers,
-       * or use the `javascript:` pseudo protocol
-       */
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
     a[href^="#"]:after, a[href^="javascript:"]:after {
         content: "";
     }
@@ -291,9 +308,9 @@ body {
     }
 
     /*
-       * Printing Tables:
-       * http://css-discuss.incutio.com/wiki/Printing_Tables
-       */
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
     thead {
         display: table-header-group;
     }

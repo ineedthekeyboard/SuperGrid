@@ -1,8 +1,4 @@
 /*****- SuperGrid CSS -*****/
-.supergrid {
-
-}
-
 .supergrid .supergrid_row {
     white-space: nowrap;
     border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
@@ -21,7 +17,7 @@
 /*****- SuperGrid Header CSS -*****/
 .supergrid .supergrid_header {
     /*background: rgba(87, 126, 193, 1);*/
-    background: rgba(126, 126, 193, .8);
+    background: rgba(126, 126, 193, 0.8);
     /*color: #f6f3f7;*/
     color: #ffffff;
     font-size: 13pt;
@@ -30,9 +26,11 @@
 }
 
 .supergrid .supergrid_header::-webkit-scrollbar {
-    width: 0px; /* remove scrollbar space */
+    width: 0px;
+    /* remove scrollbar space */
     height: 0px;
-    background: transparent; /* optional: just make scrollbar invisible */
+    background: transparent;
+    /* optional: just make scrollbar invisible */
 }
 
 .supergrid .supergrid_header .resize-handle {
@@ -64,8 +62,8 @@
     vertical-align: middle;
     line-height: 35px;
     height: 100%;
-
 }
+
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle > div {
     line-height: 35px;
     /*background: red;*/
@@ -73,13 +71,13 @@
 
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
     transition: 0s ease-in;
-    background: rgba(126, 126, 193, 1);
+    background: #7e7ec1;
     cursor: pointer;
     color: white;
 }
 
 .supergrid .supergrid_header .supergrid_cell:hover {
-    background: rgba(126, 126, 193, 1);
+    background: #7e7ec1;
     cursor: pointer;
     color: white;
 }
@@ -117,7 +115,7 @@
 }
 
 .supergrid .supergrid_body .supergrid_row:nth-child(even) {
-    background-color: rgba(126, 126, 193, .2);
+    background-color: rgba(126, 126, 193, 0.2);
 }
 
 .supergrid .supergrid_footer {
@@ -126,7 +124,7 @@
 
 .supergrid .supergrid_body .supergrid_row:nth-child(odd):hover,
 .supergrid .supergrid_body .supergrid_row:nth-child(even):hover {
-    background: rgba(126, 126, 193, .5);
+    background: rgba(126, 126, 193, 0.5);
 }
 
 /* Custom Scrollbar */
@@ -148,7 +146,6 @@
 }
 
 /*Paging CSS*/
-
 .supergrid .supergrid_footer .pager > * {
     display: inline-block;
 }
@@ -271,7 +268,6 @@
 
 .supergrid .paginate.right[data-state=disabled]:hover i:first-child {
     transform: translate(5px, 0) rotate(0deg);
-
 }
 
 .supergrid .paginate.right[data-state=disabled]:hover i:last-child {

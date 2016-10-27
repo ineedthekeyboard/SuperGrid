@@ -1,10 +1,12 @@
 //noinspection JSUnresolvedFunction
 var gulp = require('gulp');
 var webserver = require('gulp-webserver');
+var liveserver = require('gulp-server-livereload');
 var jsdoc = require('gulp-jsdoc3');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var cssmin = require('gulp-cssmin');
+var sass = require('gulp-sass');
 //************************
 // gulp serve - build docs then serve
 // gulp build - build all files for distribution
@@ -12,21 +14,39 @@ var cssmin = require('gulp-cssmin');
 // gulp commit - refreshes all docs and build files for commit - Alias for build
 //************************
 
-//Commit Task
-gulp.task('commit', ['build']);
+gulp.task('default', ['build']);
+gulp.task('docs', ['buildDocs', 'buildDemo']);
+gulp.task('build', ['sass', 'docs', 'buildstd', 'buildFullDist', 'docs']);
 
 //Serve Tasks
-gulp.task('serve', ['docs'], function () {
+gulp.task('serve', ['sass', 'watch'], function () {
     gulp.src('app')
-        .pipe(webserver({
+        .pipe(liveserver({
+            livereload: {
+                enable: true,
+                filter: function (filename, cb) {
+                    cb(!/\.(sa|le)ss$|node_modules/.test(filename));
+                }
+            },
+            directoryListing: false,
             fallback: 'index.html',
-            port: 8080
+            open: true
         }));
     gulp.src('docs')
         .pipe(webserver({
             fallback: 'index.html',
             port: 8081
         }));
+});
+
+gulp.task('watch', function () {
+    gulp.watch('./app/sass/**/*.scss', ['sass']);
+});
+
+gulp.task('sass', function () {
+    return gulp.src('./app/sass/**/*.scss')
+               .pipe(sass().on('error', sass.logError))
+               .pipe(gulp.dest('./app/css'));
 });
 
 //************************
@@ -48,7 +68,7 @@ gulp.task('buildDemo', function () {
     return gulp.src('app/demo/**/*', {base: './app'})
                .pipe(gulp.dest('docs'));
 });
-gulp.task('docs', ['buildDocs', 'buildDemo']);
+
 //************************
 //Build Distribution Task
 var rawCss = [
@@ -115,4 +135,4 @@ gulp.task('buildstd', ['buildCSS', 'buildSample'], function () {
                .pipe(concat('supergrid.min.js'))
                .pipe(gulp.dest('dist'));
 });
-gulp.task('build', ['buildstd', 'buildFullDist', 'docs']);
+
