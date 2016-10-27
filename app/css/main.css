@@ -83,43 +83,65 @@ textarea {
 body {
     overflow: hidden;
     margin-left: 0;
+    font-size: 1em;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
 }
 
-/* Menu */
-.application .menu {
-    cursor: pointer;
-    margin: 3px auto;
-    width: 560px;
-    padding-left: 5px;
-}
-
-.application .menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 10rem;
-    display: inline;
-}
-
-.application .menu li {
-    display: inline;
-}
-
-.application .menu a.item {
-    display: inline-block;
-    color: #000;
-    font-size: 1.1rem;
-    padding: 10px;
-    text-decoration: none;
-}
-
-.application .menu a.item:hover {
-    background: #ececec;
-}
-
-.application .menu a.item.active {
+.application .sidebar {
     background-color: #7e7ec1;
     color: white;
+    overflow: auto;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    min-height: 400px;
+    height: 100%;
+    transition: .5s all;
+}
+
+.application .sidebar.open {
+    width: 230px;
+    box-shadow: inset -5px -5px 5px #888;
+}
+
+.application .sidebar.open i.material-icons {
+    padding: 0 5px 0 5px;
+    font-size: 3rem;
+}
+
+.application .sidebar .item {
+    height: 25px;
+    display: block;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.application .sidebar .item:hover span {
+    font-weight: 700;
+    padding-left: 1rem;
+}
+
+.application .sidebar .item.active {
+    background-color: #d4d4ea;
+}
+
+.application .sidebar .item.active span {
+    color: #15152b;
+    padding-left: 1rem;
+    font-weight: 700;
+}
+
+.application .sidebar .item span {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 25px;
+    transition: .6s all;
 }
 
 .application .title {
@@ -146,15 +168,16 @@ body {
 }
 
 .application .grid {
-    border: 2px solid black;
     overflow: auto;
+    margin-top: 25px;
+    margin-left: 275px;
     height: calc(100vh - 57px);
     /*This is to remove the tab bar from the height*/
 }
 
 .application .grid.fixedSize {
     margin: 0 auto;
-    width: 500px;
+    width: 800px;
     height: 500px;
 }
 

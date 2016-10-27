@@ -1,0 +1,301 @@
+/*****- SuperGrid Body CSS -*****/
+body {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/*****- SuperGrid CSS -*****/
+.supergrid {
+    .supergrid_row {
+        white-space: nowrap;
+        border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
+        transition: .2s ease-in;
+    }
+
+    .supergrid_cell {
+        display: inline-block;
+        text-overflow: ellipsis;
+        box-sizing: border-box;
+        white-space: nowrap;
+        padding: 5px;
+        transition: .2s ease-in;
+    }
+
+    /*****- SuperGrid Header CSS -*****/
+    .supergrid_header {
+        /*background: rgba(87, 126, 193, 1);*/
+        background: rgba(126, 126, 193, .8);
+        /*color: #f6f3f7;*/
+        color: #ffffff;
+        font-size: 13pt;
+        border: 0px solid;
+        white-space: nowrap;
+
+        &::-webkit-scrollbar {
+            width: 0px; /* remove scrollbar space */
+            height: 0px;
+            background: transparent; /* optional: just make scrollbar invisible */
+        }
+
+        .resize-handle {
+            display: inline-block;
+            height: 44px;
+            width: 4px;
+            padding: 0;
+            position: absolute;
+            z-index: 99;
+        }
+
+        &.resizing .resize-handle,
+        &:hover .resize-handle {
+            background: rgba(0, 0, 0, 0.33);
+            cursor: col-resize;
+        }
+
+        .supergrid_cell {
+            white-space: nowrap;
+            position: relative;
+            vertical-align: middle;
+            line-height: 35px;
+            height: 100%;
+
+        }
+
+        //.supergrid_cell.ui-sortable-handle > div {
+        //    line-height: 35px;
+        //    height:inherit;
+        //    background: green;
+        //}
+        &.ui-sortable .ui-sortable-placeholder {
+            height: 45px !important;
+            background: red;
+        }
+
+        .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
+            transition: none;
+            height: 45px !important;
+            //background: yellow;
+            cursor: pointer;
+            color: white;
+        }
+
+        .supergrid_cell:hover {
+            background: rgba(126, 126, 193, 1);
+            cursor: pointer;
+            color: white;
+        }
+
+        .supergrid_cell[data-sort] {
+            color: #f6f3f7;
+            background: rgba(126, 126, 193, 0.9);
+        }
+
+        .supergrid_cell[data-sortable="true"][data-sort] .sort-icon {
+            display: inline-block;
+            background-image: url(../img/hicons.png);
+            background-position: 359px -2px;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            right: 5px;
+            top: 10px;
+            transform: rotate(90deg);
+            filter: invert(100%);
+        }
+
+        .supergrid_cell[data-sortable="true"][data-sort="desc"] .sort-icon {
+            transform: rotate(-90deg);
+        }
+    }
+
+    .supergrid_body {
+        .supergrid_row:nth-child(odd) {
+            background-color: white;
+        }
+
+        .supergrid_row:nth-child(even) {
+            background-color: rgba(126, 126, 193, .2);
+        }
+        .supergrid_row:nth-child(odd):hover,
+        .supergrid_row:nth-child(even):hover {
+            background: rgba(126, 126, 193, .5);
+        }
+
+        /* Custom Scrollbar */
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(87, 126, 193, 0.3);
+            border-radius: 0;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .supergrid_footer {
+        height: 36px;
+        .counter {
+            vertical-align: text-bottom;
+            line-height: 30px;
+            font-size: 15px;
+            margin: 0 5px;
+            font-family: Helvetica, sans-serif;
+            text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
+            color: black;
+        }
+        .pager > * {
+            display: inline-block;
+        }
+
+        button {
+            -webkit-appearance: none;
+            background: transparent;
+            border: 0;
+            outline: 0;
+        }
+        .pager {
+            margin: 0 auto;
+            padding: 2px 0;
+            text-align: center;
+            display: block;
+
+            .paginate {
+                position: relative;
+                margin: 0px;
+                height: 30px;
+                cursor: pointer;
+                transform: translate3d(0, 0, 0);
+                filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.2));
+
+                i {
+                    position: absolute;
+                    left: 0;
+                    width: 15px;
+                    height: 5px;
+                    border-radius: 2.5px;
+                    background: black;
+                    transition: all 0.15s ease;
+                }
+
+                &[data-state=disabled] {
+                    opacity: 0.3;
+                    cursor: default;
+                }
+
+                &.left {
+                    i {
+                        transform-origin: 0% 50%;
+                        &:first-child {
+                            transform: translate(0, -1px) rotate(40deg);
+                        }
+
+                        &:last-child {
+                            transform: translate(0, 1px) rotate(-40deg);
+                        }
+                    }
+                    &:hover {
+                        i {
+                            &:first-child {
+                                transform: translate(0, -1px) rotate(30deg);
+                            }
+
+                            &:last-child {
+                                transform: translate(0, 1px) rotate(-30deg);
+                            }
+                        }
+                    }
+                    &:active {
+                        i {
+                            &:first-child {
+                                transform: translate(1px, -1px) rotate(25deg);
+                            }
+
+                            &:last-child {
+                                transform: translate(1px, 1px) rotate(-25deg);
+                            }
+                        }
+                    }
+                    &[data-state=disabled] {
+                        i {
+                            &:first-child {
+                                transform: translate(-5px, 0) rotate(0deg);
+                            }
+
+                            &:last-child {
+                                transform: translate(-5px, 0) rotate(0deg);
+                            }
+                        }
+                        &:hover {
+                            i {
+                                &:first-child {
+                                    transform: translate(-5px, 0) rotate(0deg);
+                                }
+
+                                &:last-child {
+                                    transform: translate(-5px, 0) rotate(0deg);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.right {
+                    i {
+                        transform-origin: 100% 50%;
+                        &:first-child {
+                            transform: translate(0, 1px) rotate(40deg);
+                        }
+                        &:last-child {
+                            transform: translate(0, -1px) rotate(-40deg);
+                        }
+                    }
+                    &:hover {
+                        i {
+                            &:first-child {
+                                transform: translate(0, 1px) rotate(30deg);
+                            }
+                            &:last-child {
+                                transform: translate(0, -1px) rotate(-30deg);
+                            }
+                        }
+                    }
+                    &:active {
+                        i {
+                            &:first-child {
+                                transform: translate(1px, 1px) rotate(25deg);
+                            }
+                            &:last-child {
+                                transform: translate(1px, -1px) rotate(-25deg);
+                            }
+                        }
+                    }
+                    &[data-state=disabled] {
+                        i {
+                            &:first-child {
+                                transform: translate(5px, 0) rotate(0deg);
+                            }
+                            &:last-child {
+                                transform: translate(5px, 0) rotate(0deg);
+                            }
+                        }
+                        &:hover {
+                            i {
+                                &:first-child {
+                                    transform: translate(5px, 0) rotate(0deg);
+                                }
+                                &:last-child {
+                                    transform: translate(5px, 0) rotate(0deg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

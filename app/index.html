@@ -10,6 +10,8 @@
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
+
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Lato:300,400,700'>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/supergrid.css">
     <link rel="stylesheet" href="css/main.css">
@@ -23,13 +25,31 @@
 
 <!-- Add your site or application content here -->
 <div class="application">
-    <div class="menu">
-        <ul>
-            <li><a class="item active" data-id="default">Default</a></li>
-            <li><a class="item" data-id="paginate">No Paging</a></li>
-            <li><a class="item" data-id="reorder">Column Ordering</a></li>
-            <li><a class="item" data-id="fixedHeader">Fix Header/Auto Height</a></li>
-        </ul>
+    <div class="sidebar">
+        <div class="item active" data-id="default">
+            <span>Basic Grid</span>
+        </div>
+        <div class="item" data-id="default">
+            <span>Accessibility Grid</span>
+        </div>
+        <div class="item" data-id="paginate">
+            <span>No Paging</span>
+        </div>
+        <div class="item" data-id="reorder">
+            <span>Column Ordering</span>
+        </div>
+        <div class="item" data-id="fixedHeader">
+            <span>Fixed Header&Footer</span>
+        </div>
+        <div class="item" data-id="formatter">
+            <span>Formatters</span>
+        </div>
+        <div class="item" data-id="cgroup">
+            <span>Col Grouping</span>
+        </div>
+        <div class="item" data-id="idgroup">
+            <span>ID Grouping</span>
+        </div>
     </div>
     <div class="grid"></div>
 </div>

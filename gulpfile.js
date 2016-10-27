@@ -40,13 +40,19 @@ gulp.task('serve', ['sass', 'watch'], function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./app/sass/**/*.scss', ['sass']);
+    gulp.watch('./app/scss/**/*.scss', ['sass']);
+    gulp.watch('./app/demo/scss/**/*.scss', ['sass:demo']);
 });
 
 gulp.task('sass', function () {
-    return gulp.src('./app/sass/**/*.scss')
+    return gulp.src('./app/scss/**/*.scss')
                .pipe(sass().on('error', sass.logError))
                .pipe(gulp.dest('./app/css'));
+});
+gulp.task('sass:demo', function () {
+    return gulp.src('./app/demo/scss/**/*.scss')
+               .pipe(sass().on('error', sass.logError))
+               .pipe(gulp.dest('./app/demo/css'));
 });
 
 //************************

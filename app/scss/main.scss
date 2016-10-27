@@ -90,82 +90,109 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+$buttonHeight: 25px;
+$sidebarWidth: 250px;
+$themeBaseColor: rgba(126, 126, 193, 1);
+
 body {
     overflow: hidden;
     margin-left: 0;
+    font-size: 1em;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
 }
 
-/* Menu */
-.application .menu {
-    cursor: pointer;
-    margin: 3px auto;
-    width: 560px;
-    padding-left: 5px;
+.application {
+    .sidebar {
+        background-color: $themeBaseColor;
+        color: lighten($themeBaseColor, 60%);
+        overflow: auto;
+        white-space: nowrap;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: $sidebarWidth;
+        min-height: 400px;
+        height: 100%;
+        transition: .5s all;
+        &.open {
+            width: 230px;
+            box-shadow: inset -5px -5px 5px #888;
+            i.material-icons {
+                padding: 0 5px 0 5px;
+                font-size: 3rem;
+            }
+        }
+        .item {
+            height: $buttonHeight;
+            display: block;
+            padding: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            font-weight: 300;
+            letter-spacing: 2px;
+
+            &:hover {
+                span {
+                    font-weight: 700;
+                    padding-left: 1rem;
+                }
+            }
+            &.active {
+                background-color: lighten($themeBaseColor, 25%);
+                span {
+                    color: darken($themeBaseColor, 50%);
+                    padding-left: 1rem;
+                    font-weight: 700;
+                }
+            }
+            span {
+                display: inline-block;
+                vertical-align: top;
+                line-height: $buttonHeight;
+                transition: .6s all;
+            }
+        }
+    }
+    .title {
+        text-align: center;
+    }
+
+    .card-container {
+        width: 500px;
+        height: 500px;
+        margin: 0 auto;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+
+        &:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .container {
+        padding: 2px 16px;
+    }
+
+    .grid {
+        //border: 2px solid black;
+        overflow: auto;
+        margin-top: 25px;
+        margin-left: $sidebarWidth + 25px;
+        height: calc(100vh - 57px); /*This is to remove the tab bar from the height*/
+
+        &.fixedSize {
+            margin: 0 auto;
+            width: 800px;
+            height: 500px;
+        }
+    }
 }
 
-.application .menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 10rem;
-    display: inline;
-}
 
-.application .menu li {
-    display: inline;
-}
-
-.application .menu a.item {
-    display: inline-block;
-    color: #000;
-    font-size: 1.1rem;
-    padding: 10px;
-    text-decoration: none;
-}
-
-.application .menu a.item:hover {
-    background: #ececec;
-}
-
-.application .menu a.item.active {
-    background-color: rgba(126, 126, 193, 1);
-    color: white;
-}
-
-.application .title {
-    text-align: center;
-}
-
-.application .card-container {
-    width: 500px;
-    height: 500px;
-    margin: 0 auto;
-}
-
-.application .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-}
-
-.application .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-
-.application .container {
-    padding: 2px 16px;
-}
-
-.application .grid {
-    border: 2px solid black;
-    overflow: auto;
-    height: calc(100vh - 57px); /*This is to remove the tab bar from the height*/
-}
-
-.application .grid.fixedSize {
-    margin: 0 auto;
-    width: 500px;
-    height: 500px;
-}
 
 @media screen and (min-width: 620px) {
     aside {

@@ -1,4 +1,8 @@
 /*****- SuperGrid CSS -*****/
+.supergrid {
+    /*****- SuperGrid Header CSS -*****/
+}
+
 .supergrid .supergrid_row {
     white-space: nowrap;
     border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
@@ -14,7 +18,6 @@
     transition: .2s ease-in;
 }
 
-/*****- SuperGrid Header CSS -*****/
 .supergrid .supergrid_header {
     /*background: rgba(87, 126, 193, 1);*/
     background: rgba(126, 126, 193, 0.8);
@@ -51,27 +54,19 @@
 .supergrid .supergrid_header .supergrid_cell {
     white-space: nowrap;
     position: relative;
-    vertical-align: -webkit-baseline-middle;
-    line-height: 35px;
-    height: 100%;
-}
-
-.supergrid .supergrid_header .supergrid_cell {
-    white-space: nowrap;
-    position: relative;
     vertical-align: middle;
     line-height: 35px;
     height: 100%;
 }
 
-.supergrid .supergrid_header .supergrid_cell.ui-sortable-handle > div {
-    line-height: 35px;
-    /*background: red;*/
+.supergrid .supergrid_header.ui-sortable .ui-sortable-placeholder {
+    height: 45px !important;
+    background: red;
 }
 
 .supergrid .supergrid_header .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
-    transition: 0s ease-in;
-    background: #7e7ec1;
+    transition: none;
+    height: 45px !important;
     cursor: pointer;
     color: white;
 }
@@ -104,10 +99,8 @@
     transform: rotate(-90deg);
 }
 
-/*****- SuperGrid Body CSS -*****/
-.supergrid_body {
-    overflow-y: auto;
-    overflow-x: hidden;
+.supergrid .supergrid_body {
+    /* Custom Scrollbar */
 }
 
 .supergrid .supergrid_body .supergrid_row:nth-child(odd) {
@@ -118,34 +111,39 @@
     background-color: rgba(126, 126, 193, 0.2);
 }
 
-.supergrid .supergrid_footer {
-    height: 36px;
-}
-
 .supergrid .supergrid_body .supergrid_row:nth-child(odd):hover,
 .supergrid .supergrid_body .supergrid_row:nth-child(even):hover {
     background: rgba(126, 126, 193, 0.5);
 }
 
-/* Custom Scrollbar */
-.supergrid_body::-webkit-scrollbar,
-.supergrid-body::-webkit-scrollbar {
+.supergrid .supergrid_body::-webkit-scrollbar {
     width: 10px;
 }
 
-.supergrid_body::-webkit-scrollbar-track,
-.supergrid-body::-webkit-scrollbar-track {
+.supergrid .supergrid_body::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(87, 126, 193, 0.3);
     border-radius: 0;
 }
 
-.supergrid_body::-webkit-scrollbar-thumb,
-.supergrid-body::-webkit-scrollbar-thumb {
+.supergrid .supergrid_body::-webkit-scrollbar-thumb {
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-/*Paging CSS*/
+.supergrid .supergrid_footer {
+    height: 36px;
+}
+
+.supergrid .supergrid_footer .counter {
+    vertical-align: text-bottom;
+    line-height: 30px;
+    font-size: 15px;
+    margin: 0 5px;
+    font-family: Helvetica, sans-serif;
+    text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
 .supergrid .supergrid_footer .pager > * {
     display: inline-block;
 }
@@ -157,17 +155,14 @@
     outline: 0;
 }
 
-/*.supergrid .paginate * {
-  display: inline-block;
-}*/
-.supergrid_footer .pager {
+.supergrid .supergrid_footer .pager {
     margin: 0 auto;
     padding: 2px 0;
     text-align: center;
     display: block;
 }
 
-.supergrid .paginate {
+.supergrid .supergrid_footer .pager .paginate {
     position: relative;
     margin: 0px;
     height: 30px;
@@ -176,7 +171,7 @@
     filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.2));
 }
 
-.supergrid .paginate i {
+.supergrid .supergrid_footer .pager .paginate i {
     position: absolute;
     left: 0;
     width: 15px;
@@ -186,105 +181,95 @@
     transition: all 0.15s ease;
 }
 
-.supergrid .paginate.left i {
-    transform-origin: 0% 50%;
-}
-
-.supergrid .paginate.left i:first-child {
-    transform: translate(0, -1px) rotate(40deg);
-}
-
-.supergrid .paginate.left i:last-child {
-    transform: translate(0, 1px) rotate(-40deg);
-}
-
-.supergrid .paginate.left:hover i:first-child {
-    transform: translate(0, -1px) rotate(30deg);
-}
-
-.supergrid .paginate.left:hover i:last-child {
-    transform: translate(0, 1px) rotate(-30deg);
-}
-
-.supergrid .paginate.left:active i:first-child {
-    transform: translate(1px, -1px) rotate(25deg);
-}
-
-.supergrid .paginate.left:active i:last-child {
-    transform: translate(1px, 1px) rotate(-25deg);
-}
-
-.supergrid .paginate.left[data-state=disabled] i:first-child {
-    transform: translate(-5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.left[data-state=disabled] i:last-child {
-    transform: translate(-5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.left[data-state=disabled]:hover i:first-child {
-    transform: translate(-5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.left[data-state=disabled]:hover i:last-child {
-    transform: translate(-5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.right i {
-    transform-origin: 100% 50%;
-}
-
-.supergrid .paginate.right i:first-child {
-    transform: translate(0, 1px) rotate(40deg);
-}
-
-.supergrid .paginate.right i:last-child {
-    transform: translate(0, -1px) rotate(-40deg);
-}
-
-.supergrid .paginate.right:hover i:first-child {
-    transform: translate(0, 1px) rotate(30deg);
-}
-
-.supergrid .paginate.right:hover i:last-child {
-    transform: translate(0, -1px) rotate(-30deg);
-}
-
-.supergrid .paginate.right:active i:first-child {
-    transform: translate(1px, 1px) rotate(25deg);
-}
-
-.supergrid .paginate.right:active i:last-child {
-    transform: translate(1px, -1px) rotate(-25deg);
-}
-
-.supergrid .paginate.right[data-state=disabled] i:first-child {
-    transform: translate(5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.right[data-state=disabled] i:last-child {
-    transform: translate(5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.right[data-state=disabled]:hover i:first-child {
-    transform: translate(5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate.right[data-state=disabled]:hover i:last-child {
-    transform: translate(5px, 0) rotate(0deg);
-}
-
-.supergrid .paginate[data-state=disabled] {
+.supergrid .supergrid_footer .pager .paginate[data-state=disabled] {
     opacity: 0.3;
     cursor: default;
 }
 
-.supergrid .supergrid_footer .counter {
-    vertical-align: text-bottom;
-    line-height: 30px;
-    font-size: 15px;
-    margin: 0 5px;
-    font-family: Helvetica, sans-serif;
-    text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
-    color: black;
+.supergrid .supergrid_footer .pager .paginate.left i {
+    transform-origin: 0% 50%;
+}
+
+.supergrid .supergrid_footer .pager .paginate.left i:first-child {
+    transform: translate(0, -1px) rotate(40deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left i:last-child {
+    transform: translate(0, 1px) rotate(-40deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left:hover i:first-child {
+    transform: translate(0, -1px) rotate(30deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left:hover i:last-child {
+    transform: translate(0, 1px) rotate(-30deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left:active i:first-child {
+    transform: translate(1px, -1px) rotate(25deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left:active i:last-child {
+    transform: translate(1px, 1px) rotate(-25deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left[data-state=disabled] i:first-child {
+    transform: translate(-5px, 0) rotate(0deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left[data-state=disabled] i:last-child {
+    transform: translate(-5px, 0) rotate(0deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left[data-state=disabled]:hover i:first-child {
+    transform: translate(-5px, 0) rotate(0deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.left[data-state=disabled]:hover i:last-child {
+    transform: translate(-5px, 0) rotate(0deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right i {
+    transform-origin: 100% 50%;
+}
+
+.supergrid .supergrid_footer .pager .paginate.right i:first-child {
+    transform: translate(0, 1px) rotate(40deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right i:last-child {
+    transform: translate(0, -1px) rotate(-40deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right:hover i:first-child {
+    transform: translate(0, 1px) rotate(30deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right:hover i:last-child {
+    transform: translate(0, -1px) rotate(-30deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right:active i:first-child {
+    transform: translate(1px, 1px) rotate(25deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right:active i:last-child {
+    transform: translate(1px, -1px) rotate(-25deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right[data-state=disabled] i:first-child {
+    transform: translate(5px, 0) rotate(0deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right[data-state=disabled] i:last-child {
+    transform: translate(5px, 0) rotate(0deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right[data-state=disabled]:hover i:first-child {
+    transform: translate(5px, 0) rotate(0deg);
+}
+
+.supergrid .supergrid_footer .pager .paginate.right[data-state=disabled]:hover i:last-child {
+    transform: translate(5px, 0) rotate(0deg);
 }
