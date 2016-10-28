@@ -10,7 +10,7 @@ var sass = require('gulp-sass');
 //************************
 // gulp serve - build docs then serve
 // gulp build - build all files for distribution
-// gulp docs - build all doc and demo files
+// gulp docs - build all doc and demo files..
 //************************
 
 gulp.task('default', ['build']);
