@@ -1,3 +1,6 @@
+//Vars:
+$themeBaseColor: rgba(126, 126, 193, 1);
+
 /*****- SuperGrid Body CSS -*****/
 body {
     overflow-y: auto;
@@ -23,10 +26,9 @@ body {
 
     /*****- SuperGrid Header CSS -*****/
     .supergrid_header {
-        /*background: rgba(87, 126, 193, 1);*/
-        background: rgba(126, 126, 193, .8);
-        /*color: #f6f3f7;*/
-        color: #ffffff;
+        //background: rgba(126, 126, 193, .8);
+        background: lighten($themeBaseColor, 10%);
+        color: darken($themeBaseColor, 50%);
         font-size: 13pt;
         border: 0px solid;
         white-space: nowrap;
@@ -61,11 +63,6 @@ body {
 
         }
 
-        //.supergrid_cell.ui-sortable-handle > div {
-        //    line-height: 35px;
-        //    height:inherit;
-        //    background: green;
-        //}
         &.ui-sortable .ui-sortable-placeholder {
             height: 45px !important;
             background: red;
@@ -74,20 +71,20 @@ body {
         .supergrid_cell.ui-sortable-handle.ui-sortable-helper {
             transition: none;
             height: 45px !important;
-            //background: yellow;
+            background: darken($themeBaseColor, 25%);
             cursor: pointer;
             color: white;
         }
 
         .supergrid_cell:hover {
-            background: rgba(126, 126, 193, 1);
+            background: $themeBaseColor;
             cursor: pointer;
             color: white;
         }
 
         .supergrid_cell[data-sort] {
-            color: #f6f3f7;
-            background: rgba(126, 126, 193, 0.9);
+            color: lighten($themeBaseColor, 50%);
+            background: darken($themeBaseColor, 20%);
         }
 
         .supergrid_cell[data-sortable="true"][data-sort] .sort-icon {
@@ -109,16 +106,20 @@ body {
     }
 
     .supergrid_body {
+        &.fixed {
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
         .supergrid_row:nth-child(odd) {
             background-color: white;
         }
 
         .supergrid_row:nth-child(even) {
-            background-color: rgba(126, 126, 193, .2);
+            background-color: lighten($themeBaseColor, 80%);
         }
         .supergrid_row:nth-child(odd):hover,
         .supergrid_row:nth-child(even):hover {
-            background: rgba(126, 126, 193, .5);
+            background: lighten($themeBaseColor, 50%);
         }
 
         /* Custom Scrollbar */

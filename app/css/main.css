@@ -8,10 +8,9 @@
    Base styles: opinionated defaults
    ========================================================================== */
 html {
-    color: #222;
-    font-size: 1em;
-    line-height: 1.4;
-}
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4; }
 
 /*
  * Remove text-shadow in selection highlight:
@@ -21,26 +20,23 @@ html {
  * Customize the background color to match your design.
  */
 ::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
+  background: #b3d4fc;
+  text-shadow: none; }
 
 ::selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
+  background: #b3d4fc;
+  text-shadow: none; }
 
 /*
  * A better looking default horizontal rule
  */
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0; }
 
 /*
  * Remove the gap between audio, canvas, iframes,
@@ -48,149 +44,116 @@ hr {
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
 audio, canvas, iframe, img, svg, video {
-    vertical-align: middle;
-}
+  vertical-align: middle; }
 
 /*
  * Remove default fieldset styles.
  */
 fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
+  border: 0;
+  margin: 0;
+  padding: 0; }
 
 /*
  * Allow only vertical resizing of textareas.
  */
 textarea {
-    resize: vertical;
-}
+  resize: vertical; }
 
 /* ==========================================================================
    Browser Upgrade Prompt
    ========================================================================== */
 .browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0; }
 
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
 body {
-    overflow: hidden;
-    margin-left: 0;
-    font-size: 1em;
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-}
+  overflow: hidden;
+  margin-left: 0;
+  font-size: 1em;
+  font-family: "Lato", sans-serif;
+  font-weight: 400; }
 
 .application .sidebar {
-    background-color: #7e7ec1;
-    color: white;
-    overflow: auto;
-    white-space: nowrap;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    min-height: 400px;
-    height: 100%;
-    transition: .5s all;
-}
-
-.application .sidebar.open {
+  background-color: #7e7ec1;
+  color: white;
+  overflow: auto;
+  white-space: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  min-height: 400px;
+  height: 100%;
+  transition: .5s all; }
+  .application .sidebar.open {
     width: 230px;
-    box-shadow: inset -5px -5px 5px #888;
-}
-
-.application .sidebar.open i.material-icons {
-    padding: 0 5px 0 5px;
-    font-size: 3rem;
-}
-
-.application .sidebar .item {
+    box-shadow: inset -5px -5px 5px #888; }
+    .application .sidebar.open i.material-icons {
+      padding: 0 5px 0 5px;
+      font-size: 3rem; }
+  .application .sidebar .item {
     height: 25px;
     display: block;
     padding: 5px;
     margin-bottom: 5px;
     cursor: pointer;
     font-weight: 300;
-    letter-spacing: 2px;
-}
-
-.application .sidebar .item:hover span {
-    font-weight: 700;
-    padding-left: 1rem;
-}
-
-.application .sidebar .item.active {
-    background-color: #d4d4ea;
-}
-
-.application .sidebar .item.active span {
-    color: #15152b;
-    padding-left: 1rem;
-    font-weight: 700;
-}
-
-.application .sidebar .item span {
-    display: inline-block;
-    vertical-align: top;
-    line-height: 25px;
-    transition: .6s all;
-}
+    letter-spacing: 2px; }
+    .application .sidebar .item:hover span {
+      font-weight: 700;
+      padding-left: 1rem; }
+    .application .sidebar .item.active {
+      background-color: #d4d4ea; }
+      .application .sidebar .item.active span {
+        color: #15152b;
+        padding-left: 1rem;
+        font-weight: 700; }
+    .application .sidebar .item span {
+      display: inline-block;
+      vertical-align: top;
+      line-height: 25px;
+      transition: .6s all; }
 
 .application .title {
-    text-align: center;
-}
+  text-align: center; }
 
 .application .card-container {
-    width: 500px;
-    height: 500px;
-    margin: 0 auto;
-}
+  width: 500px;
+  height: 500px;
+  margin: 0 auto; }
 
 .application .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-}
-
-.application .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s; }
+  .application .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
 
 .application .container {
-    padding: 2px 16px;
-}
+  padding: 2px 16px; }
 
 .application .grid {
-    overflow: auto;
-    margin-top: 25px;
-    margin-left: 275px;
-    height: calc(100vh - 57px);
-    /*This is to remove the tab bar from the height*/
-}
-
-.application .grid.fixedSize {
+  overflow: auto;
+  margin-top: 25px;
+  margin-left: 275px;
+  height: calc(100vh - 57px);
+  /*This is to remove the tab bar from the height*/ }
+  .application .grid.fixedSize {
     margin: 0 auto;
     width: 800px;
-    height: 500px;
-}
+    height: 500px; }
 
 @media screen and (min-width: 620px) {
-    aside {
-        margin-left: 520px;
-        min-width: 100px;
-    }
-
-    section {
-        float: left;
-    }
-}
+  aside {
+    margin-left: 520px;
+    min-width: 100px; }
+  section {
+    float: left; } }
 
 /* ==========================================================================
    Helper classes
@@ -199,23 +162,21 @@ body {
  * Hide visually and from screen readers
  */
 .hidden {
-    display: none !important;
-}
+  display: none !important; }
 
 /*
  * Hide only visually, but have it available for screen readers:
  * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  */
 .visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
 
 /*
  * Extends the .visuallyhidden class to allow the element
@@ -223,20 +184,18 @@ body {
  * https://www.drupal.org/node/897638
  */
 .visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
-}
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto; }
 
 /*
  * Hide visually and from screen readers, but maintain layout
  */
 .invisible {
-    visibility: hidden;
-}
+  visibility: hidden; }
 
 /*
  * Clearfix: contain floats
@@ -250,15 +209,13 @@ body {
  *    `:before` to contain the top-margins of child elements.
  */
 .clearfix:before, .clearfix:after {
-    content: " ";
-    /* 1 */
-    display: table;
-    /* 2 */
-}
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
 
 .clearfix:after {
-    clear: both;
-}
+  clear: both; }
 
 /* ==========================================================================
    EXAMPLE Media Queries for Responsive Design.
@@ -266,12 +223,10 @@ body {
    Modify as content requires.
    ========================================================================== */
 @media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
-}
+  /* Style adjustments for viewports that meet the condition */ }
 
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
-    /* Style adjustments for high resolution devices */
-}
+  /* Style adjustments for high resolution devices */ }
 
 /* ==========================================================================
    Print styles.
@@ -279,62 +234,40 @@ body {
    http://www.phpied.com/delay-loading-your-print-css/
    ========================================================================== */
 @media print {
-    *, *:before, *:after, *:first-letter, *:first-line {
-        background: transparent !important;
-        color: #000 !important;
-        /* Black prints faster:
-                                       http://www.sanbeiji.com/archives/953 */
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a, a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    /*
-       * Don't show links that are fragment identifiers,
-       * or use the `javascript:` pseudo protocol
-       */
-    a[href^="#"]:after, a[href^="javascript:"]:after {
-        content: "";
-    }
-
-    pre, blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    /*
-       * Printing Tables:
-       * http://css-discuss.incutio.com/wiki/Printing_Tables
-       */
-    thead {
-        display: table-header-group;
-    }
-
-    tr, img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2, h3 {
-        page-break-after: avoid;
-    }
-}
+  *, *:before, *:after, *:first-letter, *:first-line {
+    background: transparent !important;
+    color: #000 !important;
+    /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+    box-shadow: none !important;
+    text-shadow: none !important; }
+  a, a:visited {
+    text-decoration: underline; }
+  a[href]:after {
+    content: " (" attr(href) ")"; }
+  abbr[title]:after {
+    content: " (" attr(title) ")"; }
+  /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+  a[href^="#"]:after, a[href^="javascript:"]:after {
+    content: ""; }
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid; }
+  /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+  thead {
+    display: table-header-group; }
+  tr, img {
+    page-break-inside: avoid; }
+  img {
+    max-width: 100% !important; }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3; }
+  h2, h3 {
+    page-break-after: avoid; } }

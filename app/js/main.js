@@ -38,55 +38,171 @@ function getSampleData(urlToGet) {
     return deferred.promise();
 }
 
+function kickOffDevDemo(columns, data) {
+    var selectedMode = $('.sidebar .item.active').data('id');
+
+    //localize data
+    window.columns = columns[0] || [];
+    window.data = data[0] || [];
+
+    //Render Default Grid
+    renderGrid(selectedMode);
+
+    //Bind Mode Changes
+    bindListeners();
+}
+
+//Render supergrid
+//Each mode is independently defined in the case statement so that it is obvious how to configure each mode
+function renderGrid(mode) {
+    var $grid = $('.application .grid'),
+        newConfig;
+
+    switch (mode) {
+        case 'noPaging':
+            $grid.SuperGrid({
+                config: {columns: window.columns},
+                data: window.data,
+                paginate: false
+            });
+            break;
+        case 'accessibility':
+            $grid.SuperGrid({
+                config: {columns: window.columns},
+                data: window.data,
+                accessibility: true //if enabled it will disable paging and col resize automatically.
+            });
+            break;
+        case 'reOrder':
+            $grid.SuperGrid({
+                config: {columns: window.columns},
+                data: window.data,
+                colReorder: true
+            });
+            break;
+        case 'fixedHeader':
+            $grid.SuperGrid({
+                config: {columns: window.columns},
+                data: window.data,
+                fixedHeader: {enabled: true, removeHeight: 20} //the extra removed is for scroll bar and padding size.
+            });
+            break;
+        case 'formatter':
+            //create special config to add formatters to:
+            newConfig = {columns: Object.assign({}, window.columns)};
+
+            //Formatters for a given id of a column:
+            newConfig.formatters = {
+                'timeStamp': function (rowData, completeDataSet) {
+                    var cDate = new Date(rowData.timeStamp).toLocaleDateString("en-US");
+                    return "I'm a custom format:" + cDate;
+                },
+                'login' : '<div style="text-transform:uppercase;">#login#</div>',
+                'aarpNumber' : function (rowData) {
+                    var newString = rowData.aarpNumber.toString().substring(0,1);
+                    newString += '.' + rowData.aarpNumber.toString().substring(1);
+                    return newString;
+                }
+            };
+
+            //render supergrid as usual
+            $grid.SuperGrid({
+                config: newConfig,
+                data: window.data,
+                fixedHeader: {enabled: true, removeHeight: 20} //the extra removed is for scroll bar and padding size.
+            });
+            break;
+        case 'customSort':
+            //create special config to add formatters to:
+            newConfig = {columns: Object.assign({}, window.columns)};
+
+            //Formatters for a given id of a column:
+            newConfig.formatters = {
+                'timeStamp': function (rowData) {
+                    var cDate = new Date(rowData.timeStamp).toLocaleDateString("en-US");
+                    return "I'm a custom format:" + cDate;
+                }
+            };
+
+            //Custom Sort
+            newConfig.customSorters = {
+                'timeStamp': function (a, b, blnAsc) {
+                    var dateOne = new Date(a.timeStamp).getFullYear(),
+                        dateTwo = new Date(b.timeStamp).getFullYear();
+                    if (blnAsc) {
+                        return (dateOne > dateTwo);
+                    } else {
+                        return (dateOne < dateTwo);
+                    }
+                },
+                'login' : function (a, b, blnAsc) {
+                    if (blnAsc) {
+                        return (parseInt(a.aarpNumber) > parseInt(b.aarpNumber));
+                    } else {
+                        return (parseInt(a.aarpNumber) < parseInt(b.aarpNumber));
+                    }
+                }
+            };
+
+            //render supergrid as usual
+            $grid.SuperGrid({
+                config: newConfig,
+                data: window.data,
+                fixedHeader: {enabled: true, removeHeight: 20} //the extra removed is for scroll bar and padding size.
+            });
+            break;
+        case 'cGroup':
+            break;
+        case 'idGroup':
+            break;
+        case 'default':
+        default:
+            //Entry point following ajax call:
+            $('.grid').SuperGrid({
+                config: {columns: window.columns},
+                data: window.data
+            });
+            break;
+    }
+
+}
+
+function bindListeners() {
+    var $menu = $('.application .sidebar'),
+        $application = $('.application');
+
+    // $application.on('supergrid-rendered', function (e, data) {
+    //     debugger;
+    // });
+
+    $menu.off('click', '.item');
+    $menu.on('click', '.item', function () {
+        var selectedMode = $(this).attr('data-id');
+
+        //change active sidebar item
+        $menu.find('.item').removeClass('active');
+        $(this).addClass('active');
+
+        //remove current grid
+        $('.grid').remove();
+        $application.append('<div class="grid"></div>');
+
+        // auto height enabled make parent have a fixed height and width to calc by:
+        if (selectedMode === 'fixedHeader') {
+            $('.grid').addClass('fixedSize');
+        }
+
+        //Render New Grid
+        renderGrid(selectedMode);
+
+    });
+}
+
 //Catch JSON Parse Errors and notify the dev
 function errorHandle() {
     alert('An Error Occurred Loading Local JSON');
 }
 
-//Render the plugin
-function renderGrid(config, data) {
-    $('.grid').SuperGrid({
-        columns: config[0] || [],
-        data: data[0] || []
-    });
-
-    window.config = config;
-    window.data = data;
-
-    bindListeners();
-}
-
-function bindListeners() {
-    var $menu = $('.sidebar'),
-        $application = $('.application'),
-        option;
-
-    $menu.off('click', '.item');
-    $menu.on('click', '.item', function () {
-        $menu.find('.item').removeClass('active');
-        $(this).addClass('active');
-        option = $(this).attr('data-id');
-
-        $('.grid').remove();
-
-        $application.append('<div class="grid"></div>');
-
-        //auto height enabled make parent have a fixed height and width to calc by:
-        if (option === 'fixedHeader') {
-            $('.grid').addClass('fixedSize');
-        }
-        $('.grid').SuperGrid({
-            columns: window.config[0] || [],
-            data: window.data[0] || [],
-            paginate: !(option === 'paginate'),
-            colReorder: (option === 'reorder'),
-            colResize: false, //setting this to default just so if we want to we can toggle it here
-            fixedHeader: {enabled: (option === 'fixedHeader'), removeHeight: 20},//the extra removed is for scroll bar and padding size.
-            accessibility: false //if enabled it will disable paging and col resize automatically.
-        });
-    });
-}
-
 //When all JSON files have been loaded render the grid plugin
 $.when(getSampleData('/js/sampleData/config.json'), getSampleData('/js/sampleData/data.json'))
- .then(renderGrid, errorHandle);
+ .then(kickOffDevDemo, errorHandle);
