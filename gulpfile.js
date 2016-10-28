@@ -11,7 +11,6 @@ var sass = require('gulp-sass');
 // gulp serve - build docs then serve
 // gulp build - build all files for distribution
 // gulp docs - build all doc and demo files
-// gulp commit - refreshes all docs and build files for commit - Alias for build
 //************************
 
 gulp.task('default', ['build']);
