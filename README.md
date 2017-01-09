@@ -22,10 +22,10 @@ and/or starting places for the developer to start with.
 
 #### Getting started with supergrid
 *****
-To get started the files you need to include are in the dist folder of the github repository (https://github.com/ineedthekeyboard/supergrid/dist)
-You can see the latest demo here: https://ineedthekeyboard.github.io/supergrid/demo/index.html
+To get started the files you need to include are in the dist folder of the github repository:
+#####https://github.com/ineedthekeyboard/SuperGrid/tree/master/dist
 
 # Advanced Documentation and API Docs
 
-##### API documentation: https://ineedthekeyboard.github.io/supergrid/
+##### API documentation: https://ineedthekeyboard.github.io/SuperGrid/
 More to Come.

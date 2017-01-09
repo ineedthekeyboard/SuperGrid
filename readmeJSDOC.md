@@ -7,8 +7,8 @@ This audience target of this page is developers looking to customize/fork/extend
 Therefore many assumptions may be made that you have a basic understanding of web development.</p>
 
 ### Demo & Sample Sites
-##### _Demo_ https://ineedthekeyboard.github.io/supergrid/demo/index.html
-##### _Sample_ https://ineedthekeyboard.github.io/supergrid/demo/sample.html
+##### _Demo_ https://ineedthekeyboard.github.io/SuperGrid/demo/index.html
+##### _Sample_ https://ineedthekeyboard.github.io/SuperGrid/demo/sample.html
 
 ### Compile Development Site and Docs
 1) Clone the Git Repository
