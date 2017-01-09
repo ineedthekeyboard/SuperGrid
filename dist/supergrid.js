@@ -105,7 +105,7 @@
          */
         _create: function () {
             // default column width
-            $.each(this.options.columns, function (index, column) {
+            $.each(this.options.config.columns, function (index, column) {
                 if (!column.width) {
                     column.width = 25;
                 }
@@ -141,7 +141,7 @@
                 var $elem = $(this),
                     currSort = $elem.attr('data-sort'),
                     id = $elem.attr('data-id'),
-                    columns = context.options.columns,
+                    columns = context.options.config.columns,
                     newSort;
 
                 context.element.find('.supergrid_header .supergrid_row').removeAttr('data-sort');
@@ -166,7 +166,7 @@
 
                 $elem.attr('data-sort', newSort);
                 context._trigger('-sorted', e, {
-                    columns: context.options.columns
+                    columns: context.options.config.columns
                 });
                 context._renderGrid();
             });
@@ -264,13 +264,13 @@
                     stop: function () {
                         // var startPosition = ui.item.startPos;
                         // var currentPosition = ui.item.index();
-                        var config = this.options.columns,
+                        var columns = this.options.config.columns,
                             id = 0,
                             newConfig = [],
                             existingConfigObj = {};
                         $.each($('.supergrid_header .supergrid_cell'), function (idx, item) {
                             id = $(item).data('id');
-                            existingConfigObj = config.filter(function (value) {
+                            existingConfigObj = columns.filter(function (value) {
                                     return value.id.toString() === id.toString();
                                 })[0] || {
                                     id: '',
@@ -292,7 +292,7 @@
             //always make sure the container is wide enough to fit all columns and rows
             this._resize();
 
-            this._trigger('supergrid-rendered');
+            this._trigger('-rendered');
 
         },
         /**
@@ -323,10 +323,11 @@
         _renderfixedHeader: function () {
             var selfHeight = this.element.height(),
                 headerHeight = this.element.find('.supergrid_header').height(),
+                $body = this.element.find('.supergrid_body'),
                 footerHeight = this.element.find('.supergrid_footer').height();
             this.options.removeHeight = (!this.options.removeHeight) ? 0 : null;
-            this.element.find('.supergrid_body')
-                .height(selfHeight - ((headerHeight + footerHeight) + this.options.fixedHeader.removeHeight));
+            $body.height(selfHeight - ((headerHeight + footerHeight) + this.options.fixedHeader.removeHeight));
+            !($body.hasClass('fixed')) && $body.addClass('fixed');
         },
 
         /**
@@ -338,24 +339,19 @@
         _sortData: function () {
             var sortObj = this._getColumnToSortBy(),
                 blnAsc,
-                customSort,
-                //getSortValue,
+                customSort = this.options.config.customSorters && this.options.config.customSorters[sortObj.field],
                 field;
             if ($.isEmptyObject(sortObj)) {
                 return false;
             }
             blnAsc = sortObj.sort === 'asc';
             field = sortObj.field;
-            $.each(this.options.columns, function (i, col) {
-                if (col.id === field) {
-                    //getSortValue = col.getSortValue;
-                    customSort = col.sortFunc;
-                    return false;
-                }
-            });
+
             if (customSort) {
                 this.options.data.sort(function (a, b) {
-                    return customSort(a, b, blnAsc);
+                    var bln = customSort(a, b, blnAsc);
+                    console.log(bln);
+                    return bln;
                 });
                 return;
             }
@@ -412,7 +408,7 @@
          */
         _getColumnToSortBy: function () {
             var sortObj = {};
-            $.each(this.options.columns, function (i, col) {
+            $.each(this.options.config.columns, function (i, col) {
                 if (col.sort) {
                     sortObj.field = col.id;
                     sortObj.sort = col.sort;
@@ -501,7 +497,7 @@
                 context = this;
             this.options._grid.push('<div class="supergrid_header">');
 
-            $.each(this.options.columns, function (i, col) {
+            $.each(this.options.config.columns, function (i, col) {
                 var cellClass = col.cellClass || '',
                     width = col.width || '',
                     id = col.id || '',
@@ -545,7 +541,7 @@
             var context = this;
             var widthTotal = 0;
 
-            $.each(this.options.columns, function (i, col) {
+            $.each(this.options.config.columns, function (i, col) {
                 var cellClass = col.cellClass || '',
                     width = (colId === col.id) ? col.width = colWidth : col.width || '',
                     id = col.id || '',
@@ -586,7 +582,7 @@
          */
         _buildBody: function () {
             var data = this.options.data,
-                columns = this.options.columns,
+                columns = this.options.config.columns,
                 context = this;
             this.options._grid.push('<div class="supergrid_body">');
 
@@ -615,17 +611,17 @@
             function buildCell(data, column) {
                 var attributes = [],
                     regex = /\#(.*?)\#/,
-                    formatter = column.formatter,
+                    formatter = context.options.config.formatters && context.options.config.formatters[column.id],
                     formatterHelper,
                     matchedAttr;
                 if (!data) {
                     return '';
                 }
                 if (typeof formatter === 'function') {
-                    return formatter(data);
+                    return formatter(data, context.options.data);
                 }
                 if (typeof formatter === 'object') {
-                    formatter = column.formatter;
+                    return formatter;
                 }
 
                 formatterHelper = formatter;
@@ -672,7 +668,7 @@
         _buildAccessibilityHeader: function () {
             var widthTotal = 0;
             this.options._grid.push('<thead class="supergrid_header"><tr>');
-            $.each(this.options.columns, function (i, col) {
+            $.each(this.options.config.columns, function (i, col) {
                 var cellClass = col.cellClass || '',
                     width = col.width || '',
                     id = col.id || '',
@@ -709,7 +705,7 @@
          */
         _buildAccessibilityBody: function () {
             var data = this.options.data,
-                columns = this.options.columns,
+                columns = this.options.config.columns,
                 context = this;
             this.options._grid.push('<tbody class="supergrid_body">');
 
@@ -726,7 +722,7 @@
                     var cellClass = col.cellClass || '';
                     row += '<td style="width:' + col.width + 'px;" class="supergrid_cell ' + cellClass + '" tabIndex="0"' +
                         'data-id="' + col.id + '">';
-                    row += '<div>';
+                    row += '<div>';//todo aria label for content
                     row += buildCell(dataSet, col);
                     row += '</div>';
                     row += '</td>';
@@ -808,6 +804,7 @@
          * @function
          * @param {Array} data New Data to push to the grid.
          * @param {Array} columns (optional)
+         * @fires SuperGrid#supergrid-config-updated
          * {@link SuperGrid#_renderGrid}
          */
         updateGrid: function (data, columns) {
@@ -815,8 +812,9 @@
                 (this.options.data = $.extend([], data));
             }
             if (columns) {
-                (this.options.columns = $.extend([], columns));
+                (this.options.config.columns = $.extend([], columns));
             }
+            this._trigger('-config-updated', null, {data: this.options.data, columns: this.options.config.columns});
             this.element.empty();
             this._renderGrid();
         }

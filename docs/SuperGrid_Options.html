@@ -38,16 +38,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -144,15 +146,14 @@
             
 <hr>
 <dt class="name" id="accessibility">
-    <h4><span class="type-signature"></span>accessibility<span class="type-signature"> :boolean</span></h4>
+    <h4 id="accessibility"><span class="type-signature"></span>accessibility<span class="type-signature"> :boolean</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Defines if accessibility mode should be enabled.
-Note: This options will automatically several options if enabled
+        Defines if accessibility mode should be enabled.Note: This options will automatically several options if enabled
     </div>
     
 
@@ -223,15 +224,14 @@ Note: This options will automatically several options if enabled
             
 <hr>
 <dt class="name" id="colReorder">
-    <h4><span class="type-signature"></span>colReorder<span class="type-signature"> :boolean</span></h4>
+    <h4 id="colReorder"><span class="type-signature"></span>colReorder<span class="type-signature"> :boolean</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Defines if column reordering should be enabled.
-If enabled this will allow the user to reorder columns by dragging the columns header to a new place.
+        Defines if column reordering should be enabled.If enabled this will allow the user to reorder columns by dragging the columns header to a new place.
     </div>
     
 
@@ -302,7 +302,7 @@ If enabled this will allow the user to reorder columns by dragging the columns h
             
 <hr>
 <dt class="name" id="colResize">
-    <h4><span class="type-signature"></span>colResize<span class="type-signature"> :boolean</span></h4>
+    <h4 id="colResize"><span class="type-signature"></span>colResize<span class="type-signature"> :boolean</span></h4>
 
     
 </dt>
@@ -380,18 +380,14 @@ If enabled this will allow the user to reorder columns by dragging the columns h
             
 <hr>
 <dt class="name" id="fixedHeader">
-    <h4><span class="type-signature"></span>fixedHeader<span class="type-signature"> :Object</span></h4>
+    <h4 id="fixedHeader"><span class="type-signature"></span>fixedHeader<span class="type-signature"> :Object</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Allows SuperGrid to compute it's own height based on the parent container's height.
-The parent container must have a height or weird things will happen. The body's height will be calculated by
-taking the container height and subtracting the (relatively fixed) height of the header and footer.
-Optionally you can provide an arbitrary amount of height to remove from grid body in addition to the standard math.
-This can be useful to allow you to scale the grid to changes in the screen size.
+        Allows SuperGrid to compute it's own height based on the parent container's height.The parent container must have a height or weird things will happen. The body's height will be calculated bytaking the container height and subtracting the (relatively fixed) height of the header and footer.Optionally you can provide an arbitrary amount of height to remove from grid body in addition to the standard math.This can be useful to allow you to scale the grid to changes in the screen size.
     </div>
     
 
@@ -588,15 +584,14 @@ This can be useful to allow you to scale the grid to changes in the screen size.
             
 <hr>
 <dt class="name" id="pageSize">
-    <h4><span class="type-signature"></span>pageSize<span class="type-signature"> :Number</span></h4>
+    <h4 id="pageSize"><span class="type-signature"></span>pageSize<span class="type-signature"> :Number</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Defines how many rows should be on a page. Must be at least 1 page,
-if the page size is larger than the number of rows of data then only 1 page will be shown.
+        Defines how many rows should be on a page. Must be at least 1 page,if the page size is larger than the number of rows of data then only 1 page will be shown.
     </div>
     
 
@@ -667,15 +662,14 @@ if the page size is larger than the number of rows of data then only 1 page will
             
 <hr>
 <dt class="name" id="paginate">
-    <h4><span class="type-signature"></span>paginate<span class="type-signature"> :boolean</span></h4>
+    <h4 id="paginate"><span class="type-signature"></span>paginate<span class="type-signature"> :boolean</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Defines if pagination should be enabled. If enabled this will provide a basic paging footer
-Note: This options will be automatically disabled if accessibility is enabled.
+        Defines if pagination should be enabled. If enabled this will provide a basic paging footerNote: This options will be automatically disabled if accessibility is enabled.
     </div>
     
 
@@ -771,28 +765,30 @@ Note: This options will be automatically disabled if accessibility is enabled.
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a>
 	
-		on 2016-10-12T15:53:04-04:00
+		on 2017-01-09T10:34:14-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -800,7 +796,9 @@ Note: This options will be automatically disabled if accessibility is enabled.
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -810,7 +808,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -846,8 +844,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -873,11 +870,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>
