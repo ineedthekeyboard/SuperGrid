@@ -349,7 +349,9 @@
 
             if (customSort) {
                 this.options.data.sort(function (a, b) {
-                    return customSort(a, b, blnAsc);
+                    var bln = customSort(a, b, blnAsc);
+                    console.log(bln);
+                    return bln;
                 });
                 return;
             }

@@ -22,7 +22,7 @@
     },
     {
         "name": "Unit",
-        "id": "aarpNumber",
+        "id": "unit",
         "sortable": true,
         "width": 80,
         "cellClass": "stretch"
@@ -42,7 +42,7 @@
         "cellClass": "stretch"
     },
     {
-        "name": "Type",
+        "name": "Title",
         "id": "title",
         "sortable": true,
         "width": 300,

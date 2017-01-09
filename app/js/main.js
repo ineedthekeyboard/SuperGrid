@@ -97,10 +97,12 @@ function renderGrid(mode) {
                     var cDate = new Date(rowData.timeStamp).toLocaleDateString("en-US");
                     return "I'm a custom format:" + cDate;
                 },
-                'login' : '<div style="text-transform:uppercase;">#login#</div>',
-                'aarpNumber' : function (rowData) {
-                    var newString = rowData.aarpNumber.toString().substring(0,1);
-                    newString += '.' + rowData.aarpNumber.toString().substring(1);
+                'login': '<div style="text-transform:uppercase;">#login#</div>',
+                'title': '<div style="text-transform:uppercase;">#title#</div>',
+                'unit': function (rowData) {
+                    //Shows up as the Unit number...now with a decimal
+                    var newString = rowData.unit.toString().substring(0, 1);
+                    newString += '.' + rowData.unit.toString().substring(1);
                     return newString;
                 }
             };
@@ -116,11 +118,12 @@ function renderGrid(mode) {
             //create special config to add formatters to:
             newConfig = {columns: Object.assign({}, window.columns)};
 
-            //Formatters for a given id of a column:
+            // Formatters can also be used with custom sorts
+            // //Formatters for a given id of a column:
             newConfig.formatters = {
                 'timeStamp': function (rowData) {
                     var cDate = new Date(rowData.timeStamp).toLocaleDateString("en-US");
-                    return "I'm a custom format:" + cDate;
+                    return "" + cDate;
                 }
             };
 
@@ -131,16 +134,9 @@ function renderGrid(mode) {
                         dateTwo = new Date(b.timeStamp).getFullYear();
                     if (blnAsc) {
                         return (dateOne > dateTwo);
-                    } else {
-                        return (dateOne < dateTwo);
                     }
-                },
-                'login' : function (a, b, blnAsc) {
-                    if (blnAsc) {
-                        return (parseInt(a.aarpNumber) > parseInt(b.aarpNumber));
-                    } else {
-                        return (parseInt(a.aarpNumber) < parseInt(b.aarpNumber));
-                    }
+                    return (dateOne < dateTwo);
+
                 }
             };
 
